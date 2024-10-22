@@ -392,7 +392,7 @@ var qr;
 var folioFactura;
 var dateRfc;
 
-function modalFactura(idventa, total_venta, idusuario, tipo_pago) {
+function modalFactura(idventa, total_venta, idusuario) {
 	$("#dateRfc").val(getFechaLocal() + " " + horaActual);
 	$("#idventarfc").val(idventa);
 	$("#amountRfc").val(total_venta);

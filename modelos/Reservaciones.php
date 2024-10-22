@@ -66,7 +66,6 @@ class Reservaciones
 		DATE(reserva.fecha) as fecha,
 		u.nombre,
 		uni.clave,
-		rut.ruta_direccion,
 		reserva.idConductor,
 		reserva.tipo_viaje,
 		reserva.hora,
@@ -74,22 +73,21 @@ class Reservaciones
 		reserva.automovil,
 		reserva.numero_pasajero,
 		reserva.kilometro,
-		reserva.labelDolar,
+		reserva.dolar,
 		reserva.total_mxn,
 		reserva.idusuario,
-		reserva.total_usd,
+		reserva.tarjeta,
 		reserva.ticket_num,
 		reserva.efectivo,
-		reserva.cambioEfectivo,
+		reserva.cxc,
 		reserva.ticket_num,
+        reserva.idruta,
 		reserva.facturado
 		FROM reservaciones reserva
    INNER JOIN usuario u
    ON reserva.idusuario=u.idusuario
    INNER JOIN unidad uni
    ON reserva.idunidad =uni.idunidad
-   INNER JOIN ruta rut
-   ON reserva.idruta=rut.idruta
    ORDER by reserva.idreservaciones desc";
 
 		return ejecutarConsulta($sql);
@@ -109,7 +107,7 @@ class Reservaciones
 		DATE(reserva.fecha) as fecha,
 		u.nombre,
 		uni.clave,
-		rut.ruta_direccion,
+		reserva.idruta,
 		reserva.idConductor,
 		reserva.tipo_viaje,
 		reserva.hora,
@@ -117,21 +115,18 @@ class Reservaciones
 		reserva.automovil,
 		reserva.numero_pasajero,
 		reserva.kilometro,
-		reserva.labelDolar,
 		reserva.total_mxn,
 		reserva.idusuario,
-		reserva.total_usd,
+		reserva.dolar,
 		reserva.ticket_num,
 		reserva.efectivo,
-		reserva.cambioEfectivo,
-		reserva.ticket_num
+		reserva.cxc,
+		reserva.tarjeta
 		FROM reservaciones reserva
    INNER JOIN usuario u
    ON reserva.idusuario=u.idusuario
    INNER JOIN unidad uni
    ON reserva.idunidad =uni.idunidad
-   INNER JOIN ruta rut
-   ON reserva.idruta=rut.idruta
    WHERE idreservaciones =  $idreservaciones";
 
 		return ejecutarConsulta($sql);

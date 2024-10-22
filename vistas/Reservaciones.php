@@ -41,11 +41,11 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Km</th>
                     <th>Auto</th>
                     <th>Pasajeros</th>
-                    <th>Total MXN</th>
-                    <th>Total USD</th>
                     <th>Forma de pago</th>
                     <th>Efectivo</th>
-                    <th>Cambio</th>
+                    <th>Tarjeta</th>
+                    <th>Dolar</th>
+                    <th>CXC</th>
                     <th>Ticket numero</th>
                     <th>Folio</th>
                   </thead>
@@ -76,14 +76,35 @@ if (!isset($_SESSION["nombre"])) {
               </div>
               <div class="panel-body" style="height: 400px;" id="formularioregistros">
                 <form name="formulario" id="formulario" method="POST">
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Ruta:</label>
-                    <input type="hidden" name="ruta" id="ruta">
-                    <input type="hidden" name="destino_save" id="destino_save">
-                    <select id="idruta" name="idruta" class="form-control selectpicker" data-live-search="true">
+                <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <label>Conductor:</label>
+                    <select id="idConductor" name="idConductor" class="form-control selectpicker" data-live-search="true">
+                       <option value="BRIAN LAYONEL BAUTISTA JUAREZ">BRIAN LAYONEL BAUTISTA JUAREZ</option>
+                      <option value="CLEMENTE TORRES ESPINOSA">CLEMENTE TORRES ESPINOSA</option>
+                      <option value="EDUARDO RODRIGUEZ">EDUARDO RODRIGUEZ</option>
+                      <option value="FILIBERTO MENDEZ ARREORTUA">FILIBERTO MENDEZ ARREORTUA</option>
+                      <option value="GUILLERMOELEAZAR HIDARIO">GUILLERMOELEAZAR HIDARIO</option>
+                      <option value="JORGE LUIS JARDINES GARCIA">JORGE LUIS JARDINES GARCIA</option>
+                      <option value="JUAN SEBASTIAN ROMERO ACEVED">JUAN SEBASTIAN ROMERO ACEVED</option>
+                      <option value="JULIO CÉSAR MARTÍNEZ AVILA">JULIO CÉSAR MARTÍNEZ AVILA</option>
+                      <option value="OMAR RAMIREZ GODINEZ">OMAR RAMIREZ GODINEZ</option>
+                      <option value="SALAVDOR SANCHEZ GARCIA">SALAVDOR SANCHEZ GARCIA</option>
+                      <option value="SANTIAGO MARQUEZ CASTILLO">SANTIAGO MARQUEZ CASTILLO</option>
+                      <option value="Sin asignar">Sin asignar</option>
+
                     </select>
                   </div>
-
+                 
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Forma de pago:</label>
+                    <select name="tipo_pago" id="tipo_pago" class="form-control selectpicker">
+                      <option value="Dolar">Dolar</option>
+                      <option value="Efectivo">Efectivo</option>
+                      <option value="Tarjeta">Tarjeta</option>
+                      <option value="Transferencia">Transferencia</option>
+                      <option value="CxC AereoMexico">CxC</option>
+                    </select>
+                  </div>
                   <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <label>Unidad:</label>
                     <input type="hidden" name="idreservaciones" id="idreservaciones">
@@ -97,7 +118,13 @@ if (!isset($_SESSION["nombre"])) {
                       required>
                     </select>
                   </div>
-
+                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <label>Ruta:</label>
+                    <input type="hidden" name="destino_save" id="destino_save">
+                    <input type="text" class="form-control" name="ruta" id="ruta"
+                      placeholder="Ruta:">
+                    </select>
+                  </div>
                   <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <label>Nombre del cliente:</label>
                     <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente"
@@ -110,26 +137,7 @@ if (!isset($_SESSION["nombre"])) {
                       placeholder="Numero de celular:">
                   </div>
 
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Conductor:</label>
-                    <select id="idConductor" name="idConductor" class="form-control selectpicker" data-live-search="true">
-                       <option value="Américo Arceo Flores">Américo Arceo Flores</option>
-                      <option value="Jovany Uzziel Gómez Dominguez">Jovany Uzziel Gómez Dominguez</option>
-                      <option value="Omar Ramirez González">Omar Ramirez González</option>
-                      <option value="Roberto Jhonatan Olvera Díaz">Roberto Jhonatan Olvera Díaz</option>
-                      <option value="Gustavo Rodolfo Rivera Perez">Gustavo Rodolfo Rivera Perez</option>
-                      <option value="Gerardo Valadez Cruz">Gerardo Valadez Cruz</option>
-                      <option value="José Manuel Méndez Téllez">José Manuel Méndez Téllez</option>
-                      <option value="Brandon Jesus Arellano Rodriguez">Brandon Jesus Arellano Rodriguez</option>
-                      <option value="Victor Alan Arellano Lopez">Victor Alan Arellano Lopez</option>
-                      <option value="Ruben Jaramillo Perez">Ruben Jaramillo Perez</option>
-                      <option value="Ricardo Gomez Hernandez">Ricardo Gomez Hernandez</option>
-                      <option value="Jose Adrian Montiel Carrasco">Jose Adrian Montiel Carrasco</option>
-                      <option value="José Santiago Sanchez">José Santiago Sanchez</option>
-                      <option value="Sin asignar">Sin asignar</option>
 
-                    </select>
-                  </div>
 
                   <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                     <label>Tipo de viaje:</label>
@@ -150,21 +158,6 @@ if (!isset($_SESSION["nombre"])) {
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Forma de pago:</label>
-                    <select name="tipo_pago" id="tipo_pago" class="form-control selectpicker">
-                      <option value="Dolar">Dolar</option>
-                      <option value="Efectivo">Efectivo</option>
-                      <option value="Tarjeta">Tarjeta</option>
-                      <option value="Transferencia">Transferencia</option>
-                      <option value="CxC AereoMexico">CxC AereoMexico</option>
-                      <option value="CxC Volaris">CxC Volaris</option>
-                      <option value="CxC VivaAeroBus">CxC VivaAeroBus</option>
-                      <option value="CxC NADGlobal">CxC NADGlobal</option>
-                      <option value="Deudores Diversos">Deudores Diversos</option>
-
-                    </select>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Auto:</label>
                     <input type="hidden" name="auto_save" id="auto_save">
                     <select name="auto" id="auto" class="form-control selectpicker">
@@ -183,41 +176,25 @@ if (!isset($_SESSION["nombre"])) {
                       placeholder="Kilometros">
                   </div>
                   <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Total MXN:</label>
-                    <input type="text" class="form-control" name="total_mxn" id="total_mxn" maxlength="10"
+                    <label>Efectivo:</label>
+                    <input type="text" class="form-control" name="efectivo" id="efectivo" maxlength="10"
                       placeholder="Número">
                   </div>
                   <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Precio Dolar:</label>
-                    <input type="text" class="form-control" name="labelDolar" id="labelDolar">
+                    <label>Dolar:</label>
+                    <input type="text" class="form-control" name="dolar" id="dolar">
                   </div>
                   <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Total Dolar:</label>
-                    <input type="text" class="form-control" name="total_usd" id="total_usd">
+                    <label>Tarjeta:</label>
+                    <input type="text" class="form-control" name="tarjeta" id="tarjeta">
+                  </div>
+                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <label>CxC:</label>
+                    <input type="text" class="form-control" name="cxc" id="cxc">
                   </div>
                   <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                     <label>Ticket Numero:</label>
                     <input type="text" class="form-control" name="ticket_num" id="ticket_num">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Efectivo:</label>
-                    <input type="text" class="form-control" name="efectivo" id="efectivo">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <input type="hidden" class="form-control" name="cambioEfectivo" id="cambioEfectivo">
-                  </div>
-                  <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a data-toggle="modal">
-                      <button id="btnKilometro" type="button" class="btn btn-success"> <span class="fa fa-car"></span>
-                        Kilometros a pesos </button>
-                    </a>
-                  </div>
-
-                  <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a data-toggle="modal">
-                      <button id="btnCalculaDolar" type="button" class="btn btn-warning"> <span class="fa fa-dollar"></span>
-                        Calcular Total Dolar </button>
-                    </a>
                   </div>
                   <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <a data-toggle="modal">

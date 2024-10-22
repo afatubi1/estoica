@@ -69,7 +69,7 @@ switch ($_GET["op"]) {
 		while ($reg = $rspta->fetch_object()) {
 
 			$data[] = array(
-				"0" => '<button class="btn btn-primary" onclick="modalFactura(' . $reg->idventa . ',' . $reg->total_venta . ',' . $reg->idusuario . ',' . $reg->tipo_pago . ')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idventa . ')"><li class="fa fa-print"></li></button>',
+				"0" => '<button class="btn btn-primary" onclick="modalFactura('. $reg->idventa . ',' . $reg->total_venta . ',' . $reg->idusuario .')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idventa . ')"><li class="fa fa-print"></li></button>',
 				"1" => $reg->fecha,
 				"2" => $reg->hora,
 				"3" => 'uni-' . $reg->clave,

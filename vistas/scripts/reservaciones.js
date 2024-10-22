@@ -2,8 +2,7 @@ var tabla;
 var horaActual;
 var usuario;
 var pagoEfectivo = false;
-var serial = 'NmY4NjdkYWJfXzIwMjMtMDktMjhfXzIwMjMtMTItMjcjIyN4Wk1GR1psdnVwVVNUcXJCckxMUVQ5cHM5V2JNRnlJTnR0NFBCVTRmQk5lNkZqZ0tQcHhpMklmcEEwTTdpSk04aERtYlF5SWlWaTlIYUZBNkFSU0gxeXVzdlJFWlZXOGF0SU10a0phL2ovRlNHbEN0cmZwZXhGWGNJbWJpOWxhaThVT2dGV2l6b2NoemFDZTZQZjdxVVpwUEM2WkZZcVhmbTUzeTRsTGJjMERSVmtsNmFGNGlydWFpdUljV0U0cEovMWc0VFVhRnNnYXhFUmpZd0ZjTmVNcVJLSzgrUTdUSExuVmxuWDRaMHdXbWxqUFhQV3Z1bWdPQW40djNTbTVsaEJ2L1RWNENsK29JcHQwZFJwSUMzK1hKSWEwRzZndmFYS1pYSlBUQWlmdnBQMmNnaS9VMGF0dEh2N1ZKWUMydWF2RWw3S2VYYTg5b2RySk45QTFZd1hQb2c5Q2I0eFlpN0Y0MDNoMU1WUGk2SVJsdTlWMTlzVEZZaTNoR0pUTTFDRXFrWkNCcEd4a0dGWFZSODM5LzJ1L05TZFplZ2JLSWRUdmhJSEg1M1lWa2FGVk5PM1JGazN4SjJrUUUwODZGVlJMZFhmcEs5QlZtUFpPL2JEb3NVR3VBdCtMejAraFovdVBaZDR3bForSDE0aWRQTE96dmdmdG1Cc3pxUEU4T3NxVWpPQWpRd2pBM29hNC91ZmYzM2pTWUpvTkpKNUttOTdVK2lXNWw2dVk4MnQwbnZEQnIwNEk4ajN2SFZRTTRjLyswZklURGZieWwzRjBneEZUdU1UekV4QjhIejFyUEtrVHpkYXVidHlJUmx3dURucmlRWHZPNGRadkNXUjkrelB4RUdTT1RGTkVFRmNpcjFVY2ZSR0Y0ZE1JM2hJdDB2R2tsTWtBRXcxQT0=';
-
+var serial = 'NmY4NjdkYWJfXzIwMjQtMDgtMjJfXzIwMjQtMTAtMjEjIyNhbXZ1T0ExeG9IaUx5WHFlZDlhQzB6Q0tLN2lxa3ZxV0FsU1ErZmI3TXZVSDcvNG1oR2ZYVmkyc2NXeFdIRDNYZEo1TE9IeUNrenFORnhrY2R1cUNkUU5qQWtYa0M3aUdaS0E3MUNDYVlEaTRJdjVmMDd4cnVJOHN5b1ZwakE2TFg5VThNelJFekN5bUZtMXpJODNUelllUWhJYTUxZVVsd2oxbzVDQlBxSnpZc3lXUjhsK0VZNmZrbytSQlNxYjFsZ0VTSjFLWFZDZTNRdXpwUm5zWWRsS3R6WG5hditNbDZoQUUxOVlwN1RrdWhxdU9ZSmNyeWFzQXI1VXhNQ1dTOS9GMmREbGg2cVZOU0lUb2w5NkVscm51a0krZVRMa0tjemVVeUNKdUx1dGFyRi9TUFJyYVR4VVFtSW5EckNmYkNkMTk5R09hNEsrMW1TcitxYzNpQ0h3S2pac01NYjNVUTVwMUtHRk9DbnlWMkUwaGppcW85Rk0xM2pUaGdQaVhQTzUwcEtlQzlxMmNENFZDekJBdllzei9TM3VnT0c1bXJnNHJNZ1g2Tk1nckJRT0grWkNNNVFCeDkyU1lDWFZnUXJOdFh4ZDJVQW4vdldhTmNDUkxBZnR6WDdidnJjd04xVGVuSElqTzMwL1lUUVJvY0h3SnBnTEFDRU0xeXo4VUtoYUFYdUxrZm9sRjUyMXVCQXJNNkdmMjg2Mm1pRTBjUzUvM2Y0YUNId2NQS3JBWVhWVzJndnNNTHM0SVlXZFIrMnR2a2dtRlBUY3F1NVV1SE1uUUtESmpucUhpY3QvalVjb0RwcHpyMVFZNzZCREUyNGNaN3FrMitzeTl2SytsRmsvNmNqVFVrTU9qWEFIcUxiSC95QWZFRGRsdnc5RjhzVkRHY0Y0OHRKbz0=';
 //Función que se ejecuta al inicio
 function init() {
 	getHours();
@@ -12,53 +11,23 @@ function init() {
 	listar();
 	getUsuario();
 	getFolioReserva();
-	$("#cambioEfectivo").val("0");
 	$("#efectivo").val("0");
 
 	$("#formulario").on("submit", function (e) {
-		calculaCambio();
 		guardaryeditar(e);
 		if (pagoEfectivo) {
 			guardarVentaEfectivo(e)
 		}
 	});
-	//Cargamos los items al select proveedor
-	$.post("../ajax/reservaciones.php?op=selectUnidad", function (r) {
+
+	$.post("../ajax/ventaDos.php?op=selectUnidad", function (r) {
 		$("#idunidad").html(r);
 		$('#idunidad').selectpicker('refresh');
-	});
-
-	$.post("../ajax/reservaciones.php?op=selectRuta", function (r) {
-		$("#idruta").html(r);
-		$('#idruta').selectpicker('refresh');
 	});
 
 	$.post("../ajax/reservaciones.php?op=getIdVentaEfectivo", function (r) {
 		$("#idefectivo").val(r);
 	});
-}
-
-function calculaCambio() {
-	var efectivo
-	var totalMxn
-	if(parseInt(document.getElementById("efectivo").value) == ""){
-		efectivo = 0;
-	} else {
-		efectivo = parseInt(document.getElementById("efectivo").value);
-	}
-
-	if(document.getElementById("total_mxn").value == ""){
-		totalMxn = 0;
-	} else {
-		totalMxn = parseInt(document.getElementById("total_mxn").value);
-	}
-
-	cambio = efectivo - totalMxn;
-	if (totalMxn > efectivo || totalMxn == 0) {
-		$("#cambioEfectivo").val(0);
-	} else {
-		$("#cambioEfectivo").val(cambio);
-	}
 }
 
 function getIdEfectivo() {
@@ -167,12 +136,10 @@ function guardaryeditar(e) {
 		processData: false,
 
 		success: function (datos) {
-			window.location.reload();
 			bootbox.alert(datos);
 			mostrarform(false);
 			getIdEfectivo();
-			getFolioVenta();
-		}
+ 		}
 
 	});
 	limpiar();
@@ -198,37 +165,11 @@ function guardarVentaEfectivo(e) {
 	limpiar();
 }
 
-$("#btnCalculaDolar").click(function () {
-	convertPesoDolar()
-});
-
-$("#btnKilometro").click(function () {
-	convertPesoKilometros()
-});
-
 function fillTicket() {
-	$('#destino_save').val(fillRutas());
 	$('#unidad_save').val(fillUnidad());
 	$('#chofer_save').val(fillChofer());
 	$('#auto_save').val(fillAuto());
 	$('#hour_save').val(document.getElementById("hora").value);
-}
-
-function fillRutas() {
-	var selectElement = document.getElementById("idruta");
-	// Obtener el valor seleccionado
-	var selectedValue = selectElement.value;
-	// Obtener todos los valores en el elemento "select"
-	var options = selectElement.options;
-	var values = [];
-	var destino
-	for (var i = 0; i < options.length; i++) {
-		values.push(options[i].text);
-		if (options[i].value == selectedValue) {
-			destino = options[i].text
-		}
-	}
-	return destino;
 }
 
 function fillUnidad() {
@@ -280,23 +221,6 @@ function fillAuto() {
 	return auto;
 }
 
-function convertPesoDolar() {
-	var dolar = document.getElementById('labelDolar').value;
-	var pesos = document.getElementById('total_mxn').value;
-	let a = pesos / dolar;
-	$("#total_usd").val(a);
-}
-
-function convertPesoKilometros() {
-	var kilometro = document.getElementById('kilometro').value;
-	var option = document.getElementById('auto').value;
-	if (option == 'Sedan') {
-		$("#total_mxn").val(17 * kilometro);
-	} else {
-		$("#total_mxn").val(25 * kilometro);
-	}
-}
-
 async function imprimir() {
 	var Conductor = document.getElementById("chofer_save").value;
 	var Fecha = document.getElementById("fecha").value;
@@ -312,7 +236,6 @@ async function imprimir() {
 	var folioReservacion = parseInt(document.getElementById("getFolioReserva").value) + 1;
 	var totalMxn = document.getElementById("total_mxn").value;
 	var totalUsd = document.getElementById("total_usd").value;
-	var cambioEfectivo = document.getElementById("cambioEfectivo").value;
 	var efectivo
 
 	if(parseInt(document.getElementById("efectivo").value) == ""){
@@ -348,7 +271,6 @@ async function imprimir() {
 		.EscribirTexto("Total MXN: $" + totalMxn + ".00" + "\n")
 		.EscribirTexto("Total USD: $" + totalUsd + ".00" + "\n")
 		.EscribirTexto("Efectivo: $" + efectivo + ".00" + "\n")
-		.EscribirTexto("Cambio efectivo: $" + cambioEfectivo + ".00" + "\n")
 		.Feed(1)
 		.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
 		.EscribirTexto("Su destino incluye maximo el pago de un peaje.\n Las casetas exentas de pago son Segundo Piso de Periferico, Arco Norte, Chamapa la Venta y Siervo de la Nacion. Si deseas que tu ruta pase por alguna de estas casetas el pago sera absorbido por el cliente.\n\n")
@@ -389,7 +311,7 @@ function modalFactura(idreservaciones, total_mxn, idusuario) {
 	$("#idreservacionrfc").val(idreservaciones);
 	$("#amountRfc").val(total_mxn);
 	$("#folioRfc").val(idusuario + "02" + idreservaciones);
-	$("#myModal").modal();
+	$("#myModal").show();
 	$("#load").hide();
 	$("#qr").hide();
 	$("#factura").hide();
@@ -550,7 +472,7 @@ async function reprint(datos) {
 		.EscribirTexto("Fecha: " + datos.fecha + "\n")
 		.EscribirTexto("Hora: " + datos.hora + "\n")
 		.EscribirTexto("Tipo de viaje: " + datos.tipo_viaje + "\n")
-		.EscribirTexto("Destino: " + datos.ruta_direccion + "\n")
+		.EscribirTexto("Destino: " + datos.idruta + "\n")
 		.EscribirTexto("Kilometros: " + datos.kilometro + "\n")
 		.EscribirTexto("Pasajeros: " + datos.numero_pasajero + "\n")
 		.EscribirTexto("Unidad: " + datos.clave + "\n")
@@ -558,18 +480,19 @@ async function reprint(datos) {
 		.EscribirTexto("Tipo de pago: " + datos.tipo_pago + "\n")
 		.EscribirTexto("Numero de ticket: " + datos.ticket_num + "\n")
 		.EscribirTexto("Folio Reservacion: " + datos.idreservaciones + "\n")
-		.EscribirTexto("Total MXN: $" + datos.total_mxn + ".00" + "\n")
-		.EscribirTexto("Total USD: $" + datos.total_usd + ".00" + "\n")
 		.EscribirTexto("Efectivo: $" + datos.efectivo + ".00" + "\n")
-		.EscribirTexto("Cambio efectivo: $" + datos.cambioEfectivo + ".00" + "\n")
+		.EscribirTexto("Tarjeta: $" + datos.tarjeta + ".00" + "\n")
+		.EscribirTexto("Dolar: $" + datos.dolar + ".00" + "\n")
+		.EscribirTexto("CXC: $" + datos.cxc + ".00" + "\n")
 		.Feed(1)
 		.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
-		.EscribirTexto("Su destino incluye maximo el pago de un peaje.\n Las casetas exentas de pago son Segundo Piso de Periferico, Arco Norte, Chamapa la Venta y Siervo de la Nacion. Si deseas que tu ruta pase por alguna de estas casetas el pago sera absorbido por el cliente.\n\n")
-		.EscribirTexto("Facturas:   grupotaxal2022@gmail.com\n")
-		.EscribirTexto("Recoleccion y Reservaciones : +52 5634342175\n\n")
+		.EscribirTexto("Su destino incluye maximo el pago de un peaje.\n no aplica en casetas del Segundo Piso de Periferico, Arco Norte, Chamapa la Venta y Siervo de la Nacion. Si deseas que tu ruta pase por alguna de estas casetas el pago sera absorbido por el cliente.\n\n")
+		.EscribirTexto("Solo se emiten facturas después de  10 días del servicio y solo dentro del mes correspondiente\n")
+		.EscribirTexto("Facturas:   estoicadrive@gmail.com\n")
+		.EscribirTexto("Recoleccion y Reservaciones : +52 5536704952\n\n")
 		.Feed(1)
 		.EstablecerTamañoFuente(2, 2)
-		.EscribirTexto("TICKET DE VENTA")
+		.EscribirTexto("TICKET DE RESERVACION - " + datos.tipo_pago.substring(0, 1)  + datos.idreservaciones )
 		.EscribirTexto("\n\n\n\n\n")
 		.Feed(1)
 		.CorteParcial()

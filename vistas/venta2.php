@@ -83,7 +83,8 @@ if (!isset($_SESSION["nombre"])) {
                             <input type="hidden" name="idventa" id="idventa">
                             <input type="hidden" name="unidad_save" id="unidad_save">
                             <input type="hidden" name="total_venta" id="total_venta">
-                            <input type="hidden" name="usuario" id="usuario" value="<?= htmlspecialchars($_SESSION['idusuario']); ?>">
+                            <input type="hidden" name="usuario" id="usuario"
+                              value="<?= htmlspecialchars($_SESSION['idusuario']); ?>">
                             <input type="hidden" class="form-control" name="fecha_hora" id="fecha_hora">
                             <input type="hidden" name="hour_save" id="hour_save">
                             <input type="hidden" name="idFolioVenta" id="idFolioVenta">
@@ -181,7 +182,7 @@ if (!isset($_SESSION["nombre"])) {
 
                       <body onload="initMap()">
                         <button class="btn btn-primary" onclick="searchLocation()">Buscar Dirección</button>
-                        <input id="searchInput" class="form-control selectpicker" type="text"
+                        <input id="searchInput" name="searchInput" class="form-control selectpicker" type="text"
                           placeholder="Ingresa una dirección">
                         <br><br>
                         <div id="map" style="height: 500px; width: 100%;"></div>
@@ -370,14 +371,15 @@ if (!isset($_SESSION["nombre"])) {
 
       directionsService.route(request, (result, status) => {
         if (status == 'OK') {
-          let longestRoute = result.routes[0];
+          let quickestRoute = result.routes[0];
           for (let i = 1; i < result.routes.length; i++) {
-            if (result.routes[i].legs[0].distance.value > longestRoute.legs[0].distance.value) {
-              longestRoute = result.routes[i];
+            // Compara las rutas para encontrar la de menor duración
+            if (result.routes[i].legs[0].duration.value < quickestRoute.legs[0].duration.value) {
+              quickestRoute = result.routes[i];
             }
           }
-          directionsRenderer.setDirections({ routes: [longestRoute] });
-          setValues(longestRoute);
+          directionsRenderer.setDirections({ routes: [quickestRoute] });
+          setValues(quickestRoute);
         } else {
           console.log('Directions request failed due to ' + status);
         }
@@ -415,13 +417,13 @@ if (!isset($_SESSION["nombre"])) {
       var option = document.getElementById('auto').value;
       var pago = 0;
       if (option == 'Sedan') {
-        pago = (parseInt(km, 10) * 17);
+        pago = (parseInt(km, 10) * 19);
       } else {
         pago = (parseInt(km, 10) * 25);
       }
-
+      
       $("#kilometro").val(km);
-      $("#idrutas").val(information.legs[0].end_address);
+      $("#idrutas").val(document.getElementById('searchInput').value);
       fillInfoPayments(pago)
 
     }

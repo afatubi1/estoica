@@ -13,7 +13,7 @@ $numero_celular = isset($_POST["numero_celular"]) ? limpiarCadena($_POST["numero
 $idConductor = isset($_POST["idConductor"]) ? limpiarCadena($_POST["idConductor"]) : "";
 $tipo_viaje = isset($_POST["tipo_viaje"]) ? limpiarCadena($_POST["tipo_viaje"]) : "";
 $idunidad = isset($_POST["idunidad"]) ? limpiarCadena($_POST["idunidad"]) : "";
-$idruta = isset($_POST["idruta"]) ? limpiarCadena($_POST["idruta"]) : "";
+$idruta = isset($_POST["ruta"]) ? limpiarCadena($_POST["ruta"]) : "";
 $fecha = isset($_POST["fecha"]) ? limpiarCadena($_POST["fecha"]) : "";
 $hora = isset($_POST["hora"]) ? limpiarCadena($_POST["hora"]) : "";
 $tipo_pago = isset($_POST["tipo_pago"]) ? limpiarCadena($_POST["tipo_pago"]) : "";
@@ -21,12 +21,17 @@ $automovil = isset($_POST["auto"]) ? limpiarCadena($_POST["auto"]) : "";
 $numero_pasajero = isset($_POST["numero_pasajero"]) ? limpiarCadena($_POST["numero_pasajero"]) : "";
 $kilometro = isset($_POST["kilometro"]) ? limpiarCadena($_POST["kilometro"]) : "";
 $total_mxn = isset($_POST["total_mxn"]) ? limpiarCadena($_POST["total_mxn"]) : "";
-$labelDolar = isset($_POST["labelDolar"]) ? limpiarCadena($_POST["labelDolar"]) : "";
-$total_usd = isset($_POST["total_usd"]) ? limpiarCadena($_POST["total_usd"]) : "";
+$dolar = isset($_POST["dolar"]) ? limpiarCadena($_POST["dolar"]) : "";
+$tarjeta = isset($_POST["tarjeta"]) ? limpiarCadena($_POST["tarjeta"]) : "";
 $ticket_num = isset($_POST["ticket_num"]) ? limpiarCadena($_POST["ticket_num"]) : "";
 $efectivo = isset($_POST["efectivo"]) ? limpiarCadena($_POST["efectivo"]) : "";
-$cambioEfectivo = isset($_POST["cambioEfectivo"]) ? limpiarCadena($_POST["cambioEfectivo"]) : "";
+$cxc = isset($_POST["cxc"]) ? limpiarCadena($_POST["cxc"]) : "";
 $chofer_save = isset($_POST["chofer_save"]) ? limpiarCadena($_POST["chofer_save"]) : "";
+
+$cambioEfectivo = isset($_POST["dolar"]) ? limpiarCadena($_POST["dolar"]) : "";
+$cambioEfectivo = isset($_POST["tarjeta"]) ? limpiarCadena($_POST["tarjeta"]) : "";
+$cambioEfectivo = isset($_POST["cxc"]) ? limpiarCadena($_POST["cxc"]) : "";
+
 
 // info for RFC reservaciones
 $claveRfc = isset($_POST["claveRfc"]) ? limpiarCadena($_POST["claveRfc"]) : "";
@@ -59,11 +64,11 @@ switch ($_GET["op"]) {
 				numero_pasajero,
 				kilometro,
 				total_mxn,
-				labelDolar,
-				total_usd,
+				dolar,
+				tarjeta,
 				ticket_num,
 				efectivo,
-				cambioEfectivo,
+				cxc,
 				idusuario,
 				facturado
 				)
@@ -81,11 +86,11 @@ switch ($_GET["op"]) {
 					'$numero_pasajero',
 					'$kilometro',
 					'$total_mxn',
-					'$labelDolar',
-					'$total_usd',
+					'$dolar',
+					'$tarjeta',
 					'$ticket_num',
 					'$efectivo',
-					'$cambioEfectivo',
+					'$cxc',
 					'$idusuario',
 					'No')";
 
@@ -111,17 +116,17 @@ switch ($_GET["op"]) {
 				"5" => $reg->nombre,
 				"6" => $reg->idConductor,
 				"7" => $reg->tipo_viaje,
-				"8" => $reg->ruta_direccion,
+				"8" => $reg->idruta,
 				"9" => $reg->kilometro,
 				"10" => $reg->automovil,
 				"11" => $reg->numero_pasajero,
-				"12" => '$' . $reg->total_mxn . '.00',
-				"13" => '$' . $reg->total_usd,
-				"14" => $reg->tipo_pago,
-				"15" => '$' . $reg->efectivo . '.00',
-				"16" => '$' . $reg->cambioEfectivo . '.00',
+				"12" => $reg->tipo_pago,
+				"13" => '$' . $reg->efectivo . '.00',
+				"14" => '$' . $reg->tarjeta. '.00',
+				"15" => '$' . $reg->dolar . '.00',
+				"16" => '$' . $reg->cxc . '.00',
 				"17" => $reg->ticket_num,
-				"18" => 'TAXRES - 00' . $reg->idreservaciones
+				"18" => 'ESTOIRES - 00' . $reg->idreservaciones
 			);
 		}
 
