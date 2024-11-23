@@ -27,7 +27,9 @@ class Persona
                     Curp,
                     antecedentesPenales,
                     aptitudPsicofisica,
-                    comprobanteDomicilio
+                    comprobanteDomicilio,
+                    idunidad,
+                    estatus
                    ) 
                     VALUES (
                         '$choferModel->tipo_persona',
@@ -45,13 +47,13 @@ class Persona
                         '$choferModel->Curp',
                         '$choferModel->antecedentesPenales',
                         '$choferModel->aptitudPsicofisica',
-                        '$choferModel->comprobanteDomicilio'
-                        )";
+                        '$choferModel->comprobanteDomicilio',
+                        '$choferModel->idunidad','1' )";
 
         return ejecutarConsulta($sql);
     }
 
-    public function editar($idpersona, $tipo_persona, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email,$telefonoReferencia)
+    public function editar($idpersona, $tipo_persona, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email, $telefonoReferencia,$idunidad, $fechaIn)
     {
         $sql = "UPDATE persona SET 
                     tipo_persona='$tipo_persona', 
@@ -61,6 +63,8 @@ class Persona
                     direccion='$direccion',
                     telefono='$telefono',
                     email='$email'
+                    idunidad = '$idunidad',
+                    fechaIn = '$fechaIn'
                     WHERE idpersona='$idpersona '";
 
         return ejecutarConsulta($sql);
@@ -69,8 +73,9 @@ class Persona
 
     public function eliminar($idpersona)
     {
-        $sql = "DELETE FROM persona 
-                   WHERE idpersona='$idpersona'";
+        $sql = "UPDATE persona SET 
+                    estatus='0'
+                     WHERE idpersona='$idpersona ";
 
         return ejecutarConsulta($sql);
     }
@@ -88,14 +93,17 @@ class Persona
     //METODO PARA LISTAR LOS REGISTROS
     public function listarp()
     {
-        $sql = "SELECT * FROM persona";
+        $sql = "SELECT * FROM persona WHERE estatus = '1'";
 
         return ejecutarConsulta($sql);
     }
 
     public function listarc()
     {
-        $sql = "SELECT * FROM persona";
+        $sql = "SELECT * FROM persona p
+        INNER JOIN unidad uni 
+		ON p.idunidad=uni.idunidad WHERE estatus
+         = '1'";
 
         return ejecutarConsulta($sql);
     }

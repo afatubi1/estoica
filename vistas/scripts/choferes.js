@@ -5,6 +5,11 @@ function init() {
     mostrarform(false);
     listar();
     showButtonsEdit(false);
+
+    $.post("../ajax/venta.php?op=selectUnidad", function (r) {
+        $("#idunidad").html(r);
+        $('#idunidad').selectpicker('refresh');
+    });
 }
 
 //funcion limpiar
@@ -368,7 +373,9 @@ function mostrar(idpersona) {
             $("#telefonoReferencia").val(data.telefonoReferencia);
             $("#email").val(data.email);
             $("#idpersona").val(data.idpersona);
-
+            document.getElementById("fechaIn").value = data.fechaIn;
+            const selectElement = document.getElementById("idunidad");
+            selectElement.value = data.idunidad;
         }
     );
 }

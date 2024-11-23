@@ -125,7 +125,8 @@ if (strlen(session_id()) < 1) //Si la variable de session no esta iniciada
                     </a>
                     <ul class="treeview-menu">
                       <li><a href="facturas.php"><i class="fa fa-circle-o"></i> Facturas</a></li>
-                      <li><a href="liquidaciones.php"><i class="fa fa-circle-o"></i> liquidaciones</a></li>
+                      <li><a href="liquidaciones.php"><i class="fa fa-circle-o"></i> Egresos</a></li>
+                      <li><a href="ingresosvs.php"><i class="fa fa-circle-o"></i> Ingresos vs Egresos</a></li>
                     </ul>
                   </li>'
             ;

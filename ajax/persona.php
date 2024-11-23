@@ -23,6 +23,8 @@ $Curp = isset($_POST["Curp"]) ? limpiarCadena($_POST["Curp"]) : "";
 $antecedentesPenales = isset($_POST["antecedentesPenales"]) ? limpiarCadena($_POST["antecedentesPenales"]) : "";
 $aptitudPsicofisica = isset($_POST["aptitudPsicofisica"]) ? limpiarCadena($_POST["aptitudPsicofisica"]) : "";
 $comprobanteDomicilio = isset($_POST["comprobanteDomicilio"]) ? limpiarCadena($_POST["comprobanteDomicilio"]) : "";
+$idunidad = isset($_POST["idunidad"]) ? limpiarCadena($_POST["idunidad"]) : "";
+$fechaIn = isset($_POST["fechaIn"]) ? limpiarCadena($_POST["fechaIn"]) : "";
 
 
 switch ($_GET["op"]) {
@@ -35,13 +37,30 @@ switch ($_GET["op"]) {
                 $ine = moverArchivo('ine', $directorioDestino);
                 $licencia = moverArchivo('licencia', $directorioDestino);
                 $tia = moverArchivo('tia', $directorioDestino);
-
                 $Curp = moverArchivo('Curp', $directorioDestino);
                 $antecedentesPenales = moverArchivo('antecedentesPenales', $directorioDestino);
                 $aptitudPsicofisica = moverArchivo('aptitudPsicofisica', $directorioDestino);
                 $comprobanteDomicilio = moverArchivo('comprobanteDomicilio', $directorioDestino);
 
-                $choferModel = new ChoferModel($tipo_persona, $nombre, $tipo_documento, $direccion, $telefono, $email, $ine, $licencia, $imgChofer, $tia, $telefonoReferencia, $Curp, $antecedentesPenales, $aptitudPsicofisica, $comprobanteDomicilio);
+                $choferModel = new ChoferModel(
+                    $tipo_persona,
+                    $nombre,
+                    $tipo_documento,
+                    $direccion,
+                    $telefono,
+                    $email,
+                    $ine,
+                    $licencia,
+                    $imgChofer,
+                    $tia,
+                    $telefonoReferencia,
+                    $Curp,
+                    $antecedentesPenales,
+                    $aptitudPsicofisica,
+                    $comprobanteDomicilio,
+                    $idunidad,
+                    $fechaIn
+                );
 
                 $rspta = $persona->insertar($choferModel);
                 echo $rspta ? "Persona registrada" : "Persona no se pudo registrar";
@@ -50,7 +69,7 @@ switch ($_GET["op"]) {
             }
 
         } else {
-            $rspta = $persona->editar($idpersona, $tipo_persona, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email, $telefonoReferencia);
+            $rspta = $persona->editar($idpersona, $tipo_persona, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email, $telefonoReferencia, $idunidad, $fechaIn);
             echo $rspta ? "Persona editada" : "Persona no se pudo registrar";
         }
         break;
@@ -135,8 +154,8 @@ switch ($_GET["op"]) {
         while ($reg = $rspta->fetch_object()) {
             $data[] = array(
                 "0" =>
-                '<button class="btn btn-warning" onclick="mostrar(' . $reg->idpersona . ')"><li class="fa fa-pencil"></li></button>' .
-                ' <button class="btn btn-danger" onclick="eliminar(' . $reg->idpersona . ')"><li class="fa fa-trash"></li></button>',
+                    '<button class="btn btn-warning" onclick="mostrar(' . $reg->idpersona . ')"><li class="fa fa-pencil"></li></button>' .
+                    ' <button class="btn btn-danger" onclick="eliminar(' . $reg->idpersona . ')"><li class="fa fa-trash"></li></button>',
                 "1" => $reg->nombre,
                 "2" => $reg->tipo_documento,
                 "3" => $reg->telefono,
@@ -161,13 +180,17 @@ switch ($_GET["op"]) {
         while ($reg = $rspta->fetch_object()) {
             $data[] = array(
                 "0" =>
-                '<button class="btn btn-warning" onclick="mostrar(' . $reg->idpersona . ')"><li class="fa fa-pencil"></li></button>' .
-                '<button class="btn btn-primary" onclick="info(' . $reg->idpersona . ')"><li class="fa fa-eye"></li></button>' .
-                '<button class="btn btn-danger" onclick="eliminar(' . $reg->idpersona . ')"><li class="fa fa-trash"></li></button>',
-                "1" => $reg->nombre,
-                "2" => $reg->tipo_documento,
-                "3" => $reg->telefono,
-                "4" => $reg->email
+                    '<button class="btn btn-warning" onclick="mostrar(' . $reg->idpersona . ')"><li class="fa fa-pencil"></li></button>' .
+                    '<button class="btn btn-primary" onclick="info(' . $reg->idpersona . ')"><li class="fa fa-eye"></li></button>' .
+                    '<button class="btn btn-danger" onclick="eliminar(' . $reg->idpersona . ')"><li class="fa fa-trash"></li></button>',
+                "1" => $reg->fechaIn,
+                "2" => $reg->nombre,
+                "3" => $reg->tipo_documento,
+                "4" => $reg->telefono,
+                "5" => $reg->email,
+                "6" => 'uni - ' . $reg->clave,
+                "7" => $reg->placa
+
             );
         }
         $results = array(

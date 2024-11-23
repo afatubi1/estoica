@@ -2,7 +2,7 @@
 //Incluímos inicialmente la conexión a la base de datos
 require '../config/conexion.php';
 
-Class Liquidaciones
+class Liquidaciones
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -11,31 +11,40 @@ Class Liquidaciones
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($fecha_hora, $clave, $concepto, $numeroCheque, $unidad, $importe, $descripcion, $hora,$movimiento)
+	public function insertar($fecha_hora, $clave_l, $concepto, $numeroCheque, $unidad, $importe, $descripcion, $hora, $movimiento, $plaza, $imagen, $idusuario, $forma_pago)
 	{
-		$sql="INSERT INTO liquidaciones (
+		$sql = "INSERT INTO liquidaciones (
 				fecha,
-				clave,
+				clave_l,
 				concepto_clave,
 				numero_cheque,
 				unidad,
 				importe,
 				descripcion,
 				hora,
-				movimiento)
+				movimiento,
+				plaza,
+				imagen,
+				idusuario,
+				forma_pago)
 				VALUES (
 					'$fecha_hora',
-					'$clave',
+					'$clave_l',
 					'$concepto',
 					'$numeroCheque',
 					'$unidad',
 					'$importe',
 					'$descripcion',
-					'$hora','$movimiento')";
+					'$hora',
+					'$movimiento',
+					'$plaza',
+					'$imagen', 
+					'$idusuario',
+					'$forma_pago')";
 
-		$idventanew=ejecutarConsulta_retornarID($sql);
-		$num_elementos=0;
-		$sw=true;
+		$idventanew = ejecutarConsulta_retornarID($sql);
+		$num_elementos = 0;
+		$sw = true;
 
 		return $sw;
 	}
@@ -43,16 +52,52 @@ Class Liquidaciones
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT l.idliquidacion,l.fecha,
-		l.clave,
-			l.concepto_clave,
-			l.numero_cheque,
-			uni.clave,
-			l.importe,
-		  l.descripcion,
-			l.hora,
-			l.movimiento FROM liquidaciones l INNER JOIN unidad uni
-		ON l.unidad = uni.idunidad";
+		$sql = "SELECT l.idliquidacion,
+       l.fecha,
+       l.clave_l,
+       l.concepto_clave,
+       l.numero_cheque,
+       uni.clave,
+       l.importe,
+       l.descripcion,
+       l.hora,
+       l.plaza,
+       l.imagen,
+       l.movimiento,
+       l.forma_pago,
+       us.nombre
+FROM liquidaciones l
+INNER JOIN unidad uni ON l.unidad = uni.idunidad
+INNER JOIN usuario us ON us.idusuario = l.idusuario
+ORDER BY l.idliquidacion DESC";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function getLiquidacion($idliquidacion)
+	{
+		$sql = "SELECT 
+    l.idliquidacion,
+    l.fecha,
+    l.clave_l,
+    l.concepto_clave,
+    l.numero_cheque,
+    uni.clave,
+    l.importe,
+    l.descripcion,
+    l.hora,
+    l.plaza,
+    l.imagen,
+    l.movimiento,
+    us.nombre
+FROM 
+    liquidaciones l 
+INNER JOIN 
+    unidad uni ON l.unidad = uni.idunidad
+INNER JOIN 
+    usuario us ON us.idusuario = l.idusuario
+WHERE 
+    l.idliquidacion = $idliquidacion";
 
 		return ejecutarConsulta($sql);
 	}

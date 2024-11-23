@@ -33,26 +33,35 @@ if (!isset($_SESSION["nombre"])) {
                 <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                   <thead>
                     <th>Opciones</th>
+                    <th>Fecha de ingreso</th>
                     <th>Nombre</th>
                     <th>Documento</th>
                     <th>Telefono</th>
                     <th>Email</th>
+                    <th>Unidad Asignada</th>
+                    <th>Placa</th>
                   </thead>
                   <tbody>
-
                   </tbody>
                   <tfoot>
                     <th>Opciones</th>
+                    <th>Fecha de ingreso</th>
                     <th>Nombre</th>
                     <th>Documento</th>
                     <th>Telefono</th>
                     <th>Email</th>
+                    <th>Unidad Asignada</th>
+                    <th>Placa</th>
                   </tfoot>
                 </table>
               </div>
               <div class="panel-body" style="" id="formularioregistros">
                 <form name="formulario" id="formulario" method="POST">
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="fechaFin">Fecha de ingreso:</label>
+                    <input type="date" id="fechaIn" name="fechaIn" required>
+                    <br><br>
+
                     <label>Nombre:</label>
                     <input type="hidden" name="idpersona" id="idpersona">
                     <input type="hidden" name="chofer" id="chofer" value="chofer">
@@ -68,6 +77,13 @@ if (!isset($_SESSION["nombre"])) {
                       <option value="CARTILLA">CARTILLA</option>
                     </select>
                   </div>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="idunidad">Asignar Unidad:</label>
+                    <select id="idunidad" name="idunidad" class="form-control selectpicker" data-live-search="true"
+                      required>
+                    </select>
+                  </div>
+
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Direccion:</label>
                     <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70"

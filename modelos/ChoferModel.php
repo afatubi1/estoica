@@ -15,8 +15,10 @@ class ChoferModel {
     public $antecedentesPenales;
     public $aptitudPsicofisica;
     public $comprobanteDomicilio;
+    public $idunidad;
+    public $fechaIn;
 
-    public function __construct($tipo_persona, $nombre, $tipo_documento, $direccion, $telefono, $email, $ine, $licencia, $imgChofer, $tia, $telefonoReferencia, $Curp, $antecedentesPenales, $aptitudPsicofisica, $comprobanteDomicilio) {
+    public function __construct($tipo_persona, $nombre, $tipo_documento, $direccion, $telefono, $email, $ine, $licencia, $imgChofer, $tia, $telefonoReferencia, $Curp, $antecedentesPenales, $aptitudPsicofisica, $comprobanteDomicilio, $idunidad, $fechaIn) {
         $this->tipo_persona = $tipo_persona;
         $this->nombre = $nombre;
         $this->tipo_documento = $tipo_documento;
@@ -32,6 +34,8 @@ class ChoferModel {
         $this->antecedentesPenales = $antecedentesPenales;
         $this->aptitudPsicofisica = $aptitudPsicofisica;
         $this->comprobanteDomicilio = $comprobanteDomicilio;
+        $this->idunidad = $idunidad;
+        $this->fechaIn = $fechaIn;
     }
 }
 ?>

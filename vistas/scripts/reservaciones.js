@@ -2,7 +2,7 @@ var tabla;
 var horaActual;
 var usuario;
 var pagoEfectivo = false;
-var serial = 'NmY4NjdkYWJfXzIwMjQtMDgtMjJfXzIwMjQtMTAtMjEjIyNhbXZ1T0ExeG9IaUx5WHFlZDlhQzB6Q0tLN2lxa3ZxV0FsU1ErZmI3TXZVSDcvNG1oR2ZYVmkyc2NXeFdIRDNYZEo1TE9IeUNrenFORnhrY2R1cUNkUU5qQWtYa0M3aUdaS0E3MUNDYVlEaTRJdjVmMDd4cnVJOHN5b1ZwakE2TFg5VThNelJFekN5bUZtMXpJODNUelllUWhJYTUxZVVsd2oxbzVDQlBxSnpZc3lXUjhsK0VZNmZrbytSQlNxYjFsZ0VTSjFLWFZDZTNRdXpwUm5zWWRsS3R6WG5hditNbDZoQUUxOVlwN1RrdWhxdU9ZSmNyeWFzQXI1VXhNQ1dTOS9GMmREbGg2cVZOU0lUb2w5NkVscm51a0krZVRMa0tjemVVeUNKdUx1dGFyRi9TUFJyYVR4VVFtSW5EckNmYkNkMTk5R09hNEsrMW1TcitxYzNpQ0h3S2pac01NYjNVUTVwMUtHRk9DbnlWMkUwaGppcW85Rk0xM2pUaGdQaVhQTzUwcEtlQzlxMmNENFZDekJBdllzei9TM3VnT0c1bXJnNHJNZ1g2Tk1nckJRT0grWkNNNVFCeDkyU1lDWFZnUXJOdFh4ZDJVQW4vdldhTmNDUkxBZnR6WDdidnJjd04xVGVuSElqTzMwL1lUUVJvY0h3SnBnTEFDRU0xeXo4VUtoYUFYdUxrZm9sRjUyMXVCQXJNNkdmMjg2Mm1pRTBjUzUvM2Y0YUNId2NQS3JBWVhWVzJndnNNTHM0SVlXZFIrMnR2a2dtRlBUY3F1NVV1SE1uUUtESmpucUhpY3QvalVjb0RwcHpyMVFZNzZCREUyNGNaN3FrMitzeTl2SytsRmsvNmNqVFVrTU9qWEFIcUxiSC95QWZFRGRsdnc5RjhzVkRHY0Y0OHRKbz0=';
+var serial = 'NmY4NjdkYWJfXzIwMjQtMTAtMjRfXzIwMjQtMTItMjMjIyNUaTJwZ1VoamRkUEpsQ3VnTjM3MHB5SnhmdG5md3NFbDVLcCtSNEkzWm4rVWN4RS8wQU9HcG9QaHhiMWs2cWExL3hNRk94cFpuSk9nZXFnRi9JVThrU2VWMjlVMjc1WlRYcEFUTk1MRkRtMVJYaUFSamVPSTZ0VjFvRWhKQmlrQzJWQjhKbVAzMmVpSTIxUUhqY1hJaEFaYzN2UXF1bFRYZEFqS01rU3JIc0tlNnVmYjd2ekRXWVFqRjZXM2NMTXFBelRzd1FEOUZZNWdlYlNQaWJEL2w3aFcvN3U5QW5UVzRtMW1xWmgrSVgvZHhCalJrM1BxdWRkR3NjWjdxMm1KNi80ZTB6c3NKVUZDeDhBS3VNL1h4cm8vcVdYcGUwVVBGdWdvVy9Ib2ZqeU4xRUtWVFpHSnZLZXduOUU0dll4eEp0eng0QlRSUlZTbTQ0Q2pOTUpIWmpxUERTL2FCdkx5T00zYkZ5d1ROTGNyb2ErUWtjMEtRbGVjK1VGVTlXZHZsRlNLV2o2aC9VTjRxQ1dqZmNyQ3BNd3kwSFJEZ0d5R0tCY2tzWlRwNktKNHVsWHdJdHZxWVh6UWhBZmc2VGVqQ2RDUUdhUXpJWHg5MDBJTU9pdXlVNzRvNUhhUTdKUjBUYXpSZlg1aWtLd1owWTliNjdnZ2d4NDRLM2VzbFBxR0ZFY1FCSU9Sd0k4aU9iNUYrS3VTQ1hoanQ5bXFEYnNTbXZZRVZqN3ZOVWMvQ3dNZDNveGNEcUVuc0pLcXBCZjVtbE1QYmNhZCt5c0pmbk1MYmFvWEhTOUVmUFZNcllrdXl1cHVDdnFJL0hJZnQvaDNwV3ltMlY5YjFPZXhaWEpyeFNWOVQ4NnVOV01LMmVlRTU4WnNFMUhaLzB1SmJ4aDVKNTllNnB0R0hFaz0=';
 //Función que se ejecuta al inicio
 function init() {
 	getHours();
@@ -139,7 +139,7 @@ function guardaryeditar(e) {
 			bootbox.alert(datos);
 			mostrarform(false);
 			getIdEfectivo();
- 		}
+		}
 
 	});
 	limpiar();
@@ -238,14 +238,14 @@ async function imprimir() {
 	var totalUsd = document.getElementById("total_usd").value;
 	var efectivo
 
-	if(parseInt(document.getElementById("efectivo").value) == ""){
+	if (parseInt(document.getElementById("efectivo").value) == "") {
 		efectivo = "0";
 
 	} else {
 		efectivo = document.getElementById("efectivo").value;
 	}
 
-	
+
 	const nombreImpresora = "impresora";
 	const conector = new ConectorPluginV3(null, serial);
 	const respuesta = await conector
@@ -306,76 +306,6 @@ var qr;
 var folioFactura;
 var dateRfc;
 
-function modalFactura(idreservaciones, total_mxn, idusuario) {
-	$("#dateRfc").val(getFechaLocal() + " " + horaActual);
-	$("#idreservacionrfc").val(idreservaciones);
-	$("#amountRfc").val(total_mxn);
-	$("#folioRfc").val(idusuario + "02" + idreservaciones);
-	$("#myModal").show();
-	$("#load").hide();
-	$("#qr").hide();
-	$("#factura").hide();
-	$("#xml").hide();
-
-}
-
-function getFactura() {
-	var option = document.getElementById('pymentTypeRfc').value;
-	if (option == '03' && document.getElementById('referencesRfc').value == "") {
-		bootbox.alert("Debes agregar una referencua bancaria");
-	} else {
-		$("#load").show();
-		var formData = new FormData($("#formRfc")[0]);
-		$.ajax({
-			url: "../ajax/reservaciones.php?op=facturar",
-			type: "POST",
-			data: formData,
-			contentType: false,
-			processData: false,
-			success: function (data) {
-				updateReserva()
-				deserializar(data);
-				$("#load").hide();
-			},
-			error: function (XMLHttpRequest, textStatus, errorThrown) {
-				bootbox.alert("Error al intentar facturar");
-			}
-		});
-	}
-}
-
-function deserializar(data) {
-	var information = JSON.parse(data);
-
-	if (information.AckEnlaceFiscal.estatusDocumento == "aceptado") {
-		cfdi = information.AckEnlaceFiscal.descargaXmlCFDi;
-		facturaPdf = information.AckEnlaceFiscal.descargaArchivoPDF;
-		qr = information.AckEnlaceFiscal.descargaArchivoQR;
-		$("#qr").show();
-		$("#factura").show();
-		$("#xml").show();
-		$("#cfdi").val("" + cfdi);
-		$("#facturaPdf").val("" + facturaPdf);
-		$("#qrRfc").val("" + qr);
-		salvarFactura();
-	} else {
-		bootbox.alert(information.AckEnlaceFiscal.mensajeError.descripcionError);
-	}
-
-}
-
-function descarFactura() {
-	window.open(facturaPdf);
-}
-
-function descarQr() {
-	window.open(qr);
-}
-
-function descarCfdi() {
-	window.open(cfdi);
-}
-
 function getFechaLocal() {
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
@@ -395,21 +325,13 @@ function getHours() {
 	horaActual = time;
 }
 
-function salvarFactura() {
-	var formData = new FormData($("#formRfc")[0]);
-	$.ajax({
-		url: "../ajax/reservaciones.php?op=guardarFactura",
-		type: "POST",
-		data: formData,
-		contentType: false,
-		processData: false,
-		success: function (data) {
-		},
-		error: function (XMLHttpRequest, textStatus, errorThrown) {
-		}
-	});
+function editarMontos(idreservaciones, facturado) {
+	if (facturado == "1") {
+		getMontos(idreservaciones)
+	} else {
+		bootbox.alert("Reservacion cerrada, no se puede editar");
+	}
 }
-
 
 // update reserva
 function updateReserva() {
@@ -492,11 +414,152 @@ async function reprint(datos) {
 		.EscribirTexto("Recoleccion y Reservaciones : +52 5536704952\n\n")
 		.Feed(1)
 		.EstablecerTamañoFuente(2, 2)
-		.EscribirTexto("TICKET DE RESERVACION - " + datos.tipo_pago.substring(0, 1)  + datos.idreservaciones )
+		.EscribirTexto("TICKET DE RESERVACION - " + datos.tipo_pago.substring(0, 1) + datos.idreservaciones)
 		.EscribirTexto("\n\n\n\n\n")
 		.Feed(1)
 		.CorteParcial()
 		.imprimirEn(nombreImpresora);
 }
 
+function updateMontos() {
+	const tarjeta_edit = $('#tarjeta_edit').val();
+	const efectivo_edit = $('#efectivo_edit').val();
+	const dolar_edit = $('#dolar_edit').val();
+	const cxc_edit = $('#cxc_edit').val();
+	const idreservaciones_edit = $('#idreservaciones_edit').val();
+
+	$.ajax({
+		url: '../ajax/reservaciones.php?op=updateMontos', // Cambia esta URL a la ruta de tu backend
+		type: 'POST',
+		data: {
+			tarjeta_edit: tarjeta_edit,
+			efectivo_edit: efectivo_edit,
+			dolar_edit: dolar_edit,
+			cxc_edit: cxc_edit,
+			idreservaciones_edit: idreservaciones_edit
+		},
+		success: function (response) {
+			console.log("Exito al actualizar montos");
+			window.location.reload();
+		},
+		error: function (xhr, status, error) {
+			console.error('Error:', error);
+		}
+	});
+
+}
+
+function getMontos(idreservaciones) {
+	$.ajax({
+		url: '../ajax/reservaciones.php?op=getMontos',
+		type: 'POST',
+		data: { idreservaciones: idreservaciones },
+		dataType: 'json',
+		success: function (response) {
+			function setInputValue(selector, value) {
+				$(selector).val(value === "" ? "0" : value);
+			}
+
+			setInputValue('#efectivo_edit', response.efectivo);
+			setInputValue('#tarjeta_edit', response.tarjeta);
+			setInputValue('#dolar_edit', response.dolar);
+			setInputValue('#cxc_edit', response.cxc);
+			$("#idreservaciones_edit").val(idreservaciones);
+			$("#myModal").modal();
+		},
+		error: function (xhr, status, error) {
+			console.error('Error en la petición AJAX:', error);
+		}
+	});
+}
+
+function abrirmodal(idreservaciones) {
+	$("#idreservaciones_edit").val(idreservaciones);
+	$("#modalConfirm").modal();
+}
+
+
+function cerrarReserva() {
+	$("#modalConfirm").hide();
+	var idreservaciones = document.getElementById("idreservaciones_edit").value;
+	$.ajax({
+		url: '../ajax/reservaciones.php?op=updateReserva',
+		type: 'POST',
+		data: {
+			idreservaciones: idreservaciones
+		},
+		success: function (response) {
+			console.log("Exito al cerrar reserva");
+			getDataSales(idreservaciones)
+		},
+		error: function (xhr, status, error) {
+			// Manejar errores
+			console.error('Error:', error);
+		}
+	});
+}
+
+function getDataSales(idreservaciones) {
+	$.ajax({
+		url: '../ajax/reservaciones.php?op=getMontos',
+		type: 'POST',
+		data: { idreservaciones: idreservaciones },
+		dataType: 'json',
+		success: function (response) {
+			saveSale(response)
+		},
+		error: function (xhr, status, error) {
+			console.error('Error en la petición AJAX:', error);
+		}
+	});
+}
+
+function saveSale(response) {
+	var total = parseFloat(response.efectivo)+parseFloat(response.cxc)+parseFloat(response.tarjeta);
+	const idusuario = response.idusuario;
+	const auto = response.automovil;
+	const pasajero = response.numero_pasajero;
+	const tarjeta = response.tarjeta;
+	const fecha_hora = response.fecha;
+	const hora = response.hora;
+	const dolar = response.dolar;
+	const total_venta = total;
+	const ruta = response.idruta;
+	const unidad = response.idunidad;
+	const tipo_pago = response.tipo_pago;
+	const ticket_num = response.ticket_num;
+	const efectivo = response.efectivo;
+	const cxc = response.cxc;
+	const kilometro = response.kilometro;
+
+	$.ajax({
+		url: '../ajax/ventaDos.php?op=guardaryeditar',
+		type: 'POST',
+		data: {
+			idusuario: idusuario,
+			auto: auto,
+			Pasajero: pasajero,
+			Tarjeta: tarjeta,
+			fecha_hora: fecha_hora,
+			hour_save: hora,
+			Dolar: dolar,
+			total_venta: total_venta,
+			idrutas: ruta,
+			idunidad: unidad,
+			tipo_pago: tipo_pago,
+			ticket_num: ticket_num,
+			Efectivo: efectivo,
+			CXC: cxc,
+			kilometro: kilometro
+		},
+		dataType: 'json',
+		success: function (response) {
+			window.location.reload();
+
+		},
+		error: function (xhr, status, error) {
+			console.error('Error en la petición AJAX:', error);
+		}
+	});
+}
 init();

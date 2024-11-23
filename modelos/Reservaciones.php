@@ -131,5 +131,12 @@ class Reservaciones
 
 		return ejecutarConsulta($sql);
 	}
+
+	public function getMontos($idreservaciones)
+	{
+		$sql = "SELECT * FROM `reservaciones` WHERE idreservaciones = '$idreservaciones'";
+
+		return ejecutarConsultaSimpleFila($sql);
+	}
 }
 ?>
