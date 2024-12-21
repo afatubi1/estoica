@@ -222,6 +222,7 @@ function fillAuto() {
 }
 
 async function imprimir() {
+	var totalUsd = document.getElementById("total_usd").value;
 	var Conductor = document.getElementById("chofer_save").value;
 	var Fecha = document.getElementById("fecha").value;
 	var Hora = document.getElementById("hora").value;
@@ -236,8 +237,10 @@ async function imprimir() {
 	var folioReservacion = parseInt(document.getElementById("getFolioReserva").value) + 1;
 	var totalMxn = document.getElementById("total_mxn").value;
 	var totalUsd = document.getElementById("total_usd").value;
-	var efectivo
+	var numero_celular = document.getElementById("numero_celular").value;
+	var nombre_cliente = document.getElementById("nombre_cliente").value;
 
+	var efectivo
 	if (parseInt(document.getElementById("efectivo").value) == "") {
 		efectivo = "0";
 
@@ -257,6 +260,8 @@ async function imprimir() {
 		.EstablecerTamañoFuente(1, 1)
 		.EscribirTexto("Vendedor: " + usuario + "\n")
 		.EscribirTexto("Conductor: " + Conductor + "\n")
+		.EscribirTexto("Nombre del cliente: " + nombre_cliente + "\n")
+		.EscribirTexto("Numero celular: " + numero_celular + "\n")
 		.EscribirTexto("Fecha: " + Fecha + "\n")
 		.EscribirTexto("Hora: " + Hora + "\n")
 		.EscribirTexto("Tipo de viaje: " + viaje + "\n")
@@ -391,6 +396,8 @@ async function reprint(datos) {
 		.EstablecerTamañoFuente(1, 1)
 		.EscribirTexto("Vendedor: " + datos.nombre + "\n")
 		.EscribirTexto("Conductor: " + datos.idConductor + "\n")
+		.EscribirTexto("Nombre del cliente: " + datos.nombre_cliente + "\n")
+		.EscribirTexto("Numero celular: " + datos.numero_celular + "\n")
 		.EscribirTexto("Fecha: " + datos.fecha + "\n")
 		.EscribirTexto("Hora: " + datos.hora + "\n")
 		.EscribirTexto("Tipo de viaje: " + datos.tipo_viaje + "\n")
@@ -473,14 +480,19 @@ function getMontos(idreservaciones) {
 	});
 }
 
-function abrirmodal(idreservaciones) {
-	$("#idreservaciones_edit").val(idreservaciones);
-	$("#modalConfirm").modal();
+function abrirmodal(idreservaciones, facturado) {
+	if (facturado == "1") {
+		$("#idreservaciones_edit").val(idreservaciones);
+		$("#modalConfirm").modal();
+	} else {
+		bootbox.alert("Reservacion cerrada, no se puede cerar otra vez");
+	}
+
 }
 
 
 function cerrarReserva() {
-	$("#modalConfirm").hide();
+	$('#modalConfirm').modal('hide');
 	var idreservaciones = document.getElementById("idreservaciones_edit").value;
 	$.ajax({
 		url: '../ajax/reservaciones.php?op=updateReserva',
@@ -514,8 +526,17 @@ function getDataSales(idreservaciones) {
 	});
 }
 
+function isEmpty(value){
+	if(value == ""){
+		return 0;
+	}else{
+		return value;
+	}
+}
+
+
 function saveSale(response) {
-	var total = parseFloat(response.efectivo)+parseFloat(response.cxc)+parseFloat(response.tarjeta);
+	var total = parseFloat(isEmpty(response.efectivo)) + parseFloat(isEmpty(response.cxc)) + parseFloat(isEmpty(response.tarjeta));
 	const idusuario = response.idusuario;
 	const auto = response.automovil;
 	const pasajero = response.numero_pasajero;
@@ -554,8 +575,8 @@ function saveSale(response) {
 		},
 		dataType: 'json',
 		success: function (response) {
-			window.location.reload();
-
+			bootbox.alert("Venta registrada numero de ESTOI - 00" + response);
+			listar();
 		},
 		error: function (xhr, status, error) {
 			console.error('Error en la petición AJAX:', error);

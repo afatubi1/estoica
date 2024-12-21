@@ -27,17 +27,24 @@ if (!isset($_SESSION["nombre"])) {
               <form id="ingresosForm">
                 <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
 
-                  <label for="fechaInicio">Fecha de Inicio:</label>
-                  <input type="date" id="fechaInicio" name="fechaInicio" required>
-                  <br><br>
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <label for="fechaInicio" class="form-label">Fecha de Inicio:</label>
+                      <input type="date" id="fechaInicio" name="fechaInicio" class="form-control" required>
+                    </div>
 
-                  <label for="fechaFin">Fecha de Fin:</label>
-                  <input type="date" id="fechaFin" name="fechaFin" required>
-                  <br><br>
+                    <div class="col-md-4">
+                      <label for="fechaFin" class="form-label">Fecha de Fin:</label>
+                      <input type="date" id="fechaFin" name="fechaFin" class="form-control" required>
+                    </div>
 
-                  <label for="idunidad">ID Unidad:</label>
-                  <select id="idunidad" name="idunidad" class="form-control selectpicker" data-live-search="true" required>
-                  </select>
+                    <div class="col-md-4">
+                      <label for="idunidad" class="form-label">ID Unidad:</label>
+                      <select id="idunidad" name="idunidad" class="form-control selectpicker" data-live-search="true"
+                        required>
+                      </select>
+                    </div>
+                  </div>
                   <br><br>
                   <button type="button" onclick="fillIngresos()" class="btn btn-primary">Obtener Ingresos</button>
                   <button type="button" onclick="fillEgresos()" class="btn btn-secondary">Obtener Egresos</button>
@@ -46,7 +53,8 @@ if (!isset($_SESSION["nombre"])) {
                 </div>
               </form>
 
-              <table id="resultadosTable" class="table table-striped table-bordered table-condensed table-hover" class="display" style="width:100%">
+              <table id="resultadosTable" class="table table-striped table-bordered table-condensed table-hover"
+                class="display" style="width:100%">
                 <thead>
                   <tr>
                     <th>Fecha</th>
@@ -142,10 +150,10 @@ if (!isset($_SESSION["nombre"])) {
                       <input type="text" class="form-control" name="textGastos" id="textGastos" placeholder="0">
                     </div>
                     <div class="col col-lg-2">
-                      <label>Total Egresos:</label>                                        
+                      <label>Total Egresos:</label>
                       <input type="text" class="form-control" name="totalgasto" id="totalgasto" placeholder="0">
                       </br>
-                      <label>Total Ingreso:</label>                     
+                      <label>Total Ingreso:</label>
                       <input type="text" class="form-control" name="totalIngreso" id="totalIngreso" placeholder="0">
                     </div>
                     <div class="col col-lg-2">
@@ -176,10 +184,10 @@ if (!isset($_SESSION["nombre"])) {
   <script type="text/javascript" src="scripts/ingresosvs.js"></script>
   <style>
     #totalgasto {
-        color: red;
-        font-weight: bold;
+      color: red;
+      font-weight: bold;
     }
-</style>
+  </style>
   <?php
 }
 ob_end_flush();

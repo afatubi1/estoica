@@ -121,7 +121,9 @@ class Reservaciones
 		reserva.ticket_num,
 		reserva.efectivo,
 		reserva.cxc,
-		reserva.tarjeta
+		reserva.tarjeta,
+		reserva.numero_celular,
+		reserva.nombre_cliente
 		FROM reservaciones reserva
    INNER JOIN usuario u
    ON reserva.idusuario=u.idusuario

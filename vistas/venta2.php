@@ -111,6 +111,22 @@ if (!isset($_SESSION["nombre"])) {
                               <option value="Camioneta">Camioneta</option>
                             </select>
 
+                            <!-- Forma de pago -->
+                            <label>Forma de pago:</label>
+                            <label id="shouldPayment">Debes elegir un tipo de pago</label>
+                            <select name="tipo_pago" id="tipo_pago" class="form-control selectpicker">
+                              <option value="SN">Sin tipo de pago</option>
+                              <option value="Dolar">Dolar</option>
+                              <option value="Efectivo">Efectivo</option>
+                              <option value="Tarjeta">Tarjeta</option>
+                              <option value="Transferencia">Transferencia</option>
+                              <option value="CxC AereoMexico">CxC AereoMexico</option>
+                              <option value="CxC Volaris">CxC Volaris</option>
+                              <option value="CxC VivaAeroBus">CxC VivaAeroBus</option>
+                              <option value="CxC NADGlobal">CxC NADGlobal</option>
+                              <option value="Deudores Diversos">Deudores Diversos</option>
+                            </select>
+                            
                             <!-- Ruta -->
                             <label>Ruta:</label>
                             <input type="hidden" name="ruta" id="ruta">
@@ -143,22 +159,6 @@ if (!isset($_SESSION["nombre"])) {
                             <!-- CXC -->
                             <label>CXC:</label>
                             <input type="text" class="form-control" name="CXC" id="CXC" required>
-
-                            <!-- Forma de pago -->
-                            <label>Forma de pago:</label>
-                            <label id="shouldPayment">Debes elegir un tipo de pago</label>
-                            <select name="tipo_pago" id="tipo_pago" class="form-control selectpicker">
-                              <option value="SN">Sin tipo de pago</option>
-                              <option value="Dolar">Dolar</option>
-                              <option value="Efectivo">Efectivo</option>
-                              <option value="Tarjeta">Tarjeta</option>
-                              <option value="Transferencia">Transferencia</option>
-                              <option value="CxC AereoMexico">CxC AereoMexico</option>
-                              <option value="CxC Volaris">CxC Volaris</option>
-                              <option value="CxC VivaAeroBus">CxC VivaAeroBus</option>
-                              <option value="CxC NADGlobal">CxC NADGlobal</option>
-                              <option value="Deudores Diversos">Deudores Diversos</option>
-                            </select>
 
                             <!-- Ticket Numero -->
                             <label>Ticket Numero:</label>

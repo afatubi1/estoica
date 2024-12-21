@@ -38,7 +38,7 @@ WHERE
     AND v.unidad = $idunidad
 ORDER BY 
     v.idventa DESC 
-LIMIT 100;";
+LIMIT 10000;";
 
         return ejecutarConsulta($sql);
     }
@@ -64,7 +64,7 @@ LIMIT 100;";
         INNER JOIN unidad uni ON l.unidad = uni.idunidad
         INNER JOIN usuario us ON us.idusuario = l.idusuario
         WHERE DATE(l.fecha) BETWEEN  '$fechaInicio' AND '$fechaFin'  
-        AND uni.idunidad = $idunidad ORDER BY l.idliquidacion DESC LIMIT 100;";
+        AND uni.idunidad = $idunidad ORDER BY l.idliquidacion DESC LIMIT 10000;";
         return ejecutarConsulta($sql);
     }
 }

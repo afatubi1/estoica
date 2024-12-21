@@ -60,6 +60,21 @@ function fillIngresos() {
                         { title: "Dólar" },
                         { title: "CxC" },
                         { title: "ID Venta" }
+                    ],
+                    dom: 'Bfrtip', // Habilitar botones
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: 'Exportar a Excel',
+                            title: 'Reporte de Egresos'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'Exportar a PDF',
+                            title: 'Reporte de Egresos',
+                            orientation: 'landscape', // Horizontal para mejor presentación
+                            pageSize: 'A4'
+                        }
                     ]
                 });
             }
@@ -115,6 +130,21 @@ function fillEgresos() {
                         { title: "Forma de pago" },
                         { title: "Ingreso" },
                         { title: "Egresos" }
+                    ],
+                    dom: 'Bfrtip', // Habilitar botones
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: 'Exportar a Excel',
+                            title: 'Reporte de Egresos'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'Exportar a PDF',
+                            title: 'Reporte de Egresos',
+                            orientation: 'landscape', // Horizontal para mejor presentación
+                            pageSize: 'A4'
+                        }
                     ]
                 });
             }
@@ -129,19 +159,19 @@ function totales(data) {
     var sumaCxc = 0;
 
     data.forEach(registro => {
-        sumaEfectivo += parseFloat(registro[5], 10);
+        sumaEfectivo += parseFloat(fillZero(registro[5], 10));
     });
 
     data.forEach(registro => {
-        sumaTarjeta += parseFloat(registro[6], 10);
+        sumaTarjeta += parseFloat(fillZero(registro[6], 10));
     });
 
     data.forEach(registro => {
-        sumaDolar += parseFloat(registro[7], 10);
+        sumaDolar += parseFloat(fillZero(registro[7], 10));
     });
 
     data.forEach(registro => {
-        sumaCxc += parseFloat(registro[8], 10);
+        sumaCxc += parseFloat(fillZero(registro[8], 10));
     });
 
     $("#textEfectivo").val(sumaEfectivo);
@@ -152,17 +182,25 @@ function totales(data) {
     total();
 }
 
+function fillZero(variable) {
+    if (variable == "0" || variable == "") {
+        return "0"
+    } else {
+        return variable
+    }
+}
+
 function totalesGastos(data) {
     var sumaIngreso = 0.0;
     var sumaGasto = 0.0;
 
 
     data.forEach(registro => {
-        sumaIngreso += parseFloat(registro[11], 13);
+        sumaIngreso += parseFloat(fillZero(registro[11], 13));
     });
 
     data.forEach(registro => {
-        sumaGasto += parseFloat(registro[12], 13);
+        sumaGasto += parseFloat(fillZero(registro[12], 13));
     });
 
     $("#textIngreso").val(sumaIngreso);

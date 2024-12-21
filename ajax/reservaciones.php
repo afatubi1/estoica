@@ -115,7 +115,7 @@ switch ($_GET["op"]) {
 
 		while ($reg = $rspta->fetch_object()) {
 			$data[] = array(
-				"0" => '<button class="btn btn-primary" onclick="editarMontos(' . $reg->idreservaciones . ',' . $reg->facturado . ')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idreservaciones . ')"><li class="fa fa-print"></li></button></button> <button class="btn btn-warning" onclick="abrirmodal(' . $reg->idreservaciones . ')"><li class="fa fa-times"></li></button>',
+				"0" => '<button class="btn btn-primary" onclick="editarMontos(' . $reg->idreservaciones . ',' . $reg->facturado . ')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idreservaciones . ')"><li class="fa fa-print"></li></button></button> <button class="btn btn-warning" onclick="abrirmodal(' . $reg->idreservaciones . ',' . $reg->facturado . ')"><li class="fa fa-times"></li></button>',
 				"1" => cambiarColor($reg->facturado),
 				"2" => $reg->fecha,
 				"3" => $reg->hora,

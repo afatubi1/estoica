@@ -90,6 +90,10 @@ if (!isset($_SESSION["nombre"])) {
                       <option value="OMAR RAMIREZ GODINEZ">OMAR RAMIREZ GODINEZ</option>
                       <option value="SALAVDOR SANCHEZ GARCIA">SALAVDOR SANCHEZ GARCIA</option>
                       <option value="SANTIAGO MARQUEZ CASTILLO">SANTIAGO MARQUEZ CASTILLO</option>
+                      <option value="JAIR RAMIREZ">JAIR RAMIREZ ABEL RAMIREZ GODINEZ</option>
+                      <option value="JOSE MANUEL MENDEZ">JOSE MANUEL MENDEZ</option>
+                      <option value="SERGIO HERNANDEZ RAMIREZ">SERGIO HERNANDEZ RAMIREZ</option>
+                      <option value="JUAN MANUEL ANGELES NAVA">JUAN MANUEL ANGELES NAVA</option>
                       <option value="Sin asignar">Sin asignar</option>
 
                     </select>
@@ -166,7 +170,7 @@ if (!isset($_SESSION["nombre"])) {
                   </div>
                   <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                     <label>Pasajero:</label>
-                    <input type="text" class="form-control" name="numero_pasajero" id="numero_pasajero" maxlength="7"
+                    <input type="text" class="form-control" name="numero_pasajero" id="numero_pasajero" maxlength="20"
                       placeholder="Numero de pasajeros">
                   </div>
                   <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
