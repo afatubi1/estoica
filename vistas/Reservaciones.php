@@ -31,7 +31,8 @@ if (!isset($_SESSION["nombre"])) {
                   <thead>
                     <th>Facturacion</th>
                     <th>estatus</th>
-                    <th>Fecha</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
                     <th>Hora</th>
                     <th>Unidad</th>
                     <th>Usuario</th>
@@ -46,15 +47,17 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Tarjeta</th>
                     <th>Dolar</th>
                     <th>CXC</th>
+                    <th>Transferencia</th>
                     <th>Ticket numero</th>
                     <th>Folio</th>
                   </thead>
                   <tbody>
                   </tbody>
                   <tfoot>
-                    <th>Facturacion</th>
+                  <th>Facturacion</th>
                     <th>estatus</th>
-                    <th>Fecha</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
                     <th>Hora</th>
                     <th>Unidad</th>
                     <th>Usuario</th>
@@ -64,21 +67,23 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Km</th>
                     <th>Auto</th>
                     <th>Pasajeros</th>
-                    <th>Total MXN</th>
-                    <th>Total USD</th>
                     <th>Forma de pago</th>
                     <th>Efectivo</th>
-                    <th>Cambio</th>
+                    <th>Tarjeta</th>
+                    <th>Dolar</th>
+                    <th>CXC</th>
+                    <th>Transferencia</th>
                     <th>Ticket numero</th>
                     <th>Folio</th>
                   </tfoot>
                 </table>
               </div>
-              <div class="panel-body" style="height: 400px;" id="formularioregistros">
+              <div class="panel-body" style="height: 1000px;" id="formularioregistros">
                 <form name="formulario" id="formulario" method="POST">
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Conductor:</label>
-                    <select id="idConductor" name="idConductor" class="form-control selectpicker" data-live-search="true">
+                  <div class="col-md-6">
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Conductor:</label>
+                      <select id="idConductor" name="idConductor" class="form-control selectpicker" data-live-search="true">
                       <option value="BRIAN LAYONEL BAUTISTA JUAREZ">BRIAN LAYONEL BAUTISTA JUAREZ</option>
                       <option value="CLEMENTE TORRES ESPINOSA">CLEMENTE TORRES ESPINOSA</option>
                       <option value="EDUARDO RODRIGUEZ">EDUARDO RODRIGUEZ</option>
@@ -88,120 +93,150 @@ if (!isset($_SESSION["nombre"])) {
                       <option value="JUAN SEBASTIAN ROMERO ACEVED">JUAN SEBASTIAN ROMERO ACEVED</option>
                       <option value="JULIO CÉSAR MARTÍNEZ AVILA">JULIO CÉSAR MARTÍNEZ AVILA</option>
                       <option value="OMAR RAMIREZ GODINEZ">OMAR RAMIREZ GODINEZ</option>
-                      <option value="SALAVDOR SANCHEZ GARCIA">SALAVDOR SANCHEZ GARCIA</option>
+                      <option value="SALVADOR SANCHEZ GARCIA">SALVADOR SANCHEZ GARCIA</option>
                       <option value="SANTIAGO MARQUEZ CASTILLO">SANTIAGO MARQUEZ CASTILLO</option>
                       <option value="JAIR RAMIREZ">JAIR RAMIREZ ABEL RAMIREZ GODINEZ</option>
                       <option value="JOSE MANUEL MENDEZ">JOSE MANUEL MENDEZ</option>
                       <option value="SERGIO HERNANDEZ RAMIREZ">SERGIO HERNANDEZ RAMIREZ</option>
                       <option value="JUAN MANUEL ANGELES NAVA">JUAN MANUEL ANGELES NAVA</option>
                       <option value="Sin asignar">Sin asignar</option>
+                      </select>
+                    </div>
 
-                    </select>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Forma de pago:</label>
+                      <select name="tipo_pago" id="tipo_pago" class="form-control selectpicker">
+                        <option value="SN">Sin tipo de pago</option>
+                        <option value="Dolar">Dolar</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                        <option value="Transferencia">Transferencia</option>
+                        <option value="CxC AereoMexico">CxC AereoMexico</option>
+                        <option value="CxC Volaris">CxC Volaris</option>
+                        <option value="CxC VivaAeroBus">CxC VivaAeroBus</option>
+                        <option value="CxC Global">CxC Global</option>
+                        <option value="Deudores Diversos">Deudores Diversos</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Unidad:</label>
+                      <input type="hidden" name="idreservaciones" id="idreservaciones">
+                      <input type="hidden" name="unidad_save" id="unidad_save">
+                      <input type="hidden" name="chofer_save" id="chofer_save">
+                      <input type="hidden" name="idefectivo" id="idefectivo">
+                      <input type="hidden" name="hour_save" id="hour_save">
+                      <input type="hidden" name="getFolioReserva" id="getFolioReserva">
+                      <input type="hidden" name="folioVentaEfectivo" id="folioVentaEfectivo">
+                      <select id="idunidad" name="idunidad" class="form-control selectpicker" data-live-search="true"
+                        required>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Tipo de viaje:</label>
+                      <select id="tipo_viaje" name="tipo_viaje" class="form-control selectpicker" data-live-search="true">
+                        <option value="Recolección">Recolección</option>
+                        <option value="Reservación">Reservación</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Auto:</label>
+                      <input type="hidden" name="auto_save" id="auto_save">
+                      <select name="auto" id="auto" class="form-control selectpicker">
+                        <option value="Sedan">Sedan</option>
+                        <option value="Camioneta">Camioneta</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Ruta:</label>
+                      <input type="hidden" name="destino_save" id="destino_save">
+                      <input type="text" class="form-control" name="ruta" id="ruta" placeholder="Ruta:">
+                      </select>
+                    </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Nombre del cliente:</label>
+                      <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente"
+                        placeholder="Nombre del cliente:">
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Numero de celular:</label>
+                      <input type="text" class="form-control" name="numero_celular" id="numero_celular"
+                        placeholder="Numero de celular:">
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Fecha inicio:</label>
+                      <input type="date" class="form-control" name="fecha" id="fecha">
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Fecha fin:</label>
+                      <input type="date" class="form-control" name="fecha_recoleccion" id="fecha_recoleccion">
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Hora(*):</label>
+                      <input type="time" id="hora" name="hora">
+                    </div>
                   </div>
 
-                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Forma de pago:</label>
-                    <select name="tipo_pago" id="tipo_pago" class="form-control selectpicker">
-                      <option value="Dolar">Dolar</option>
-                      <option value="Efectivo">Efectivo</option>
-                      <option value="Tarjeta">Tarjeta</option>
-                      <option value="Transferencia">Transferencia</option>
-                      <option value="CxC AereoMexico">CxC</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Unidad:</label>
-                    <input type="hidden" name="idreservaciones" id="idreservaciones">
-                    <input type="hidden" name="unidad_save" id="unidad_save">
-                    <input type="hidden" name="chofer_save" id="chofer_save">
-                    <input type="hidden" name="idefectivo" id="idefectivo">
-                    <input type="hidden" name="hour_save" id="hour_save">
-                    <input type="hidden" name="getFolioReserva" id="getFolioReserva">
-                    <input type="hidden" name="folioVentaEfectivo" id="folioVentaEfectivo">
-                    <select id="idunidad" name="idunidad" class="form-control selectpicker" data-live-search="true"
-                      required>
-                    </select>
-                  </div>
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Ruta:</label>
-                    <input type="hidden" name="destino_save" id="destino_save">
-                    <input type="text" class="form-control" name="ruta" id="ruta" placeholder="Ruta:">
-                    </select>
-                  </div>
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Nombre del cliente:</label>
-                    <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente"
-                      placeholder="Nombre del cliente:">
-                  </div>
+                  <div class="col-md-6">
+                   
 
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Numero de celular:</label>
-                    <input type="text" class="form-control" name="numero_celular" id="numero_celular"
-                      placeholder="Numero de celular:">
-                  </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Pasajero:</label>
+                      <input type="text" class="form-control" name="numero_pasajero" id="numero_pasajero" maxlength="20"
+                        placeholder="Numero de pasajeros">
+                    </div>
 
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Kilometros:</label>
+                      <input type="text" class="form-control" name="kilometro" id="kilometro" maxlength="10"
+                        placeholder="Kilometros">
+                    </div>
 
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Efectivo:</label>
+                      <input type="text" class="form-control" name="efectivo" id="efectivo" maxlength="10"
+                        placeholder="Número">
+                    </div>
 
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Tipo de viaje:</label>
-                    <select id="tipo_viaje" name="tipo_viaje" class="form-control selectpicker" data-live-search="true">
-                      <option value="Recolección">Recolección</option>
-                      <option value="Reservación">Reservación</option>
-                    </select>
-                  </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Dolar:</label>
+                      <input type="text" class="form-control" name="dolar" id="dolar">
+                    </div>
 
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Fecha(*):</label>
-                    <input type="date" class="form-control" name="fecha" id="fecha">
-                  </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Tarjeta:</label>
+                      <input type="text" class="form-control" name="tarjeta" id="tarjeta">
+                    </div>
 
-                  <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <label>Hora(*):</label>
-                    <input type="time" id="hora" name="hora">
-                  </div>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Transferencia:</label>
+                      <input type="text" class="form-control" name="Transferencia" id="Transferencia">
+                    </div>
 
-                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Auto:</label>
-                    <input type="hidden" name="auto_save" id="auto_save">
-                    <select name="auto" id="auto" class="form-control selectpicker">
-                      <option value="Sedan">Sedan</option>
-                      <option value="Camioneta">Camioneta</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Pasajero:</label>
-                    <input type="text" class="form-control" name="numero_pasajero" id="numero_pasajero" maxlength="20"
-                      placeholder="Numero de pasajeros">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Kilometros:</label>
-                    <input type="text" class="form-control" name="kilometro" id="kilometro" maxlength="10"
-                      placeholder="Kilometros">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Efectivo:</label>
-                    <input type="text" class="form-control" name="efectivo" id="efectivo" maxlength="10"
-                      placeholder="Número">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Dolar:</label>
-                    <input type="text" class="form-control" name="dolar" id="dolar">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Tarjeta:</label>
-                    <input type="text" class="form-control" name="tarjeta" id="tarjeta">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>CxC:</label>
-                    <input type="text" class="form-control" name="cxc" id="cxc">
-                  </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <label>Ticket Numero:</label>
-                    <input type="text" class="form-control" name="ticket_num" id="ticket_num">
-                  </div>
-                  <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a data-toggle="modal">
-                    </a>
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>CxC:</label>
+                      <input type="text" class="form-control" name="cxc" id="cxc">
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Ticket Numero:</label>
+                      <input type="text" class="form-control" name="ticket_num" id="ticket_num">
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <label>Evidencia:</label>
+                      <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
+                    </div>
+
+                    <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                      <a data-toggle="modal">
+                      </a>
+                    </div>
                   </div>
 
                   <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -241,6 +276,8 @@ if (!isset($_SESSION["nombre"])) {
               <input type="text" class="form-control" name="dolar_edit" id="dolar_edit">
               <label>CXC:</label>
               <input type="text" class="form-control" name="cxc_edit" id="cxc_edit">
+              <label>Transferencia:</label>
+              <input type="text" class="form-control" name="Transferencia_edit" id="Transferencia_edit">
             </div>
           </div>
           <div class="modal-footer">
@@ -256,7 +293,7 @@ if (!isset($_SESSION["nombre"])) {
 
     <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog" role="document" >
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Cerrar reservación</h5>
@@ -265,17 +302,36 @@ if (!isset($_SESSION["nombre"])) {
             </button>
           </div>
           <div class="modal-body">
-           <h1>¿ Cerrar reservación ?</h1>
-           <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar Ventana</button>
-           <button type="button" onclick="cerrarReserva()" class="btn btn-primary">Cerrar reservasión</button>
+            <h1>¿ Cerrar reservación ?</h1>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar Ventana</button>
+            <button type="button" onclick="cerrarReserva()" class="btn btn-primary">Cerrar reservasión</button>
           </div>
           <div class="modal-footer">
-           
+
           </div>
         </div>
       </div>
     </div>
-
+<!-- Modal imagen-->
+<div class="modal fade" id="myModalImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">Imagen</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <div class="spinner-border" role="status" id="load" name="load"></div>
+            <img id="modalImage" alt="Imagen desde URL" style="max-width: 570px; display: none;">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <?php
   } else {
     require 'noacceso.php';

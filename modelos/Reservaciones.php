@@ -82,7 +82,10 @@ class Reservaciones
 		reserva.cxc,
 		reserva.ticket_num,
         reserva.idruta,
-		reserva.facturado
+		reserva.facturado,
+		reserva.transferencia,
+		reserva.evidencia,
+		reserva.fecha_recoleccion
 		FROM reservaciones reserva
    INNER JOIN usuario u
    ON reserva.idusuario=u.idusuario
@@ -123,7 +126,8 @@ class Reservaciones
 		reserva.cxc,
 		reserva.tarjeta,
 		reserva.numero_celular,
-		reserva.nombre_cliente
+		reserva.nombre_cliente,
+		reserva.transferencia
 		FROM reservaciones reserva
    INNER JOIN usuario u
    ON reserva.idusuario=u.idusuario

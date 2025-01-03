@@ -48,11 +48,15 @@ $referencesRfc = isset($_POST["referencesRfc"]) ? limpiarCadena($_POST["referenc
 $cfdi = isset($_POST["cfdi"]) ? limpiarCadena($_POST["cfdi"]) : "";
 $facturaPdf = isset($_POST["facturaPdf"]) ? limpiarCadena($_POST["facturaPdf"]) : "";
 $qr = isset($_POST["qrRfc"]) ? limpiarCadena($_POST["qrRfc"]) : "";
+$Transferencia = isset($_POST["Transferencia"]) ? limpiarCadena($_POST["Transferencia"]) : "";
+$punto_venta = isset($_POST["punto_venta"]) ? limpiarCadena($_POST["punto_venta"]) : "";
+$email = isset($_POST["email"]) ? limpiarCadena($_POST["email"]) : "";
+
 
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
 		if (empty($idventa)) {
-			$rspta = $venta->insertar($idusuario, $auto, $pasajero, $tarjeta, $fecha_hora, $hora, $dolar, $total_venta, $ruta, $unidad, $tipo_pago, $ticket_num, $efectivo, $cxc, $kilometro);
+			$rspta = $venta->insertar($idusuario, $auto, $pasajero, $tarjeta, $fecha_hora, $hora, $dolar, $total_venta, $ruta, $unidad, $tipo_pago, $ticket_num, $efectivo, $cxc, $kilometro, $Transferencia, $punto_venta);
 			$rspta = $venta->getIdVenta();
 			while ($reg = $rspta->fetch_object()) {
 				echo $reg->idventa;
@@ -67,9 +71,8 @@ switch ($_GET["op"]) {
 		$data = array();
 
 		while ($reg = $rspta->fetch_object()) {
-
 			$data[] = array(
-				"0" => '<button class="btn btn-primary" onclick="modalFactura('. $reg->idventa . ',' . $reg->total_venta . ',' . $reg->idusuario .')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idventa . ')"><li class="fa fa-print"></li></button>',
+				"0" => '<button class="btn btn-primary" onclick="modalFactura(' . $reg->idventa . ',' . $reg->total_venta . ',' . $reg->idusuario . ')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idventa . ')"><li class="fa fa-print"></li></button>',
 				"1" => $reg->fecha,
 				"2" => $reg->hora,
 				"3" => 'uni-' . $reg->clave,
@@ -83,9 +86,11 @@ switch ($_GET["op"]) {
 				"11" => '$' . $reg->tarjeta . '.00',
 				"12" => '$' . $reg->dolar,
 				"13" => '$' . $reg->efectivo . '.00',
-				"14" => '$' . $reg->cxc . '.00',
-				"15" => $reg->ticket_num,
-				"16" => 'ESTOI - 00' . $reg->idventa
+				"14" => '$' . $reg->transferencias . '.00',
+				"15" => '$' . $reg->cxc . '.00',
+				"16" => $reg->ticket_num,
+				"17" => $reg->punto_venta,
+				"18" => 'ESTOI - 00' . $reg->idventa
 			);
 		}
 
@@ -220,11 +225,29 @@ switch ($_GET["op"]) {
 		$rspta = $ruta->insertar($idventarfc, $dateRfc, $folioRfc, $cfdi, $facturaPdf, $qr);
 		break;
 
+	case 'sendEmail':
+		sendEmail(
+			array(
+				"Solicitud" => array(
+					"rfc" => "EIN1801307W7",
+					"accion" => "enviarCorreo",
+					"CFDi" => array(
+						"serie" => "STO",
+						"folio" => $folioRfc,
+						"EnviarCFDI" => array(
+							"Correos" => array($email),
+							"mensajeCorreo" => "Facturacion ESTOICA DRIVE"
+						)
+					)
+				)
+			)
+		);
+		break;
 	case 'facturar':
 		getFactura(
 			array(
 				"CFDi" => array(
-					"modo" => "debug",
+					"modo" => "produccion",
 					"versionCFDi" => "4.0",
 					"versionEF" => "6.5",
 					"serie" => "STO",
@@ -312,4 +335,49 @@ function getFactura($data)
 	echo $sOutput;
 }
 
+function sendEmail($data)
+{
+	$aAuth = array(
+		'User' => 'EIN1801307W7',
+		'Pass' => '2cdfaab1e1a7017233a2431d845ef7d1'
+	);
+
+	$sUrl = "https://api.enlacefiscal.com/v6/enviarCorreo";
+
+	$aData = array();
+
+	$aData = $data;
+
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, $sUrl);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+
+	$sDataJson = json_encode($aData);
+
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $sDataJson);
+
+	$nContentLenght = strlen($sDataJson);
+
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+
+	curl_setopt(
+		$ch,
+		CURLOPT_HTTPHEADER,
+		array(
+			'Content-Type: application/json',
+			'x-api-key: e9aT1ajrRh1NyRkzOtDoN1ZEGmIsEKuJ6f3FYyLh',
+			'Content-Length: ' . $nContentLenght
+		)
+	);
+
+	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($ch, CURLOPT_USERPWD, "{$aAuth['User']}:{$aAuth['Pass']}");
+
+	$sOutput = curl_exec($ch);
+	curl_close($ch);
+	echo $sOutput;
+}
 ?>

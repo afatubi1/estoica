@@ -5,7 +5,7 @@ var pagoEfectivo = false;
 var pagoDolar = false;
 var pagoCxc = false;
 
-var serial = 'NmY4NjdkYWJfXzIwMjQtMDgtMjJfXzIwMjQtMTAtMjEjIyNhbXZ1T0ExeG9IaUx5WHFlZDlhQzB6Q0tLN2lxa3ZxV0FsU1ErZmI3TXZVSDcvNG1oR2ZYVmkyc2NXeFdIRDNYZEo1TE9IeUNrenFORnhrY2R1cUNkUU5qQWtYa0M3aUdaS0E3MUNDYVlEaTRJdjVmMDd4cnVJOHN5b1ZwakE2TFg5VThNelJFekN5bUZtMXpJODNUelllUWhJYTUxZVVsd2oxbzVDQlBxSnpZc3lXUjhsK0VZNmZrbytSQlNxYjFsZ0VTSjFLWFZDZTNRdXpwUm5zWWRsS3R6WG5hditNbDZoQUUxOVlwN1RrdWhxdU9ZSmNyeWFzQXI1VXhNQ1dTOS9GMmREbGg2cVZOU0lUb2w5NkVscm51a0krZVRMa0tjemVVeUNKdUx1dGFyRi9TUFJyYVR4VVFtSW5EckNmYkNkMTk5R09hNEsrMW1TcitxYzNpQ0h3S2pac01NYjNVUTVwMUtHRk9DbnlWMkUwaGppcW85Rk0xM2pUaGdQaVhQTzUwcEtlQzlxMmNENFZDekJBdllzei9TM3VnT0c1bXJnNHJNZ1g2Tk1nckJRT0grWkNNNVFCeDkyU1lDWFZnUXJOdFh4ZDJVQW4vdldhTmNDUkxBZnR6WDdidnJjd04xVGVuSElqTzMwL1lUUVJvY0h3SnBnTEFDRU0xeXo4VUtoYUFYdUxrZm9sRjUyMXVCQXJNNkdmMjg2Mm1pRTBjUzUvM2Y0YUNId2NQS3JBWVhWVzJndnNNTHM0SVlXZFIrMnR2a2dtRlBUY3F1NVV1SE1uUUtESmpucUhpY3QvalVjb0RwcHpyMVFZNzZCREUyNGNaN3FrMitzeTl2SytsRmsvNmNqVFVrTU9qWEFIcUxiSC95QWZFRGRsdnc5RjhzVkRHY0Y0OHRKbz0=';
+var serial = 'NmY4NjdkYWJfXzIwMjQtMTItMjRfXzIwMjUtMDItMjIjIyNMWE9SS25za1JQWGhzQ2V3WFp5R29Pemd4SDFUNDdZbUZrS3Y3UDY0anhoeDR4K24zaUVGb2lxdzk3c01GSFovUDIrZzlyV3pRODZCTkYyVVcwbk1aWGFaZTBmcXdpeS9mbXE5ZGY3SEdPclJSamxlb01mVW82SEtpcm01VTVKSzh6NWhkRXp6USsyQlpTcmpVdjhHVlI1RDZPLy9CbnkrelFtUXliZ1V4SHhMR0xtMFdJV2xEV2NKS0lhU2NBUzV5WDJESFlKWmhUMjlvTGFicXhqdEp3TnlHUTRwR2NZZUhVR3psVk5TTnBnYnZRTUpVSGxaUCtmNzZVcFdlc1kxdVZrZnNyL2F4TUJpQkdaUkJzRG42R0JYWlovamxPd1FGY0FoRDJrN0NYdC8yVDJ0K2gyVzdkRjhoYWd6V29pTUFiLzhZYzY4S2ExWTJDd0NlQndhTTdiV1F5KzM0aDRJcWRzaGl0Y2FPaEhydkltVjFlbThkaEFzR0tvcmE4bmtnTEVVM09xWS9qaEhaWlAxT3F6RVZ5TncwTzVYdXM5SHQzN2VCZ2JXSEc2OTRuY09xTTMzbzl0TCtPUDU4aW42MzB6M2tkcjkwdVBpVTRBZnkxLzFpenlqMjA5Ync3aVI2cDl3czFmVVBjQ3c1S0YrRFBrV2c4T1FiWkN0QWYydjFKODhuZElEdzFVRXdzcnRzMFRjUFRLU0pFWTZQelpYT2Rjc3loS0Q3ZDNTbDVrTWNQdjBEMm1Sam9DWVBhNlBSZTllbi94L1ZMeVBadmliY0NpRVR3ckRKNElXVDBrODA4cXoveDRsTjA1MWNlUzc4QzEzNGQ0YS9tblg0aC9wcUtEU0U5Zi9KeWZIeDZpSTdraUtxN2Nyd0JuVkNYT2FEWTBuVlRyb0orTT0=';
 
 //Función que se ejecuta al inicio
 function init() {
@@ -56,7 +56,7 @@ function habailableTable() {
 function saveSales() {
 	var tipoPago = document.getElementById('tipo_pago').value;
 	var idUnidad = document.getElementById('idunidad').value;
-	const paymentMethods = ["#Efectivo", "#Dolar", "#Tarjeta", "#CXC"];
+	const paymentMethods = ["#Efectivo", "#Dolar", "#Tarjeta", "#CXC", "#Transferencia"];
 
 	if (tipoPago === "SN") {
 		$("#shouldPayment").show();
@@ -64,7 +64,7 @@ function saveSales() {
 	} else if (idUnidad === "1") {
 		$("#shouldUnit").show();
 		return;
-	} else if (hasMoreThanTwoValues(paymentMethods) === true){
+	} else if (hasMoreThanTwoValues(paymentMethods) === true) {
 		return;
 	}
 
@@ -81,31 +81,31 @@ function saveSales() {
 }
 
 function hasMoreThanTwoValues(paymentMethods) {
-    let count = 0;
+	let count = 0;
 
-    for (let method of paymentMethods) {
-        if ($(method).val() !== "0") {
-            count++;
-        }
-        // Si ya encontramos más de dos valores, podemos detener la búsqueda
-        if (count > 2) {
-            return true;
-        }
-    }
+	for (let method of paymentMethods) {
+		if ($(method).val() !== "0") {
+			count++;
+		}
+		// Si ya encontramos más de dos valores, podemos detener la búsqueda
+		if (count > 2) {
+			return true;
+		}
+	}
 
-    return false;
+	return false;
 }
 
 function setTotalValue() {
-    const paymentMethods = ["#Efectivo", "#Dolar", "#Tarjeta", "#CXC"];
-    
-    for (let method of paymentMethods) {
-        let value = $(method).val();
-        if (value !== "0") {
-            $("#total_venta").val(value);
-            break;
-        }
-    }
+	const paymentMethods = ["#Efectivo", "#Dolar", "#Tarjeta", "#CXC", "#Transferencia"];
+
+	for (let method of paymentMethods) {
+		let value = $(method).val();
+		if (value !== "0") {
+			$("#total_venta").val(value);
+			break;
+		}
+	}
 }
 
 function setValues() {
@@ -113,6 +113,7 @@ function setValues() {
 	$("#Dolar").val("0");
 	$("#Tarjeta").val("0");
 	$("#CXC").val("0");
+	$("#Transferencia").val("0");
 }
 
 function getIdEfectivo() {
@@ -172,8 +173,9 @@ function listar() {
 		}).DataTable();
 }
 
-//Función para guardar
 function guardaryeditar() {
+	$("#loader").show();
+
 	fillTicket();
 	var formData = new FormData($("#formulario")[0]);
 	$.ajax({
@@ -183,15 +185,21 @@ function guardaryeditar() {
 		contentType: false,
 		processData: false,
 		success: function (datos) {
-			print(datos, 1)
+			print(datos, 1);
 			getIdEfectivo();
 			limpiar();
 			bootbox.alert("Imprimiendo el ticket " + datos);
+		},
+		error: function (xhr, status, error) {
+			console.error("Error en la solicitud :", error);
+			bootbox.alert("Hubo un error: " + error);
+		},
+		complete: function () {
+			$("#loader").hide();
 		}
-
 	});
-
 }
+
 
 //Funcion guardar id venta efectivo
 function guardarVentaEfectivo() {
@@ -375,7 +383,7 @@ $(document).ready(function () {
 
 
 function setValuesPost(paymentType) {
-	var elements = ["Efectivo", "Dolar", "Tarjeta", "CXC"];
+	var elements = ["Efectivo", "Dolar", "Tarjeta", "CXC", "Transferencia"];
 
 	elements.forEach(function (element) {
 		if (element !== paymentType) {
@@ -423,6 +431,7 @@ function getFactura() {
 		processData: false,
 		success: function (data) {
 			deserializar(data);
+			sendEmail();
 			$("#load").hide();
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -430,6 +439,30 @@ function getFactura() {
 			$("#load").hide();
 		}
 	});
+}
+
+function sendEmail() {
+	var email = document.getElementById('email').value;
+	if (email == "") {
+		return;
+	} else {
+		var formData = new FormData($("#formRfc")[0]);
+		$.ajax({
+			url: "../ajax/ventaDos.php?op=sendEmail",
+			type: "POST",
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				bootbox.alert(data);
+				$("#load").hide();
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				bootbox.alert("Error al intentar facturar");
+				$("#load").hide();
+			}
+		});
+	}
 }
 
 function deserializar(data) {
@@ -551,9 +584,10 @@ async function reprint(datos, impreNumber) {
 			.EscribirTexto("Tipo de pago: " + datos.tipo_pago + "\n")
 			.EscribirTexto("Numero de ticket: " + datos.ticket_num + "\n")
 			.EscribirTexto("Total efectivo: $" + datos.efectivo + ".00" + "\n")
+			.EscribirTexto("Total tarjeta: $" + datos.tarjeta + ".00" + "\n")
+			.EscribirTexto("Total Transferencias: $" + datos.transferencias + ".00" + "\n")
 			.EscribirTexto("Total dolar: $" + datos.dolar + ".00" + "\n")
 			.EscribirTexto("Total Cuentas por cobrar: $" + datos.cxc + ".00" + "\n")
-			.EscribirTexto("Total tarjeta: $" + datos.tarjeta + ".00" + "\n")
 			.EscribirTexto("Folio Venta: " + datos.idventa + "\n")
 			.Feed(1)
 			.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
@@ -563,6 +597,7 @@ async function reprint(datos, impreNumber) {
 			.Feed(1)
 			.EstablecerTamañoFuente(2, 2)
 			.EscribirTexto("TICKET DE VENTA")
+			.EscribirTexto("TICKET DE VENTA - " + datos.tipo_pago.substring(0, 1) + datos.idventa)
 			.EscribirTexto("\n\n\n\n\n")
 			.Feed(1)
 			.CorteParcial()

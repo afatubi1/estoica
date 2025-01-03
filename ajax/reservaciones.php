@@ -27,36 +27,51 @@ $ticket_num = isset($_POST["ticket_num"]) ? limpiarCadena($_POST["ticket_num"]) 
 $efectivo = isset($_POST["efectivo"]) ? limpiarCadena($_POST["efectivo"]) : "";
 $cxc = isset($_POST["cxc"]) ? limpiarCadena($_POST["cxc"]) : "";
 $chofer_save = isset($_POST["chofer_save"]) ? limpiarCadena($_POST["chofer_save"]) : "";
+$Transferencia = isset($_POST["Transferencia"]) ? limpiarCadena($_POST["Transferencia"]) : "";
+$fecha_recoleccion = isset($_POST["fecha_recoleccion"]) ? limpiarCadena($_POST["fecha_recoleccion"]) : "";
 
-$cambioEfectivo = isset($_POST["dolar"]) ? limpiarCadena($_POST["dolar"]) : "";
-$cambioEfectivo = isset($_POST["tarjeta"]) ? limpiarCadena($_POST["tarjeta"]) : "";
-$cambioEfectivo = isset($_POST["cxc"]) ? limpiarCadena($_POST["cxc"]) : "";
-
-
-// info for RFC reservaciones
-$claveRfc = isset($_POST["claveRfc"]) ? limpiarCadena($_POST["claveRfc"]) : "";
-$nameRfc = isset($_POST["nameRfc"]) ? limpiarCadena($_POST["nameRfc"]) : "";
-$codePostalRfc = isset($_POST["codePostalRfc"]) ? limpiarCadena($_POST["codePostalRfc"]) : "";
-$pymentTypeRfc = isset($_POST["pymentTypeRfc"]) ? limpiarCadena($_POST["pymentTypeRfc"]) : "";
-$regimenFiscalRfc = isset($_POST["regimenFiscalRfc"]) ? limpiarCadena($_POST["regimenFiscalRfc"]) : "";
-$idreservacionrfc = isset($_POST["idreservacionrfc"]) ? limpiarCadena($_POST["idreservacionrfc"]) : "";
-$dateRfc = isset($_POST["dateRfc"]) ? limpiarCadena($_POST["dateRfc"]) : "";
-$folioRfc = isset($_POST["folioRfc"]) ? limpiarCadena($_POST["folioRfc"]) : "";
-$amountRfc = isset($_POST["amountRfc"]) ? limpiarCadena($_POST["amountRfc"]) : "";
-$referencesRfc = isset($_POST["referencesRfc"]) ? limpiarCadena($_POST["referencesRfc"]) : "";
-$cfdi = isset($_POST["cfdi"]) ? limpiarCadena($_POST["cfdi"]) : "";
-$facturaPdf = isset($_POST["facturaPdf"]) ? limpiarCadena($_POST["facturaPdf"]) : "";
-$cxc_edit = isset($_POST["cxc_edit"]) ? limpiarCadena($_POST["cxc_edit"]) : "";
 // edit
-
 $tarjeta_edit = isset($_POST["tarjeta_edit"]) ? limpiarCadena($_POST["tarjeta_edit"]) : "";
 $efectivo_edit = isset($_POST["efectivo_edit"]) ? limpiarCadena($_POST["efectivo_edit"]) : "";
 $dolar_edit = isset($_POST["dolar_edit"]) ? limpiarCadena($_POST["dolar_edit"]) : "";
 $cxc_edit = isset($_POST["cxc_edit"]) ? limpiarCadena($_POST["cxc_edit"]) : "";
 $idreservaciones_edit = isset($_POST["idreservaciones_edit"]) ? limpiarCadena($_POST["idreservaciones_edit"]) : "";
+$Transferencia_edit = isset($_POST["Transferencia_edit"]) ? limpiarCadena($_POST["Transferencia_edit"]) : "";
 
 switch ($_GET["op"]) {
 	case 'guardar':
+		if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+			// Obtener información del archivo
+			$uploadDir = "../files/documentos/";
+			$fileTmpPath = $_FILES['imagen']['tmp_name'];
+			$fileName = $_FILES['imagen']['name'];
+			$fileSize = $_FILES['imagen']['size'];
+			$fileType = $_FILES['imagen']['type'];
+		
+			// Asegurarse de que el archivo sea una imagen
+			$allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+			if (in_array($fileType, $allowedTypes)) {
+				// Generar un nombre único para evitar colisiones
+				$fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+				$newFileName = uniqid('img_', true) . '.' . $fileExtension;
+		
+				// Mover el archivo al directorio de destino
+				$destPath = $uploadDir . $newFileName;
+				if (move_uploaded_file($fileTmpPath, $destPath)) {
+					echo "Imagen subida correctamente: $destPath";
+					$evidencia  = $destPath;
+				} else {
+					echo "Error al mover el archivo.";
+					$evidencia  = "";
+				}
+			} else {
+				$evidencia  = ""; 
+			}
+		} else {
+			
+			$evidencia  = ""; 
+		}
+
 		$sqlReserva = "INSERT INTO reservaciones (
 				nombre_cliente,
 				numero_celular,
@@ -77,7 +92,10 @@ switch ($_GET["op"]) {
 				efectivo,
 				cxc,
 				idusuario,
-				facturado
+				facturado,
+				transferencia,
+				evidencia,
+				fecha_recoleccion
 				)
 				VALUES (
 					'$nombre_cliente',
@@ -99,12 +117,15 @@ switch ($_GET["op"]) {
 					'$efectivo',
 					'$cxc',
 					'$idusuario',
-					'1')";
+					'1',
+					'$Transferencia',
+					'$evidencia',
+					'$fecha_recoleccion')";
 
 		$idventanew = ejecutarConsulta_retornarID($sqlReserva);
 		$num_elementos = 0;
 		$sw = true;
-		echo $sw ? "Venta registrada" : "No se pudieron registrar todos los datos de la venta";
+		echo $sw ? "Reservacion registrada" : "No se pudieron registrar todos los datos de la reservacion";
 
 		break;
 
@@ -115,25 +136,30 @@ switch ($_GET["op"]) {
 
 		while ($reg = $rspta->fetch_object()) {
 			$data[] = array(
-				"0" => '<button class="btn btn-primary" onclick="editarMontos(' . $reg->idreservaciones . ',' . $reg->facturado . ')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idreservaciones . ')"><li class="fa fa-print"></li></button></button> <button class="btn btn-warning" onclick="abrirmodal(' . $reg->idreservaciones . ',' . $reg->facturado . ')"><li class="fa fa-times"></li></button>',
+				"0" => '<button class="btn btn-primary" onclick="editarMontos(' . $reg->idreservaciones . ',' . $reg->facturado . ')"><i class="fa fa-pencil"></i></button> 
+        				<button class="btn btn-success" onclick="print(' . $reg->idreservaciones . ')"><i class="fa fa-print"></i></button> 
+         				<button class="btn btn-warning" onclick="abrirmodal(' . $reg->idreservaciones . ',' . $reg->facturado . ')"><i class="fa fa-times"></i></button> 
+         				<button class="btn btn-info" onclick="mostrarImagen(\'' . addslashes($reg->evidencia) . '\')"><i class="fa fa-picture-o"></i></button>',
 				"1" => cambiarColor($reg->facturado),
 				"2" => $reg->fecha,
-				"3" => $reg->hora,
-				"4" => 'uni-' . $reg->clave,
-				"5" => $reg->nombre,
-				"6" => $reg->idConductor,
-				"7" => $reg->tipo_viaje,
-				"8" => $reg->idruta,
-				"9" => $reg->kilometro,
-				"10" => $reg->automovil,
-				"11" => $reg->numero_pasajero,
-				"12" => $reg->tipo_pago,
-				"13" => '$' . $reg->efectivo . '.00',
-				"14" => '$' . $reg->tarjeta . '.00',
-				"15" => '$' . $reg->dolar . '.00',
-				"16" => '$' . $reg->cxc . '.00',
-				"17" => $reg->ticket_num,
-				"18" => 'ESTOIRES - 00' . $reg->idreservaciones
+				"3" => $reg->fecha_recoleccion,
+				"4" => $reg->hora,
+				"5" => 'uni-' . $reg->clave,
+				"6" => $reg->nombre,
+				"7" => $reg->idConductor,
+				"8" => $reg->tipo_viaje,
+				"9" => $reg->idruta,
+				"10" => $reg->kilometro,
+				"11" => $reg->automovil,
+				"12" => $reg->numero_pasajero,
+				"13" => $reg->tipo_pago,
+				"14" => '$' . $reg->efectivo . '.00',
+				"15" => '$' . $reg->tarjeta . '.00',
+				"16" => '$' . $reg->dolar . '.00',
+				"17" => '$' . $reg->cxc . '.00',
+				"18" => '$' . $reg->transferencia . '.00',
+				"19" => $reg->ticket_num,
+				"20" => 'ESTOIRES - 00' . $reg->idreservaciones
 			);
 		}
 
@@ -229,30 +255,31 @@ switch ($_GET["op"]) {
 
 	// update reserva
 	case 'updateMontos':
-		$sql = "UPDATE reservaciones SET efectivo = '$efectivo_edit', tarjeta ='$tarjeta_edit', dolar ='$dolar_edit', cxc ='$cxc_edit' WHERE idreservaciones='$idreservaciones_edit '";
+		$sql = "UPDATE reservaciones SET efectivo = '$efectivo_edit', tarjeta ='$tarjeta_edit', dolar ='$dolar_edit', cxc ='$cxc_edit', transferencia ='$Transferencia_edit' WHERE idreservaciones='$idreservaciones_edit'";
 		$idventanew = ejecutarConsulta_retornarID($sql);
 		$num_elementos = 0;
 		$sw = true;
-		echo $sw ? "Venta registrada" : "No se pudieron registrar todos los datos de la venta";
+		echo $sw ? "Montos actualizados" : "No se pudieron actualizar los montos";
 		break;
 
 	// update reserva
 	case 'getMontos':
 		require_once "../modelos/Reservaciones.php";
 		$reservaciones = new Reservaciones();
-	
+
 		$rspta = $reservaciones->getMontos($idreservaciones);
 		echo json_encode($rspta);
-		
+
 		break;
 }
 
-function cambiarColor($facturado) {
-    if ($facturado == "1") {
-        return '<span style="color: green; font-weight: bold;">Abierto</span>';
-    } else {
-        return '<span style="color: red; font-weight: bold;">Cerrado</span>';
-    }
+function cambiarColor($facturado)
+{
+	if ($facturado == "1") {
+		return '<span style="color: green; font-weight: bold;">Abierto</span>';
+	} else {
+		return '<span style="color: red; font-weight: bold;">Cerrado</span>';
+	}
 }
 
 

@@ -2,9 +2,10 @@ var tabla;
 var horaActual;
 var usuario;
 var pagoEfectivo = false;
-var serial = 'NmY4NjdkYWJfXzIwMjQtMTAtMjRfXzIwMjQtMTItMjMjIyNUaTJwZ1VoamRkUEpsQ3VnTjM3MHB5SnhmdG5md3NFbDVLcCtSNEkzWm4rVWN4RS8wQU9HcG9QaHhiMWs2cWExL3hNRk94cFpuSk9nZXFnRi9JVThrU2VWMjlVMjc1WlRYcEFUTk1MRkRtMVJYaUFSamVPSTZ0VjFvRWhKQmlrQzJWQjhKbVAzMmVpSTIxUUhqY1hJaEFaYzN2UXF1bFRYZEFqS01rU3JIc0tlNnVmYjd2ekRXWVFqRjZXM2NMTXFBelRzd1FEOUZZNWdlYlNQaWJEL2w3aFcvN3U5QW5UVzRtMW1xWmgrSVgvZHhCalJrM1BxdWRkR3NjWjdxMm1KNi80ZTB6c3NKVUZDeDhBS3VNL1h4cm8vcVdYcGUwVVBGdWdvVy9Ib2ZqeU4xRUtWVFpHSnZLZXduOUU0dll4eEp0eng0QlRSUlZTbTQ0Q2pOTUpIWmpxUERTL2FCdkx5T00zYkZ5d1ROTGNyb2ErUWtjMEtRbGVjK1VGVTlXZHZsRlNLV2o2aC9VTjRxQ1dqZmNyQ3BNd3kwSFJEZ0d5R0tCY2tzWlRwNktKNHVsWHdJdHZxWVh6UWhBZmc2VGVqQ2RDUUdhUXpJWHg5MDBJTU9pdXlVNzRvNUhhUTdKUjBUYXpSZlg1aWtLd1owWTliNjdnZ2d4NDRLM2VzbFBxR0ZFY1FCSU9Sd0k4aU9iNUYrS3VTQ1hoanQ5bXFEYnNTbXZZRVZqN3ZOVWMvQ3dNZDNveGNEcUVuc0pLcXBCZjVtbE1QYmNhZCt5c0pmbk1MYmFvWEhTOUVmUFZNcllrdXl1cHVDdnFJL0hJZnQvaDNwV3ltMlY5YjFPZXhaWEpyeFNWOVQ4NnVOV01LMmVlRTU4WnNFMUhaLzB1SmJ4aDVKNTllNnB0R0hFaz0=';
+var serial = 'NmY4NjdkYWJfXzIwMjQtMTItMjRfXzIwMjUtMDItMjIjIyNMWE9SS25za1JQWGhzQ2V3WFp5R29Pemd4SDFUNDdZbUZrS3Y3UDY0anhoeDR4K24zaUVGb2lxdzk3c01GSFovUDIrZzlyV3pRODZCTkYyVVcwbk1aWGFaZTBmcXdpeS9mbXE5ZGY3SEdPclJSamxlb01mVW82SEtpcm01VTVKSzh6NWhkRXp6USsyQlpTcmpVdjhHVlI1RDZPLy9CbnkrelFtUXliZ1V4SHhMR0xtMFdJV2xEV2NKS0lhU2NBUzV5WDJESFlKWmhUMjlvTGFicXhqdEp3TnlHUTRwR2NZZUhVR3psVk5TTnBnYnZRTUpVSGxaUCtmNzZVcFdlc1kxdVZrZnNyL2F4TUJpQkdaUkJzRG42R0JYWlovamxPd1FGY0FoRDJrN0NYdC8yVDJ0K2gyVzdkRjhoYWd6V29pTUFiLzhZYzY4S2ExWTJDd0NlQndhTTdiV1F5KzM0aDRJcWRzaGl0Y2FPaEhydkltVjFlbThkaEFzR0tvcmE4bmtnTEVVM09xWS9qaEhaWlAxT3F6RVZ5TncwTzVYdXM5SHQzN2VCZ2JXSEc2OTRuY09xTTMzbzl0TCtPUDU4aW42MzB6M2tkcjkwdVBpVTRBZnkxLzFpenlqMjA5Ync3aVI2cDl3czFmVVBjQ3c1S0YrRFBrV2c4T1FiWkN0QWYydjFKODhuZElEdzFVRXdzcnRzMFRjUFRLU0pFWTZQelpYT2Rjc3loS0Q3ZDNTbDVrTWNQdjBEMm1Sam9DWVBhNlBSZTllbi94L1ZMeVBadmliY0NpRVR3ckRKNElXVDBrODA4cXoveDRsTjA1MWNlUzc4QzEzNGQ0YS9tblg0aC9wcUtEU0U5Zi9KeWZIeDZpSTdraUtxN2Nyd0JuVkNYT2FEWTBuVlRyb0orTT0=';
 //Función que se ejecuta al inicio
 function init() {
+	initMontos();
 	getHours();
 	setInterval(getHours, 30000);
 	mostrarform(false);
@@ -123,11 +124,7 @@ function guardaryeditar(e) {
 	e.preventDefault(); //No se activará la acción predeterminada del evento
 	fillTicket();
 	var formData = new FormData($("#formulario")[0]);
-
-
-	for (var i = 0; i < 3; i++) {
-		imprimir();
-	}
+	imprimir();
 	$.ajax({
 		url: "../ajax/reservaciones.php?op=guardar",
 		type: "POST",
@@ -222,7 +219,7 @@ function fillAuto() {
 }
 
 async function imprimir() {
-	var totalUsd = document.getElementById("total_usd").value;
+	var totalUsd = document.getElementById("dolar").value;
 	var Conductor = document.getElementById("chofer_save").value;
 	var Fecha = document.getElementById("fecha").value;
 	var Hora = document.getElementById("hora").value;
@@ -235,12 +232,13 @@ async function imprimir() {
 	var tipoPago = document.getElementById("tipo_pago").value;
 	var numeroTicket = document.getElementById("ticket_num").value;
 	var folioReservacion = parseInt(document.getElementById("getFolioReserva").value) + 1;
-	var totalMxn = document.getElementById("total_mxn").value;
-	var totalUsd = document.getElementById("total_usd").value;
+	var efectivo = document.getElementById("efectivo").value;
 	var numero_celular = document.getElementById("numero_celular").value;
 	var nombre_cliente = document.getElementById("nombre_cliente").value;
+	var tarjeta = document.getElementById("tarjeta").value;
+	var Transferencia = document.getElementById("Transferencia").value;
+	var cxc = document.getElementById("cxc").value;
 
-	var efectivo
 	if (parseInt(document.getElementById("efectivo").value) == "") {
 		efectivo = "0";
 
@@ -273,9 +271,11 @@ async function imprimir() {
 		.EscribirTexto("Tipo de pago: " + tipoPago + "\n")
 		.EscribirTexto("Numero de ticket: " + numeroTicket + "\n")
 		.EscribirTexto("Folio Reservacion: " + folioReservacion + "\n")
-		.EscribirTexto("Total MXN: $" + totalMxn + ".00" + "\n")
-		.EscribirTexto("Total USD: $" + totalUsd + ".00" + "\n")
 		.EscribirTexto("Efectivo: $" + efectivo + ".00" + "\n")
+		.EscribirTexto("Tarjeta: $" + tarjeta + ".00" + "\n")
+		.EscribirTexto("Transferencia: $" + Transferencia + ".00" + "\n")
+		.EscribirTexto("CXC: $" + cxc + ".00" + "\n")
+		.EscribirTexto("Dolar: $" + totalUsd + ".00" + "\n")
 		.Feed(1)
 		.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
 		.EscribirTexto("Su destino incluye maximo el pago de un peaje.\n Las casetas exentas de pago son Segundo Piso de Periferico, Arco Norte, Chamapa la Venta y Siervo de la Nacion. Si deseas que tu ruta pase por alguna de estas casetas el pago sera absorbido por el cliente.\n\n")
@@ -283,7 +283,7 @@ async function imprimir() {
 		.EscribirTexto("Recoleccion y Reservaciones : +52 5634342175\n\n")
 		.Feed(1)
 		.EstablecerTamañoFuente(2, 2)
-		.EscribirTexto("TICKET DE VENTA")
+		.EscribirTexto("TICKET DE RESERVACION - " + tipoPago.substring(0, 1) + folioReservacion)
 		.EscribirTexto("\n\n\n\n\n")
 		.Feed(1)
 		.CorteParcial()
@@ -385,7 +385,7 @@ function print(idreservaciones) {
 
 async function reprint(datos) {
 	var datos = JSON.parse(datos);
-	const nombreImpresora = "impresora";
+	const nombreImpresora = "impre";
 	const conector = new ConectorPluginV3(null, serial);
 	const respuesta = await conector
 		.Iniciar()
@@ -411,8 +411,9 @@ async function reprint(datos) {
 		.EscribirTexto("Folio Reservacion: " + datos.idreservaciones + "\n")
 		.EscribirTexto("Efectivo: $" + datos.efectivo + ".00" + "\n")
 		.EscribirTexto("Tarjeta: $" + datos.tarjeta + ".00" + "\n")
-		.EscribirTexto("Dolar: $" + datos.dolar + ".00" + "\n")
+		.EscribirTexto("Transferencia: $" + datos.transferencia + ".00" + "\n")
 		.EscribirTexto("CXC: $" + datos.cxc + ".00" + "\n")
+		.EscribirTexto("Dolar: $" + datos.dolar + ".00" + "\n")
 		.Feed(1)
 		.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
 		.EscribirTexto("Su destino incluye maximo el pago de un peaje.\n no aplica en casetas del Segundo Piso de Periferico, Arco Norte, Chamapa la Venta y Siervo de la Nacion. Si deseas que tu ruta pase por alguna de estas casetas el pago sera absorbido por el cliente.\n\n")
@@ -433,16 +434,18 @@ function updateMontos() {
 	const efectivo_edit = $('#efectivo_edit').val();
 	const dolar_edit = $('#dolar_edit').val();
 	const cxc_edit = $('#cxc_edit').val();
+	const Transferencia_edit = $('#Transferencia_edit').val();
 	const idreservaciones_edit = $('#idreservaciones_edit').val();
 
 	$.ajax({
-		url: '../ajax/reservaciones.php?op=updateMontos', // Cambia esta URL a la ruta de tu backend
+		url: '../ajax/reservaciones.php?op=updateMontos',
 		type: 'POST',
 		data: {
 			tarjeta_edit: tarjeta_edit,
 			efectivo_edit: efectivo_edit,
 			dolar_edit: dolar_edit,
 			cxc_edit: cxc_edit,
+			Transferencia_edit: Transferencia_edit,
 			idreservaciones_edit: idreservaciones_edit
 		},
 		success: function (response) {
@@ -454,6 +457,27 @@ function updateMontos() {
 		}
 	});
 
+}
+
+function mostrarImagen(url) {
+	// Asegúrate de que el spinner esté visible y oculta la imagen inicialmente
+	document.getElementById('load').style.display = 'block';
+	document.getElementById('modalImage').style.display = 'none';
+
+	// Asigna la URL a la imagen del modal
+	var imgElement = document.getElementById('modalImage');
+	imgElement.src = url;
+
+	// Muestra el modal
+	$('#myModalImg').modal('show');
+
+	// Maneja el evento de carga de la imagen
+	imgElement.onload = function () {
+		// Oculta el spinner una vez que la imagen ha cargado
+		document.getElementById('load').style.display = 'none';
+		// Muestra la imagen
+		imgElement.style.display = 'block';
+	};
 }
 
 function getMontos(idreservaciones) {
@@ -471,6 +495,8 @@ function getMontos(idreservaciones) {
 			setInputValue('#tarjeta_edit', response.tarjeta);
 			setInputValue('#dolar_edit', response.dolar);
 			setInputValue('#cxc_edit', response.cxc);
+			setInputValue('#Transferencia_edit', response.transferencia);
+
 			$("#idreservaciones_edit").val(idreservaciones);
 			$("#myModal").modal();
 		},
@@ -534,6 +560,13 @@ function isEmpty(value){
 	}
 }
 
+function initMontos() {
+	$("#efectivo").val("0");
+	$("#dolar").val("0");
+	$("#tarjeta").val("0");
+	$("#cxc").val("0");
+	$("#Transferencia").val("0");
+}
 
 function saveSale(response) {
 	var total = parseFloat(isEmpty(response.efectivo)) + parseFloat(isEmpty(response.cxc)) + parseFloat(isEmpty(response.tarjeta));
@@ -552,6 +585,8 @@ function saveSale(response) {
 	const efectivo = response.efectivo;
 	const cxc = response.cxc;
 	const kilometro = response.kilometro;
+	const punto_venta = "Nacional";
+	const Transferencia = response.transferencia;
 
 	$.ajax({
 		url: '../ajax/ventaDos.php?op=guardaryeditar',
@@ -571,7 +606,9 @@ function saveSale(response) {
 			ticket_num: ticket_num,
 			Efectivo: efectivo,
 			CXC: cxc,
-			kilometro: kilometro
+			kilometro: kilometro,
+			punto_venta: punto_venta,
+			Transferencia: Transferencia
 		},
 		dataType: 'json',
 		success: function (response) {

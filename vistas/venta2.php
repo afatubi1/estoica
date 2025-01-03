@@ -24,6 +24,7 @@ if (!isset($_SESSION["nombre"])) {
                     Agregar
                   </button>
                 </h1>
+                <div id="loader" style="display: none;">Cargando...</div>
                 <div class="box-tools pull-right">
                 </div>
               </div>
@@ -46,8 +47,10 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Tarjeta</th>
                     <th>Dolar</th>
                     <th>Efectivo</th>
+                    <th>Transferencias</th>
                     <th>CXC</th>
                     <th>Ticket numero</th>
+                    <th>Punto de venta</th>
                     <th>Folio</th>
                   </thead>
                   <tbody>
@@ -67,8 +70,10 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Tarjeta</th>
                     <th>Dolar</th>
                     <th>Efectivo</th>
+                    <th>Transferencias</th>
                     <th>CXC</th>
                     <th>Ticket numero</th>
+                    <th>Punto de venta</th>
                     <th>Folio</th>
                   </tfoot>
                 </table>
@@ -93,9 +98,13 @@ if (!isset($_SESSION["nombre"])) {
                             <input type="hidden" name="idefectivo" id="idefectivo">
                             <input type="hidden" name="idDolar" id="idDolar">
                             <input type="hidden" name="idCxc" id="idCxc">
+                            <input type="hidden" name="idTransferencia" id="idTransferencia">
+
                             <input type="hidden" name="folioVentaEfectivo" id="folioVentaEfectivo">
                             <input type="hidden" name="folioVentaDolar" id="folioVentaDolar">
                             <input type="hidden" name="folioVentaCxc" id="folioVentaCxc">
+                            <input type="hidden" name="folioVentaTransferencias" id="folioVentaTransferencias">
+
                             <!-- fin folios venta -->
 
                             <!-- Unidad -->
@@ -123,10 +132,17 @@ if (!isset($_SESSION["nombre"])) {
                               <option value="CxC AereoMexico">CxC AereoMexico</option>
                               <option value="CxC Volaris">CxC Volaris</option>
                               <option value="CxC VivaAeroBus">CxC VivaAeroBus</option>
-                              <option value="CxC NADGlobal">CxC NADGlobal</option>
+                              <option value="CxC Global">CxC Global</option>
                               <option value="Deudores Diversos">Deudores Diversos</option>
                             </select>
-                            
+
+                            <!-- Forma de pago -->
+                            <label>Punto de venta:</label>
+                            <select name="punto_venta" id="punto_venta" class="form-control selectpicker">
+                              <option value="Internacional">Internacional</option>
+                              <option value="Nacional">Nacional</option>
+                            </select>
+
                             <!-- Ruta -->
                             <label>Ruta:</label>
                             <input type="hidden" name="ruta" id="ruta">
@@ -159,6 +175,10 @@ if (!isset($_SESSION["nombre"])) {
                             <!-- CXC -->
                             <label>CXC:</label>
                             <input type="text" class="form-control" name="CXC" id="CXC" required>
+
+                            <!-- Transferencias -->
+                            <label>Transferencias:</label>
+                            <input type="text" class="form-control" name="Transferencia" id="Transferencia" required>
 
                             <!-- Ticket Numero -->
                             <label>Ticket Numero:</label>
@@ -279,6 +299,12 @@ if (!isset($_SESSION["nombre"])) {
                     <label>Referencia bancaria</label>(en caso de transferecnia)
                     <input type="text" class="form-control" name="referencesRfc" id="referencesRfc" required=""
                       placeholder="Referencia bancaria">
+                  </div>
+
+                  <div class="col-sm-12 col-md-12">
+                    </br>
+                    <label>Correo</label>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Email">
                   </div>
                   <input type="hidden" name="idventarfc" id="idventarfc">
                   <input type="hidden" name="dateRfc" id="dateRfc">
@@ -421,7 +447,7 @@ if (!isset($_SESSION["nombre"])) {
       } else {
         pago = (parseInt(km, 10) * 25);
       }
-      
+
       $("#kilometro").val(km);
       $("#idrutas").val(document.getElementById('searchInput').value);
       fillInfoPayments(pago)
@@ -438,7 +464,7 @@ if (!isset($_SESSION["nombre"])) {
       } else if (option == "Tarjeta") {
         $("#Tarjeta").val(pago);
       } else if (option == "Transferencia") {
-        $("#Tarjeta").val(pago);
+        $("#Transferencia").val(pago);
       } else if (option == "CxC AereoMexico") {
         $("#CXC").val(pago);
       } else if (option == "CxC Volaris") {
@@ -454,6 +480,7 @@ if (!isset($_SESSION["nombre"])) {
         $("#Efectivo").val(pago);
         $("#Tarjeta").val(pago);
         $("#CXC").val(pago);
+        $("#Transferencia").val(pago);
       }
     }
 
@@ -478,6 +505,15 @@ if (!isset($_SESSION["nombre"])) {
       align-items: center;
       height: 10vh;
       /* Ajusta esta altura según tus necesidades */
+    }
+
+    #loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      color: #333;
     }
 
     #directionsPanel {

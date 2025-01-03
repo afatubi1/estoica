@@ -95,6 +95,7 @@ class Venta
 		v.ticket_num,
 		v.kilometro,
 		v.ruta,
+		v.transferencias,
         uni.placa
 		FROM venta v 
    INNER JOIN persona p

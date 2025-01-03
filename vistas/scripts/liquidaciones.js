@@ -69,9 +69,9 @@ function cancelarform() {
 function listar() {
 	tabla = $('#tbllistado').dataTable(
 		{
-			"aProcessing": true,//Activamos el procesamiento del datatables
-			"aServerSide": true,//Paginación y filtrado realizados por el servidor
-			dom: 'Bfrtip',//Definimos los elementos del control de tabla
+			"aProcessing": true,
+			"aServerSide": true,
+			dom: 'Bfrtip',
 			buttons: [
 				'copyHtml5',
 				'excelHtml5',
@@ -88,8 +88,8 @@ function listar() {
 				}
 			},
 			"bDestroy": true,
-			"iDisplayLength": 50,//Paginación
-			"order": [[0, "desc"]]//Ordenar (columna,orden)
+			"iDisplayLength": 50,
+			"order": [[0, "desc"]]
 		}).DataTable();
 }
 
@@ -156,6 +156,7 @@ function validar() {
 		return true;
 	}
 }
+
 function mostrarImagen(url) {
 	// Asegúrate de que el spinner esté visible y oculta la imagen inicialmente
 	document.getElementById('load').style.display = 'block';

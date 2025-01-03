@@ -11,7 +11,7 @@ class VentaDos
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idusuario, $auto, $pasajero, $tarjeta, $fecha_hora, $hora, $dolar, $total_venta, $ruta, $unidad, $tipo_pago, $ticket_num, $efectivo, $cxc, $kilometro)
+	public function insertar($idusuario, $auto, $pasajero, $tarjeta, $fecha_hora, $hora, $dolar, $total_venta, $ruta, $unidad, $tipo_pago, $ticket_num, $efectivo, $cxc, $kilometro, $transferencias,$punto_venta)
 	{
 		$sql = "INSERT INTO venta (
 				idcliente,
@@ -30,7 +30,9 @@ class VentaDos
 				ticket_num,
 				efectivo,
 				cxc,
-				kilometro
+				kilometro,
+				transferencias,
+				punto_venta
 				)
 				VALUES (
 					'1',
@@ -49,7 +51,9 @@ class VentaDos
 					'$ticket_num',
 					'$efectivo',
 					'$cxc',
-					'$kilometro')";
+					'$kilometro',
+					'$transferencias',
+					'$punto_venta')";
 
 		$idventanew = ejecutarConsulta_retornarID($sql);
 		$num_elementos = 0;
@@ -78,6 +82,8 @@ class VentaDos
 		v.cxc,
 		v.ticket_num,
 		v.efectivo,
+		v.transferencias,
+		v.punto_venta,
 		v.kilometro FROM venta v 
 		INNER JOIN persona p 
 		ON v.idcliente=p.idpersona
@@ -85,7 +91,7 @@ class VentaDos
 		ON v.idusuario=u.idusuario 
 		INNER JOIN unidad uni 
 		ON v.unidad=uni.idunidad 
-		ORDER BY v.idventa DESC LIMIT 100;";
+		ORDER BY v.idventa DESC LIMIT 1000;";
 
 		return ejecutarConsulta($sql);
 	}
@@ -119,6 +125,7 @@ class VentaDos
 		v.ticket_num,
 		v.kilometro,
 		v.ruta,
+		v.transferencias,
         uni.placa
 		FROM venta v 
    INNER JOIN persona p

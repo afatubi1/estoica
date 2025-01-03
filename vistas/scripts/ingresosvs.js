@@ -1,11 +1,9 @@
 var tabla;
-var horaActual; // No se utiliza en el código actual
 
 function init() {
     $("#formLiquidacion").on("submit", function (e) {
         guardaryeditar(e);
     });
-    // Cargar los items al select de proveedor
     $.post("../ajax/venta.php?op=selectUnidad", function (r) {
         $("#idunidad").html(r);
         $('#idunidad').selectpicker('refresh');
@@ -14,18 +12,15 @@ function init() {
 
 
 function fillIngresos() {
-    // Obtener los datos del formulario
     const fechaInicio = $('#fechaInicio').val();
     const fechaFin = $('#fechaFin').val();
     const idunidad = $('#idunidad').val();
 
-    // Validación básica en el frontend
     if (!fechaInicio || !fechaFin || !idunidad) {
         alert("Por favor completa todos los campos.");
         return;
     }
 
-    // Enviar la solicitud a PHP usando AJAX
     $.ajax({
         url: "../ajax/egresovs.php?op=listar",
         type: 'POST',
@@ -41,12 +36,10 @@ function fillIngresos() {
             } else {
                 totales(data.aaData);
 
-                // Destruir cualquier instancia previa de DataTable
                 if ($.fn.DataTable.isDataTable('#resultadosTable')) {
                     $('#resultadosTable').DataTable().clear().destroy();
                 }
 
-                // Inicializar la tabla con los datos recibidos
                 $('#resultadosTable').DataTable({
                     data: data.aaData,
                     columns: [
@@ -61,18 +54,18 @@ function fillIngresos() {
                         { title: "CxC" },
                         { title: "ID Venta" }
                     ],
-                    dom: 'Bfrtip', // Habilitar botones
+                    dom: 'Bfrtip', 
                     buttons: [
                         {
                             extend: 'excelHtml5',
                             text: 'Exportar a Excel',
-                            title: 'Reporte de Egresos'
+                            title: 'Reporte de Ingresos'
                         },
                         {
                             extend: 'pdfHtml5',
                             text: 'Exportar a PDF',
-                            title: 'Reporte de Egresos',
-                            orientation: 'landscape', // Horizontal para mejor presentación
+                            title: 'Reporte de Ingresos',
+                            orientation: 'landscape', 
                             pageSize: 'A4'
                         }
                     ]
@@ -91,7 +84,6 @@ function fillEgresos() {
     const fechaFin = $('#fechaFin').val();
     const idunidad = $('#idunidad').val();
 
-    // Enviar la solicitud a PHP usando AJAX
     $.ajax({
         url: '../ajax/egresovs.php?op=listarEgresos',
         type: 'POST',
@@ -105,15 +97,12 @@ function fillEgresos() {
             if (data.error) {
                 alert(data.error);
             } else {
-                // Llamada a la función que procesa los totales de gastos
                 totalesGastos(data.aaData);
 
-                // Destruir cualquier instancia previa de DataTable
                 if ($.fn.DataTable.isDataTable('#tbllistado')) {
                     $('#tbllistado').DataTable().clear().destroy();
                 }
 
-                // Inicializar la tabla con los datos recibidos
                 $('#tbllistado').DataTable({
                     data: data.aaData,
                     columns: [
@@ -131,7 +120,7 @@ function fillEgresos() {
                         { title: "Ingreso" },
                         { title: "Egresos" }
                     ],
-                    dom: 'Bfrtip', // Habilitar botones
+                    dom: 'Bfrtip',
                     buttons: [
                         {
                             extend: 'excelHtml5',
@@ -142,7 +131,7 @@ function fillEgresos() {
                             extend: 'pdfHtml5',
                             text: 'Exportar a PDF',
                             title: 'Reporte de Egresos',
-                            orientation: 'landscape', // Horizontal para mejor presentación
+                            orientation: 'landscape', 
                             pageSize: 'A4'
                         }
                     ]
