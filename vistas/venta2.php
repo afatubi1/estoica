@@ -349,7 +349,7 @@ if (!isset($_SESSION["nombre"])) {
   ?>
   <script type="text/javascript" src="scripts/venta_dos.js"></script>
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATE3Z6u_EjKGcVfBdIui3ZulTIyCGd2-M&libraries=geometry,places"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=KEY&libraries=geometry,places"></script>
   <script>
     let map;
     let directionsService;
