@@ -71,9 +71,9 @@ switch ($_GET["op"]) {
 				"8" => $reg->clave,
 				"9" => $reg->descripcion,
 				"10" => $reg->forma_pago,
-				"11" => esIngreso($reg->movimiento) ? $reg->importe : '0',
-				"12" => esGasto($reg->movimiento) ? $reg->importe : '0',
-				"13" => 'lq-00' . $reg->idliquidacion
+				"11" => esIngreso($reg->movimiento) ? '$ '.  $reg->importe : '$ 0.00',
+				"12" => esGasto($reg->movimiento) ? '$ '.  $reg->importe : '$ 0.00',
+				"13" => 'EGRE-00' . $reg->idliquidacion
 			);
 		}
 		$results = array(

@@ -144,5 +144,12 @@ class Reservaciones
 
 		return ejecutarConsultaSimpleFila($sql);
 	}
+
+	public function getReservas()
+	{
+		$sql = "SELECT * FROM `reservaciones` WHERE facturado = '1'";
+
+		return ejecutarConsulta($sql);
+	}
 }
 ?>

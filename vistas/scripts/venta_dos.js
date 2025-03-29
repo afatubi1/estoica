@@ -6,9 +6,9 @@ var pagoDolar = false;
 var pagoCxc = false;
 
 var serial = 'NmY4NjdkYWJfXzIwMjQtMTItMjRfXzIwMjUtMDItMjIjIyNMWE9SS25za1JQWGhzQ2V3WFp5R29Pemd4SDFUNDdZbUZrS3Y3UDY0anhoeDR4K24zaUVGb2lxdzk3c01GSFovUDIrZzlyV3pRODZCTkYyVVcwbk1aWGFaZTBmcXdpeS9mbXE5ZGY3SEdPclJSamxlb01mVW82SEtpcm01VTVKSzh6NWhkRXp6USsyQlpTcmpVdjhHVlI1RDZPLy9CbnkrelFtUXliZ1V4SHhMR0xtMFdJV2xEV2NKS0lhU2NBUzV5WDJESFlKWmhUMjlvTGFicXhqdEp3TnlHUTRwR2NZZUhVR3psVk5TTnBnYnZRTUpVSGxaUCtmNzZVcFdlc1kxdVZrZnNyL2F4TUJpQkdaUkJzRG42R0JYWlovamxPd1FGY0FoRDJrN0NYdC8yVDJ0K2gyVzdkRjhoYWd6V29pTUFiLzhZYzY4S2ExWTJDd0NlQndhTTdiV1F5KzM0aDRJcWRzaGl0Y2FPaEhydkltVjFlbThkaEFzR0tvcmE4bmtnTEVVM09xWS9qaEhaWlAxT3F6RVZ5TncwTzVYdXM5SHQzN2VCZ2JXSEc2OTRuY09xTTMzbzl0TCtPUDU4aW42MzB6M2tkcjkwdVBpVTRBZnkxLzFpenlqMjA5Ync3aVI2cDl3czFmVVBjQ3c1S0YrRFBrV2c4T1FiWkN0QWYydjFKODhuZElEdzFVRXdzcnRzMFRjUFRLU0pFWTZQelpYT2Rjc3loS0Q3ZDNTbDVrTWNQdjBEMm1Sam9DWVBhNlBSZTllbi94L1ZMeVBadmliY0NpRVR3ckRKNElXVDBrODA4cXoveDRsTjA1MWNlUzc4QzEzNGQ0YS9tblg0aC9wcUtEU0U5Zi9KeWZIeDZpSTdraUtxN2Nyd0JuVkNYT2FEWTBuVlRyb0orTT0=';
-
 //Función que se ejecuta al inicio
 function init() {
+	getReserva();
 	$('#fecha_hora').val(getFechaLocal());
 	getHours();
 	setInterval(getHours, 30000);
@@ -465,6 +465,30 @@ function sendEmail() {
 	}
 }
 
+function getReserva() {
+	var formData = new FormData($("#formRfc")[0]);
+	$.ajax({
+		url: "../ajax/ventaDos.php?op=getReservas",
+		type: "POST",
+		data: formData,
+		contentType: false,
+		processData: false,
+		success: function (data) {
+			countReservas(data);
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			bootbox.alert("Error al intentar facturar");
+			$("#load").hide();
+		}
+	});
+}
+
+function countReservas(data) {
+	const jsonArray = JSON.parse(data);
+	const nReservaElement = document.getElementById("n_reserva");
+	nReservaElement.textContent = jsonArray.length
+}
+
 function deserializar(data) {
 	var information = JSON.parse(data);
 
@@ -563,7 +587,7 @@ function print(idventa, impreNumber = 1) {
 
 async function reprint(datos, impreNumber) {
 	var datos = JSON.parse(datos);
-	const nombreImpresora = "impresora";
+	const nombreImpresora = "impre";
 	const conector = new ConectorPluginV3(null, serial);
 	for (var i = 0; i < impreNumber; i++) {
 		const respuesta = await conector
@@ -591,12 +615,11 @@ async function reprint(datos, impreNumber) {
 			.EscribirTexto("Folio Venta: " + datos.idventa + "\n")
 			.Feed(1)
 			.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
-			.EscribirTexto("Su destino incluye maximo el pago de un peaje.\n Las casetas exentas de pago son Segundo Piso de Periferico, Arco Norte, Chamapa la Venta y Siervo de la Nacion. Si deseas que tu ruta pase por alguna de estas casetas el pago sera absorbido por el cliente.\n\n")
+			.EscribirTexto("Este ticket es un comprobante de pago unico. El conductor no solicitara ningun cobro adicional bajo ninguna circunstancia. Cabe destacar que las casetas de Chamapa y del Segundo Piso no están incluidas en este pago. \n\n")
 			.EscribirTexto("Facturas:   estoicadrive@gmail.com\n")
 			.EscribirTexto("Recoleccion y Reservaciones : +52 5536704952\n\n")
 			.Feed(1)
 			.EstablecerTamañoFuente(2, 2)
-			.EscribirTexto("TICKET DE VENTA")
 			.EscribirTexto("TICKET DE VENTA - " + datos.tipo_pago.substring(0, 1) + datos.idventa)
 			.EscribirTexto("\n\n\n\n\n")
 			.Feed(1)

@@ -60,12 +60,12 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Fecha</th>
                     <th>Hora</th>
                     <th>Unidad</th>
-                    <th>Nombre</th>
                     <th>Tipo Pago</th>
                     <th>Efectivo</th>
                     <th>Tarjeta</th>
                     <th>Dólar</th>
                     <th>CxC</th>
+                    <th>transferencias</th>
                     <th>ID Venta</th>
                   </tr>
                 </thead>
@@ -74,12 +74,12 @@ if (!isset($_SESSION["nombre"])) {
                   <th>Fecha</th>
                   <th>Hora</th>
                   <th>Unidad</th>
-                  <th>Nombre</th>
                   <th>Tipo Pago</th>
                   <th>Efectivo</th>
                   <th>Tarjeta</th>
                   <th>Dólar</th>
                   <th>CxC</th>
+                  <th>transferencias</th>
                   <th>ID Venta</th>
                 </tfoot>
                 </tbody>
@@ -135,6 +135,9 @@ if (!isset($_SESSION["nombre"])) {
                       </br>
                       <label>Dolar</label>
                       <input type="text" class="form-control" name="textDolar" id="textDolar" placeholder="0">
+                      </br>
+                      <label>transferencias</label>
+                      <input type="text" class="form-control" name="texttransferencias" id="texttransferencias" placeholder="0">
                       </br>
                       <label>Cxc</label>
                       <input type="text" class="form-control" name="textCxc" id="textCxc" placeholder="0">

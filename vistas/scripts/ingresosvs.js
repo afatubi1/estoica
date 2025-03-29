@@ -46,12 +46,12 @@ function fillIngresos() {
                         { title: "Fecha" },
                         { title: "Hora" },
                         { title: "Unidad" },
-                        { title: "Nombre" },
                         { title: "Tipo Pago" },
                         { title: "Efectivo" },
                         { title: "Tarjeta" },
                         { title: "Dólar" },
                         { title: "CxC" },
+                        { title: "transferencias" },
                         { title: "ID Venta" }
                     ],
                     dom: 'Bfrtip', 
@@ -146,28 +146,34 @@ function totales(data) {
     var sumaTarjeta = 0;
     var sumaDolar = 0;
     var sumaCxc = 0;
+    var sumaTransferencias = 0;
 
     data.forEach(registro => {
-        sumaEfectivo += parseFloat(fillZero(registro[5], 10));
+        sumaEfectivo += parseFloat(fillZero(registro[4], 10));
     });
 
     data.forEach(registro => {
-        sumaTarjeta += parseFloat(fillZero(registro[6], 10));
+        sumaTarjeta += parseFloat(fillZero(registro[5], 10));
     });
 
     data.forEach(registro => {
-        sumaDolar += parseFloat(fillZero(registro[7], 10));
+        sumaDolar += parseFloat(fillZero(registro[6], 10));
     });
 
     data.forEach(registro => {
-        sumaCxc += parseFloat(fillZero(registro[8], 10));
+        sumaCxc += parseFloat(fillZero(registro[7], 10));
+    });
+
+    data.forEach(registro => {
+        sumaTransferencias += parseFloat(fillZero(registro[8], 10));
     });
 
     $("#textEfectivo").val(sumaEfectivo);
     $("#textTarjeta").val(sumaTarjeta);
     $("#textDolar").val(sumaDolar);
     $("#textCxc").val(sumaCxc);
-    $("#totalIngreso").val(sumaEfectivo + sumaTarjeta);
+    $("#texttransferencias").val(sumaTransferencias);
+    $("#totalIngreso").val(sumaEfectivo + sumaTarjeta + sumaTransferencias);
     total();
 }
 

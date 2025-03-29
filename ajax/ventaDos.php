@@ -4,6 +4,7 @@ if (strlen(session_id()) < 1)
 	session_start();
 
 require_once "../modelos/VentaDos.php";
+require_once "../modelos/Reservaciones.php";
 
 $venta = new VentaDos();
 
@@ -194,6 +195,15 @@ switch ($_GET["op"]) {
 		}
 		break;
 
+	case 'getReservas':
+		$reserva = new Reservaciones();
+		$rspta = $reserva->getReservas();
+		$data = [];
+		while ($row = $rspta->fetch_assoc()) {
+			$data[] = $row; // Añadir cada fila al array.
+		}
+		echo json_encode($data);
+		break;
 
 	case 'guardarIdEfectivo':
 		require_once "../modelos/VentaEfectivo.php";
@@ -236,7 +246,7 @@ switch ($_GET["op"]) {
 						"folio" => $folioRfc,
 						"EnviarCFDI" => array(
 							"Correos" => array($email),
-							"mensajeCorreo" => "Facturacion ESTOICA DRIVE"
+							"mensajeCorreo" => "Facturación ESTOICA DRIVE, Este correo es únicamente informativo, favor de no responder. En caso de necesitar contact llamar al numero o whatsApp 5536704952, al correo estoicadrive@gmail.com o nuestro sitio web  https://estoicadrive.site/"
 						)
 					)
 				)

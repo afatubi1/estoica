@@ -38,15 +38,15 @@ if (!is_numeric($idunidad)) {
 				while ($reg = $rspta->fetch_object()) {
 					if ($reg) {  // Verificar que $reg sea válido
 						$data[] = array(
-							"0" => $reg->fecha,
+						"0" => $reg->fecha,
 							"1" => $reg->hora,
 							"2" => 'Uni-00' . $reg->clave . ' - ' . $reg->placa,
-							"3" => $reg->usuario,
-							"4" => $reg->tipo_pago,
-							"5" => $reg->efectivo,
-							"6" => $reg->tarjeta,
-							"7" => $reg->dolar,
-							"8" => $reg->cxc,
+							"3" => $reg->tipo_pago,
+							"4" => $reg->efectivo,
+							"5" => $reg->tarjeta,
+							"6" => $reg->dolar,
+							"7" => $reg->cxc,
+							"8" => fillTranfer($reg->transferencias),
 							"9" => 'ESTOI-00' . $reg->idventa,
 						);
 					}
@@ -115,6 +115,15 @@ if (!is_numeric($idunidad)) {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	function fillTranfer($transfer)
+	{
+		if ($transfer == "") {
+			return "0";
+		} else {
+			return $transfer;
 		}
 	}
 ?>

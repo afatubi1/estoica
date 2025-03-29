@@ -16,8 +16,6 @@ class Ingresosvs
     DATE(v.fecha_hora) AS fecha,
     uni.clave,
     uni.placa,
-    u.idusuario,
-    u.nombre AS usuario,
     v.total_venta,
     v.dolar,
     v.tipo_pago,
@@ -26,11 +24,10 @@ class Ingresosvs
     v.efectivo,
     v.kilometro,
     v.tarjeta,
-    v.hora
+    v.hora,
+    v.transferencias
 FROM 
     venta v 
-INNER JOIN 
-    usuario u ON v.idusuario = u.idusuario 
 INNER JOIN 
     unidad uni ON v.unidad = uni.idunidad 
 WHERE 
