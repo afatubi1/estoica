@@ -59,6 +59,7 @@ if (!isset($_SESSION["nombre"])) {
                   <tr>
                     <th>Fecha</th>
                     <th>Hora</th>
+                    <th>Nombre</th>
                     <th>Unidad</th>
                     <th>Tipo Pago</th>
                     <th>Efectivo</th>
@@ -73,6 +74,7 @@ if (!isset($_SESSION["nombre"])) {
                 <tfoot>
                   <th>Fecha</th>
                   <th>Hora</th>
+                  <th>Nombre</th>
                   <th>Unidad</th>
                   <th>Tipo Pago</th>
                   <th>Efectivo</th>
@@ -137,7 +139,8 @@ if (!isset($_SESSION["nombre"])) {
                       <input type="text" class="form-control" name="textDolar" id="textDolar" placeholder="0">
                       </br>
                       <label>transferencias</label>
-                      <input type="text" class="form-control" name="texttransferencias" id="texttransferencias" placeholder="0">
+                      <input type="text" class="form-control" name="texttransferencias" id="texttransferencias"
+                        placeholder="0">
                       </br>
                       <label>Cxc</label>
                       <input type="text" class="form-control" name="textCxc" id="textCxc" placeholder="0">
@@ -164,6 +167,14 @@ if (!isset($_SESSION["nombre"])) {
                       <input type="text" class="form-control" name="total" id="total" placeholder="0">
                     </div>
                   </div>
+                  <div>
+                    <h2>Sumatoria Ingres por dia</h2>
+                    <canvas id="grafica" width="400" height="200"></canvas>
+                  </div>
+                  <div>
+                    <h2>Sumatoria Egreso por dia</h2>
+                    <canvas id="graficaEgreso" width="400" height="200"></canvas>
+                  </div>
                 </div>
                 <div>
                 </div>
@@ -176,6 +187,7 @@ if (!isset($_SESSION["nombre"])) {
     <!--Fin-Contenido-->
 
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <?php
   } else {

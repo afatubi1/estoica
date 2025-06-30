@@ -25,11 +25,14 @@ class Ingresosvs
     v.kilometro,
     v.tarjeta,
     v.hora,
-    v.transferencias
+    v.transferencias,
+    us.nombre
 FROM 
     venta v 
 INNER JOIN 
     unidad uni ON v.unidad = uni.idunidad 
+INNER JOIN 
+    usuario us ON v.idusuario = us.idusuario 
 WHERE 
     DATE(v.fecha_hora) BETWEEN '$fechaInicio' AND '$fechaFin'  
     AND v.unidad = $idunidad

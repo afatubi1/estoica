@@ -39,14 +39,15 @@ if (!is_numeric($idunidad)) {
 						$data[] = array(
 							"0" => $reg->fecha,
 							"1" => $reg->hora,
-							"2" => 'Uni-00' . $reg->clave . ' - ' . $reg->placa,
-							"3" => $reg->tipo_pago,
-							"4" => $reg->efectivo,
-							"5" => $reg->tarjeta,
-							"6" => $reg->dolar,
-							"7" => $reg->cxc,
-							"8" => fillTranfer($reg->transferencias),
-							"9" => 'ESTOI-00' . $reg->idventa,
+							"2" => $reg->nombre,
+							"3" => 'Uni-00' . $reg->clave . ' - ' . $reg->placa,
+							"4" => $reg->tipo_pago,
+							"5" => $reg->efectivo,
+							"6" => $reg->tarjeta,
+							"7" => $reg->dolar,
+							"8" => $reg->cxc,
+							"9" => fillTranfer($reg->transferencias),
+							"10" => 'ESTOI-00' . $reg->idventa,
 						);
 					}
 				}
@@ -73,7 +74,7 @@ if (!is_numeric($idunidad)) {
 					if ($reg) {  // Verificar que $reg sea válido
 						$data[] = array(
 							"0" => $reg->nombre,
-							"1" => 'lq-00' . $reg->idliquidacion,
+							"1" => 'Eg-00' . $reg->idliquidacion,
 							"2" => $reg->fecha,
 							"3" => $reg->hora,
 							"4" => $reg->movimiento,

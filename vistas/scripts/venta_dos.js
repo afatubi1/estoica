@@ -5,7 +5,8 @@ var pagoEfectivo = false;
 var pagoDolar = false;
 var pagoCxc = false;
 
-var serial = 'NmY4NjdkYWJfXzIwMjQtMTItMjRfXzIwMjUtMDItMjIjIyNMWE9SS25za1JQWGhzQ2V3WFp5R29Pemd4SDFUNDdZbUZrS3Y3UDY0anhoeDR4K24zaUVGb2lxdzk3c01GSFovUDIrZzlyV3pRODZCTkYyVVcwbk1aWGFaZTBmcXdpeS9mbXE5ZGY3SEdPclJSamxlb01mVW82SEtpcm01VTVKSzh6NWhkRXp6USsyQlpTcmpVdjhHVlI1RDZPLy9CbnkrelFtUXliZ1V4SHhMR0xtMFdJV2xEV2NKS0lhU2NBUzV5WDJESFlKWmhUMjlvTGFicXhqdEp3TnlHUTRwR2NZZUhVR3psVk5TTnBnYnZRTUpVSGxaUCtmNzZVcFdlc1kxdVZrZnNyL2F4TUJpQkdaUkJzRG42R0JYWlovamxPd1FGY0FoRDJrN0NYdC8yVDJ0K2gyVzdkRjhoYWd6V29pTUFiLzhZYzY4S2ExWTJDd0NlQndhTTdiV1F5KzM0aDRJcWRzaGl0Y2FPaEhydkltVjFlbThkaEFzR0tvcmE4bmtnTEVVM09xWS9qaEhaWlAxT3F6RVZ5TncwTzVYdXM5SHQzN2VCZ2JXSEc2OTRuY09xTTMzbzl0TCtPUDU4aW42MzB6M2tkcjkwdVBpVTRBZnkxLzFpenlqMjA5Ync3aVI2cDl3czFmVVBjQ3c1S0YrRFBrV2c4T1FiWkN0QWYydjFKODhuZElEdzFVRXdzcnRzMFRjUFRLU0pFWTZQelpYT2Rjc3loS0Q3ZDNTbDVrTWNQdjBEMm1Sam9DWVBhNlBSZTllbi94L1ZMeVBadmliY0NpRVR3ckRKNElXVDBrODA4cXoveDRsTjA1MWNlUzc4QzEzNGQ0YS9tblg0aC9wcUtEU0U5Zi9KeWZIeDZpSTdraUtxN2Nyd0JuVkNYT2FEWTBuVlRyb0orTT0=';
+var serial = 'NmY4NjdkYWJfXzIwMjUtMDYtMjRfXzIwMjUtMDctMjQjIyNJWSt6OTRjaDJhaC8yTnFMUjl2VXc2b2g5dWdUNkZJWU1ESm5ZRS9ZRlV0MEVNWWVjc1hVSU9JR0JTaVlrZnNuZ0I1QnBHUEUzMnluOXN1WTQzbDVTTTdXcnlnRndpQlB6a01oeFNSSXRiWDBYSlVkR2NoM252NmRjMmU5RXFmSjVMT3hHYk1yZlAvQ3ExMHZrclNtWk9KSVd1S3RlWFZRV1dpVGZidWtUd2wvdk9ueWlJMzgvWmROYzA5UzlzODl5Zm9ORHNpeHlobTlOb2lBU3JuQlZhUFRNVE1QS0hJYUExazJOMU1KUE1EUU1zd2NIcVFxNkpQZnNud2wycnRFRXNrTktzSnBGN2lDa0FsMnNWcWJVcUxVdFljbWxNN2JXMXp2dVQxWHlBc2pIV3NueDBReDZFV0ltUDNmY3lTS3o1VFdCam8xMElVbTRMNEM5YUpnb0NPZkRaa2hlTzBDUkt3aWw4aFljMGh3WWlRK0NvNVBoeHdKemJ3VXAzSXQ5SkswUzNQZmlsRDJpcTZ0dW5IOG1wak9VTHdHTFdzdXFKdXBFcG9rZUVPVlZab1lYaWlDZ2k2a2V5MGdKNDkvd3VMcE9ZdXppNTk0ZXQ3RXhkUkNEc2oxU3h4TXhickhtTzU2QVRyQkprTjc4OUduV3VaeCtXc1V2bFJ1U3pKZS9NdzdaaXBRSHZyN2VVNFk5Q1k1NXlIN0RiQzI1VXlnU0FsNktMajdFcjltcDE2anhmb2ViS2xqV1lWY05oVTc4RzhlS1UxTnUwYXNPcC9PMDlPWnp6T3dsQ3dHWE5pVkZuNUZFQXhOd3dVdXFmUEUyQ2dRaklLVit2ZmV1ZzJKZ3hPblJnZDhLZDlaR1pCK2cvOGJkZU15Ky9vRGN1dGt3dWx4anZJVENNcz0=';
+
 //Función que se ejecuta al inicio
 function init() {
 	getReserva();
@@ -594,8 +595,13 @@ async function reprint(datos, impreNumber) {
 			.Iniciar()
 			.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
 			.EscribirTexto("\n\n")
+			.EstablecerTamañoFuente(1, 1)
+			.EscribirTexto("Aeropuerto Internacional Felipe Angeles, Circuito Exterior Mexiquense km 33 Santa Lucia, 55600 Zumpango de Ocampo,\n Mex. Numero de local: LLANL-09")
+			.EscribirTexto("\n\n")
+			.EstablecerTamañoFuente(2, 2)
+			.EscribirTexto("ESTOICA DRIVE")
+			.EscribirTexto("\n\n")
 			.EstablecerAlineacion(ConectorPluginV3.ALINEACION_IZQUIERDA)
-			.EstablecerTamañoFuente(4, 4)
 			.EstablecerTamañoFuente(1, 1)
 			.EscribirTexto("Vendedor: " + datos.usuario + "\n")
 			.EscribirTexto("Fecha: " + datos.fecha + "\n")
@@ -615,9 +621,13 @@ async function reprint(datos, impreNumber) {
 			.EscribirTexto("Folio Venta: " + datos.idventa + "\n")
 			.Feed(1)
 			.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
-			.EscribirTexto("Este ticket es un comprobante de pago unico. El conductor no solicitara ningun cobro adicional bajo ninguna circunstancia. Cabe destacar que las casetas de Chamapa y del Segundo Piso no están incluidas en este pago. \n\n")
-			.EscribirTexto("Facturas:   estoicadrive@gmail.com\n")
-			.EscribirTexto("Recoleccion y Reservaciones : +52 5536704952\n\n")
+			.EscribirTexto("Al utilizar nuestro servicio, usted acepta los términos y condiciones establecidos por nuestra empresa. Tenga en cuenta que el costo de su viaje puede variar si se realizan modificaciones a las condiciones originalmente cotizadas a solicitud del cliente. Esto incluye, pero no se limita a: cambios de ruta, paradas adicionales, tiempo de espera, uso de vias con peaje o cambio de destino.\n")
+			.EscribirTexto("Importante:\n")
+			.EscribirTexto("- El costo del servicio no incluye el pago de peajes.\n")
+			.EscribirTexto("- En caso de requerir factura, deberá enviar su constancia de situación fiscal actualizada y una fotografía del ticket de compra a través de WhatsApp o correo electrónico dentro de un plazo de 48 horas a partir de la emisión del ticket.\n")
+			.EscribirTexto("\nPara mas informacion, visite nuestro sitio web: https://estoicadrive.site/\n")
+			.EscribirTexto("\nFacturas: estoicadrive@gmail.com\n")
+			.EscribirTexto("\nRecoleccion y Reservaciones : +52 5536704952\n\n")
 			.Feed(1)
 			.EstablecerTamañoFuente(2, 2)
 			.EscribirTexto("TICKET DE VENTA - " + datos.tipo_pago.substring(0, 1) + datos.idventa)

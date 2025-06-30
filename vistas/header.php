@@ -255,13 +255,13 @@ if (strlen(session_id()) < 1) //Si la variable de session no esta iniciada
 
     <style>
       #navBar {
-        background-color: #289ba0;
+        background-color:rgb(141, 46, 46);
         height: 60%;
         width: 80%;
       }
 
       #idVenta {
-        background-color: #289ba0;
+        background-color:rgb(178, 77, 81);
         text-align: left;
         height: 50%;
         width: 20%;

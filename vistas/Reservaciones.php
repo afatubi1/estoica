@@ -54,7 +54,7 @@ if (!isset($_SESSION["nombre"])) {
                   <tbody>
                   </tbody>
                   <tfoot>
-                  <th>Facturacion</th>
+                    <th>Facturacion</th>
                     <th>estatus</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
@@ -84,22 +84,21 @@ if (!isset($_SESSION["nombre"])) {
                     <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                       <label>Conductor:</label>
                       <select id="idConductor" name="idConductor" class="form-control selectpicker" data-live-search="true">
-                      <option value="BRIAN LAYONEL BAUTISTA JUAREZ">BRIAN LAYONEL BAUTISTA JUAREZ</option>
-                      <option value="CLEMENTE TORRES ESPINOSA">CLEMENTE TORRES ESPINOSA</option>
-                      <option value="EDUARDO RODRIGUEZ">EDUARDO RODRIGUEZ</option>
-                      <option value="FILIBERTO MENDEZ ARREORTUA">FILIBERTO MENDEZ ARREORTUA</option>
-                      <option value="GUILLERMOELEAZAR HIDARIO">GUILLERMOELEAZAR HIDARIO</option>
-                      <option value="JORGE LUIS JARDINES GARCIA">JORGE LUIS JARDINES GARCIA</option>
-                      <option value="JUAN SEBASTIAN ROMERO ACEVED">JUAN SEBASTIAN ROMERO ACEVED</option>
-                      <option value="JULIO CÉSAR MARTÍNEZ AVILA">JULIO CÉSAR MARTÍNEZ AVILA</option>
-                      <option value="OMAR RAMIREZ GODINEZ">OMAR RAMIREZ GODINEZ</option>
-                      <option value="SALVADOR SANCHEZ GARCIA">SALVADOR SANCHEZ GARCIA</option>
-                      <option value="SANTIAGO MARQUEZ CASTILLO">SANTIAGO MARQUEZ CASTILLO</option>
-                      <option value="JAIR RAMIREZ">JAIR RAMIREZ ABEL RAMIREZ GODINEZ</option>
-                      <option value="JOSE MANUEL MENDEZ">JOSE MANUEL MENDEZ</option>
-                      <option value="SERGIO HERNANDEZ RAMIREZ">SERGIO HERNANDEZ RAMIREZ</option>
-                      <option value="JUAN MANUEL ANGELES NAVA">JUAN MANUEL ANGELES NAVA</option>
-                      <option value="Sin asignar">Sin asignar</option>
+                        <option value="JOVANY GOMEZ">JOVANY GOMEZ</option>
+                        <option value="RICARDO GOMEZ">RICARDO GOMEZ</option>
+                        <option value="JORGE LUIS MARTINEZ">JORGE LUIS MARTINEZ</option>
+                        <option value="OMAR RAMIREZ">OMAR RAMIREZ</option>
+                        <option value="JAIR RAMIREZ ">JAIR RAMIREZ</option>
+                        <option value="JOSE MANUEL">JOSE MANUEL</option>
+                        <option value="CLEMENTE TORRES">CLEMENTE TORRES</option>
+                        <option value="MIGUEL CEJA">MIGUEL CEJA</option>
+                        <option value="FILIBERTO MENDEZ">FILIBERTO MENDEZ</option>
+                        <option value="JOSE SANTIAGO">JOSE SANTIAGO</option>
+                        <option value="GERARDO VALDEZ">GERARDO VALDEZ</option>
+                        <option value="FRANCISCO MORALES">FRANCISCO MORALES</option>
+                        <option value="PABLO ISLAS">PABLO ISLAS</option>
+                        <option value="ANTIAGO MARQUEZ">ANTIAGO MARQUEZ</option>
+                        <option value="SALVADOR SANCHEZ">SALVADOR SANCHEZ</option>
                       </select>
                     </div>
 
@@ -183,7 +182,7 @@ if (!isset($_SESSION["nombre"])) {
                   </div>
 
                   <div class="col-md-6">
-                   
+
 
                     <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                       <label>Pasajero:</label>
@@ -295,25 +294,33 @@ if (!isset($_SESSION["nombre"])) {
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Cerrar reservación</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <h1>¿ Cerrar reservación ?</h1>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar Ventana</button>
-            <button type="button" onclick="cerrarReserva()" class="btn btn-primary">Cerrar reservasión</button>
-          </div>
-          <div class="modal-footer">
 
+          <div class="modal-body text-center">
+            <h1>¿Cerrar reservación?</h1>
+            <br>
+            <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" alt="Advertencia" width="80" class="my-3">
+            <div class="my-3">
+              <button type="button" class="btn btn-danger mr-2" data-dismiss="modal">Cerrar Ventana</button>
+              <button type="button" onclick="cerrarReserva()" class="btn btn-primary">Cerrar reservación</button>
+            </div>
           </div>
+
+          <div class="modal-footer">
+            <!-- Puedes agregar contenido aquí si quieres -->
+          </div>
+
         </div>
       </div>
     </div>
-<!-- Modal imagen-->
-<div class="modal fade" id="myModalImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- Modal imagen-->
+    <div class="modal fade" id="myModalImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">

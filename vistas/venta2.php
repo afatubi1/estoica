@@ -204,14 +204,14 @@ if (!isset($_SESSION["nombre"])) {
                       </div>
                     </div>
                     <div class="col">
-
+                      <!--
                       <body onload="initMap()">
                         <button class="btn btn-primary" onclick="searchLocation()">Buscar Dirección</button>
                         <input id="searchInput" name="searchInput" class="form-control selectpicker" type="text"
                           placeholder="Ingresa una dirección">
                         <br><br>
                         <div id="map" style="height: 500px; width: 100%;"></div>
-                      </body>
+                      </body> -->
                     </div>
                   </div>
                 </div>
@@ -348,148 +348,7 @@ if (!isset($_SESSION["nombre"])) {
   require 'footer.php';
   ?>
   <script type="text/javascript" src="scripts/venta_dos.js"></script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=KEY&libraries=geometry,places"></script>
-  <script>
-    let map;
-    let directionsService;
-    let directionsRenderer;
 
-    async function initMap() {
-      const staticPoint = { lat: 19.735299, lng: -99.02652 }; // Punto estático (San Francisco)
-
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: staticPoint,
-        zoom: 12,
-      });
-
-      directionsService = new google.maps.DirectionsService();
-      directionsRenderer = new google.maps.DirectionsRenderer();
-      directionsRenderer.setMap(map);
-      directionsRenderer.setPanel(document.getElementById('directionsPanel'));
-
-      const input = document.getElementById("searchInput");
-      const autocomplete = new google.maps.places.Autocomplete(input);
-      autocomplete.bindTo("bounds", map);
-
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) {
-          console.log("No details available for input: '" + place.name + "'");
-          return;
-        }
-
-        const dynamicPoint = {
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
-        };
-
-        calculateLongestRoute(staticPoint, dynamicPoint);
-      });
-    }
-
-    function calculateLongestRoute(start, end) {
-      const request = {
-        origin: start,
-        destination: end,
-        travelMode: 'DRIVING',
-        provideRouteAlternatives: true,
-      };
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: end,
-        zoom: 15,
-      });
-
-      directionsService.route(request, (result, status) => {
-        if (status == 'OK') {
-          let quickestRoute = result.routes[0];
-          for (let i = 1; i < result.routes.length; i++) {
-            // Compara las rutas para encontrar la de menor duración
-            if (result.routes[i].legs[0].duration.value < quickestRoute.legs[0].duration.value) {
-              quickestRoute = result.routes[i];
-            }
-          }
-          directionsRenderer.setDirections({ routes: [quickestRoute] });
-          setValues(quickestRoute);
-        } else {
-          console.log('Directions request failed due to ' + status);
-        }
-      });
-    }
-
-    function searchLocation() {
-      const staticPoint = { lat: 19.735299, lng: -99.02652 };
-      const input = document.getElementById("searchInput").value;
-      const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ address: input }, (results, status) => {
-        if (status === "OK") {
-          const dynamicPoint = results[0].geometry.location;
-          calculateLongestRoute(staticPoint, dynamicPoint);
-        } else {
-          alert("Geocode was not successful for the following reason: " + status);
-        }
-      });
-    }
-
-    function setValues(longestRoute) {
-      var km;
-      const longestRouteJson = JSON.stringify(longestRoute, null, 2);
-      var information = JSON.parse(longestRouteJson);
-      if (information.legs[0].distance.value.toString().length == 4) {
-        km = information.legs[0].distance.value.toString().substring(0, 1)
-      } else if (information.legs[0].distance.value.toString().length == 5) {
-        km = information.legs[0].distance.value.toString().substring(0, 2)
-      } else if (information.legs[0].distance.value.toString().length == 6) {
-        km = information.legs[0].distance.value.toString().substring(0, 3)
-      } else if (information.legs[0].distance.value.toString().length == 7) {
-        km = information.legs[0].distance.value.toString().substring(0, 4)
-      }
-
-      var option = document.getElementById('auto').value;
-      var pago = 0;
-      if (option == 'Sedan') {
-        pago = (parseInt(km, 10) * 19);
-      } else {
-        pago = (parseInt(km, 10) * 25);
-      }
-
-      $("#kilometro").val(km);
-      $("#idrutas").val(document.getElementById('searchInput').value);
-      fillInfoPayments(pago)
-
-    }
-
-    function fillInfoPayments(pago) {
-      $("#total_venta").val(pago);
-      var option = document.getElementById('tipo_pago').value;
-      if (option == "Dolar") {
-        $("#Dolar").val((pago / 18).toString().substring(0, 5));
-      } else if (option == "Efectivo") {
-        $("#Efectivo").val(pago);
-      } else if (option == "Tarjeta") {
-        $("#Tarjeta").val(pago);
-      } else if (option == "Transferencia") {
-        $("#Transferencia").val(pago);
-      } else if (option == "CxC AereoMexico") {
-        $("#CXC").val(pago);
-      } else if (option == "CxC Volaris") {
-        $("#CXC").val(pago);
-      } else if (option == "CxC VivaAeroBus") {
-        $("#CXC").val(pago);
-      } else if (option == "CxC NADGlobal") {
-        $("#CXC").val(pago);
-      } else if (option == "Deudores Diversos") {
-        $("#CXC").val(pago);
-      } else {
-        $("#Dolar").val((pago / 18).toString().substring(0, 5));
-        $("#Efectivo").val(pago);
-        $("#Tarjeta").val(pago);
-        $("#CXC").val(pago);
-        $("#Transferencia").val(pago);
-      }
-    }
-
-  </script>
   <style>
     #shouldUnit {
       color: red;

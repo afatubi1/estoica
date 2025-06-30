@@ -288,7 +288,7 @@ switch ($_GET["op"]) {
 							"objetoDeImpuesto" => "01",
 							"claveUnidad" => "E48",
 							"claveProdServ" => "78111804",
-							"descripcion" => "1",
+							"descripcion" => "Servicio de Taxi",
 							"valorUnitario" => $amountRfc,
 							"importe" => $amountRfc
 						)
