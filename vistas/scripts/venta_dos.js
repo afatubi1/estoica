@@ -621,15 +621,16 @@ async function reprint(datos, impreNumber) {
 			.EscribirTexto("Folio Venta: " + datos.idventa + "\n")
 			.Feed(1)
 			.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
-			.EscribirTexto("Al utilizar nuestro servicio, usted acepta los términos y condiciones establecidos por nuestra empresa. Tenga en cuenta que el costo de su viaje puede variar si se realizan modificaciones a las condiciones originalmente cotizadas a solicitud del cliente. Esto incluye, pero no se limita a: cambios de ruta, paradas adicionales, tiempo de espera, uso de vias con peaje o cambio de destino.\n")
+			.EscribirTexto("Al utilizar nuestro servicio, usted acepta los terminos y condiciones establecidos por nuestra empresa. Tenga en cuenta que el costo de su viaje puede variar si se realizan modificaciones a las condiciones originalmente cotizadas a solicitud del cliente. Esto incluye, pero no se limita a: cambios de ruta, paradas adicionales, tiempo de espera, uso de vias con peaje o cambio de destino.\n")
 			.EscribirTexto("Importante:\n")
 			.EscribirTexto("- El costo del servicio no incluye el pago de peajes.\n")
-			.EscribirTexto("- En caso de requerir factura, deberá enviar su constancia de situación fiscal actualizada y una fotografía del ticket de compra a través de WhatsApp o correo electrónico dentro de un plazo de 48 horas a partir de la emisión del ticket.\n")
+			.EscribirTexto("- En caso de requerir factura, debera enviar su constancia de situacion fiscal actualizada y una fotografia del ticket de compra a traves de WhatsApp o correo electronico dentro de un plazo de 48 horas a partir de la emision del ticket.\n")
 			.EscribirTexto("\nPara mas informacion, visite nuestro sitio web: https://estoicadrive.site/\n")
 			.EscribirTexto("\nFacturas: estoicadrive@gmail.com\n")
 			.EscribirTexto("\nRecoleccion y Reservaciones : +52 5536704952\n\n")
 			.Feed(1)
 			.EstablecerTamañoFuente(2, 2)
+			.EscribirTexto(datos.clave + " - " + datos.placa + "\n")
 			.EscribirTexto("TICKET DE VENTA - " + datos.tipo_pago.substring(0, 1) + datos.idventa)
 			.EscribirTexto("\n\n\n\n\n")
 			.Feed(1)
@@ -639,6 +640,32 @@ async function reprint(datos, impreNumber) {
 	}
 }
 
+var idVentaUber;
+function uber(idventa) {
+	idVentaUber = idventa;
+	$("#modalConfirm").modal();
+
+}
+
+function confirmUber() {
+	const uber = 1;
+
+	$.ajax({
+		url: '../ajax/ventaDos.php?op=uber',
+		type: 'POST',
+		data: {
+			uber: uber,
+			idventa: idVentaUber
+		},
+		success: function (response) {
+			console.log("Exito al asignar apoyo UBER");
+			window.location.reload();
+		},
+		error: function (xhr, status, error) {
+			console.error('Error:', error);
+		}
+	});
+}
 let inactivityTimer;
 
 function resetInactivityTimer() {

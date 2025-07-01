@@ -34,6 +34,7 @@ $folioCxc = isset($_POST["folioVentaCxc"]) ? limpiarCadena($_POST["folioVentaCxc
 $efectivo = isset($_POST["Efectivo"]) ? limpiarCadena($_POST["Efectivo"]) : "";
 $cambioEfectivo = isset($_POST["cambioEfectivo"]) ? limpiarCadena($_POST["cambioEfectivo"]) : "";
 $kilometro = isset($_POST["kilometro"]) ? limpiarCadena($_POST["kilometro"]) : "";
+$uber = isset($_POST["uber"]) ? limpiarCadena($_POST["uber"]) : "";
 
 // info for RFC 
 $claveRfc = isset($_POST["claveRfc"]) ? limpiarCadena($_POST["claveRfc"]) : "";
@@ -73,7 +74,7 @@ switch ($_GET["op"]) {
 
 		while ($reg = $rspta->fetch_object()) {
 			$data[] = array(
-				"0" => '<button class="btn btn-primary" onclick="modalFactura(' . $reg->idventa . ',' . $reg->total_venta . ',' . $reg->idusuario . ')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idventa . ')"><li class="fa fa-print"></li></button>',
+				"0" => '<button class="btn btn-primary" onclick="modalFactura(' . $reg->idventa . ',' . $reg->total_venta . ',' . $reg->idusuario . ')"><li class="fa fa-pencil"></li></button> <button class="btn btn-success" onclick="print(' . $reg->idventa . ')"><li class="fa fa-print"></li></button> <button class="btn btn-dark" onclick="uber(' . $reg->idventa . ')"><li class="fa fa-car"></li></button>',
 				"1" => $reg->fecha,
 				"2" => $reg->hora,
 				"3" => 'uni-' . $reg->clave,
@@ -91,7 +92,35 @@ switch ($_GET["op"]) {
 				"15" => '$' . $reg->cxc . '.00',
 				"16" => $reg->ticket_num,
 				"17" => $reg->punto_venta,
-				"18" => 'ESTOI - 00' . $reg->idventa
+				"18" => checkUber($reg->uber),
+				"19" => 'ESTOI - 00' . $reg->idventa
+			);
+		}
+
+		$results = array(
+			"sEcho" => 1,
+			//Información para el datatables
+			"iTotalRecords" => count($data),
+			//enviamos el total registros al datatable
+			"iTotalDisplayRecords" => count($data),
+			//enviamos el total registros a visualizar
+			"aaData" => $data
+		);
+		echo json_encode($results);
+
+		break;
+
+	case 'listarUber':
+		$rspta = $venta->listarUber();
+		//Vamos a declarar un array
+		$data = array();
+
+		while ($reg = $rspta->fetch_object()) {
+			$data[] = array(
+				"0" => $reg->fecha,
+				"1" => $reg->hora,
+				"2" => 'unidad - ' . $reg->clave,
+				"3" => 'ESTOI - 00' . $reg->idventa
 			);
 		}
 
@@ -117,6 +146,14 @@ switch ($_GET["op"]) {
 		while ($reg = $rspta->fetch_object()) {
 			echo '<option value=' . $reg->idunidad . '>' . $reg->clave . ' - ' . $reg->placa . '</option>';
 		}
+		break;
+
+	case 'uber':
+		$sql = "UPDATE venta SET uber = '$uber' WHERE idventa='$idventa'";
+		$idventanew = ejecutarConsulta_retornarID($sql);
+		$num_elementos = 0;
+		$sw = true;
+		echo $sw ? "Montos actualizados" : "No se pudieron actualizar los montos";
 		break;
 
 	case 'getUsuario':
@@ -297,6 +334,11 @@ switch ($_GET["op"]) {
 			)
 		);
 		break;
+}
+
+function checkUber($valor)
+{
+	return $valor === "1" ? "Si" : "N0";
 }
 
 function getFactura($data)

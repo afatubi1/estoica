@@ -56,6 +56,7 @@ if (!isset($_SESSION["nombre"])) {
                     <th>CXC</th>
                     <th>Ticket numero</th>
                     <th>Punto de venta</th>
+                    <th>Uber</th>
                     <th>Folio</th>
                   </thead>
                   <tbody>
@@ -79,6 +80,7 @@ if (!isset($_SESSION["nombre"])) {
                     <th>CXC</th>
                     <th>Ticket numero</th>
                     <th>Punto de venta</th>
+                    <th>Uber</th>
                     <th>Folio</th>
                   </tfoot>
                 </table>
@@ -338,6 +340,34 @@ if (!isset($_SESSION["nombre"])) {
     </div>
     <!-- Button trigger modal -->
 
+    <!-- Button trigger modal confirm uber -->
+<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body text-center">
+            <h1>¿Deseas agregar participación de Uber a esta venta?</h1>
+            <br>
+            <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" alt="Advertencia" width="80" class="my-3">
+            <div class="my-3">
+              <button type="button" class="btn btn-danger mr-2" data-dismiss="modal">Cerrar Ventana</button>
+              <button type="button" onclick="confirmUber()" class="btn btn-primary">Agregar participación</button>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+          </div>
+
+        </div>
+      </div>
+    </div>
 
 
     <?php

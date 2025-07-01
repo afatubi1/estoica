@@ -32,7 +32,8 @@ class VentaDos
 				cxc,
 				kilometro,
 				transferencias,
-				punto_venta
+				punto_venta,
+				uber
 				)
 				VALUES (
 					'1',
@@ -53,7 +54,8 @@ class VentaDos
 					'$cxc',
 					'$kilometro',
 					'$transferencias',
-					'$punto_venta')";
+					'$punto_venta',
+					'0')";
 
 		$idventanew = ejecutarConsulta_retornarID($sql);
 		$num_elementos = 0;
@@ -84,6 +86,7 @@ class VentaDos
 		v.efectivo,
 		v.transferencias,
 		v.punto_venta,
+		v.uber,
 		v.kilometro FROM venta v 
 		INNER JOIN persona p 
 		ON v.idcliente=p.idpersona
@@ -92,6 +95,43 @@ class VentaDos
 		INNER JOIN unidad uni 
 		ON v.unidad=uni.idunidad 
 		ORDER BY v.idventa DESC LIMIT 1000;";
+
+		return ejecutarConsulta($sql);
+	}
+
+		//Implementar un método para listar los registros de apoyo a uber
+	public function listarUber()
+	{
+		$sql = "SELECT 
+    v.idventa,
+    DATE(v.fecha_hora) AS fecha,
+    uni.clave,
+    uni.placa,
+    p.nombre AS cliente,
+    u.idusuario,
+    u.nombre AS usuario,
+    v.auto,
+    v.ruta,
+    v.pasajero,
+    v.tarjeta,
+    v.total_venta,
+    v.hora,
+    v.dolar,
+    v.tipo_pago,
+    v.cxc,
+    v.ticket_num,
+    v.efectivo,
+    v.transferencias,
+    v.punto_venta,
+    v.uber,
+    v.kilometro
+FROM venta v 
+INNER JOIN persona p ON v.idcliente = p.idpersona
+INNER JOIN usuario u ON v.idusuario = u.idusuario 
+INNER JOIN unidad uni ON v.unidad = uni.idunidad 
+WHERE v.uber = '1'
+ORDER BY v.idventa DESC 
+LIMIT 1000;";
 
 		return ejecutarConsulta($sql);
 	}

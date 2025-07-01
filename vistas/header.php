@@ -168,7 +168,8 @@ if (strlen(session_id()) < 1) //Si la variable de session no esta iniciada
                       <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                     <!-- <li><a href="venta.php"><i class="fa fa-circle-o"></i> Ventas</a></li>-->
+                     <!-- <li><a href="venta.php"><i class="fa fa-circle-o"></i> Ventas</a></li> ELIMINAR-->
+                      <li><a href="uber.php"><i class="fa fa-circle-o"></i> Participacion Uber</a></li>
                       <li><a href="venta2.php"><i class="fa fa-circle-o"></i> Ventas</a></li>
                       <li><a href="Reservaciones.php"><i class="fa fa-circle-o"></i> Reservaciones</a></li>
                       <li><a href="choferes.php"><i class="fa fa-circle-o"></i> Choferes</a></li>
