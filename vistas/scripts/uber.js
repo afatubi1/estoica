@@ -53,7 +53,7 @@ function generarGrafica(conteo) {
 		data: {
 			labels: unidades,
 			datasets: [{
-				label: 'Frecuencia por Unidad',
+				label: 'Numero de viajes',
 				data: frecuencias,
 				backgroundColor: 'rgba(71, 199, 106, 0.6)',
 				borderColor: 'rgba(75, 192, 192, 1)',

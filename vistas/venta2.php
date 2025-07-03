@@ -25,8 +25,8 @@ if (!isset($_SESSION["nombre"])) {
                   </button>
                 </h1>
                 <div>
-                <p class="text-center">Reservaciones abiertas: Número total.</p>
-                <p id="n_reserva" name="n_reserva"  class="text-center">0</p>
+                  <p class="text-center">Reservaciones abiertas: Número total.</p>
+                  <p id="n_reserva" name="n_reserva" class="text-center">0</p>
                 </div>
 
                 <div id="loader" style="display: none;">Cargando...</div>
@@ -54,6 +54,7 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Efectivo</th>
                     <th>Transferencias</th>
                     <th>CXC</th>
+                    <th>Total</th>
                     <th>Ticket numero</th>
                     <th>Punto de venta</th>
                     <th>Uber</th>
@@ -78,6 +79,7 @@ if (!isset($_SESSION["nombre"])) {
                     <th>Efectivo</th>
                     <th>Transferencias</th>
                     <th>CXC</th>
+                    <th>Total</th>
                     <th>Ticket numero</th>
                     <th>Punto de venta</th>
                     <th>Uber</th>
@@ -341,7 +343,7 @@ if (!isset($_SESSION["nombre"])) {
     <!-- Button trigger modal -->
 
     <!-- Button trigger modal confirm uber -->
-<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

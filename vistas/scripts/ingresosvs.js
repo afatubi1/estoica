@@ -237,9 +237,24 @@ function convertirAPositivo(numero) {
     return Math.abs(numero);
 }
 
+let graficaTotal = null; // Variable global para la gráfica
+
 function guardaTotalDia(datos) {
     const resultados = {};
 
+    // Validar que los datos son un array de arrays
+    if (!Array.isArray(datos) || !datos.length || !Array.isArray(datos[0])) {
+        console.warn("Datos inválidos para graficar.");
+        return;
+    }
+
+    // 💥 Limpiar gráfica anterior al inicio
+    if (graficaTotal !== null) {
+        graficaTotal.destroy();
+        graficaTotal = null;
+    }
+
+    // Procesar datos
     datos.forEach(item => {
         const fecha = item[0];
         const valores = item.slice(5, 10).map(x => parseFloat(x) || 0);
@@ -251,12 +266,22 @@ function guardaTotalDia(datos) {
 
         resultados[fecha] += suma;
     });
- 
+
     const resultadoFinal = Object.entries(resultados);
     const fechas = resultadoFinal.map(item => item[0]);
     const sumas = resultadoFinal.map(item => item[1]);
-    const ctx = document.getElementById('grafica').getContext('2d');
-    new Chart(ctx, {
+
+    // Validar canvas
+    const canvas = document.getElementById('grafica');
+    if (!canvas) {
+        console.warn("No se encontró el elemento con id 'grafica'.");
+        return;
+    }
+
+    const ctx = canvas.getContext('2d');
+
+    // Crear nueva gráfica
+    graficaTotal = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: fechas,
@@ -288,5 +313,7 @@ function guardaTotalDia(datos) {
         }
     });
 }
+
+
 
 init();

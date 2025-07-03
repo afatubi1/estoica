@@ -577,7 +577,7 @@ function saveSale(response) {
 	const auto = response.automovil;
 	const pasajero = response.numero_pasajero;
 	const tarjeta = response.tarjeta;
-	const fecha_hora = response.fecha;
+	const fecha_hora = response.fecha_recoleccion;
 	const hora = response.hora;
 	const dolar = response.dolar;
 	const total_venta = total;

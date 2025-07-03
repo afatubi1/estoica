@@ -90,10 +90,11 @@ switch ($_GET["op"]) {
 				"13" => '$' . $reg->efectivo . '.00',
 				"14" => '$' . $reg->transferencias . '.00',
 				"15" => '$' . $reg->cxc . '.00',
-				"16" => $reg->ticket_num,
-				"17" => $reg->punto_venta,
-				"18" => checkUber($reg->uber),
-				"19" => 'ESTOI - 00' . $reg->idventa
+				"16" => '$' . $reg->total_venta,
+				"17" => $reg->ticket_num,
+				"18" => $reg->punto_venta,
+				"19" => checkUber($reg->uber),
+				"20" => 'ESTOI - 00' . $reg->idventa
 			);
 		}
 

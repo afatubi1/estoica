@@ -96,9 +96,10 @@ function listar() {
 //Función para guardar
 function guardaryeditar() {
 	const imagen = $('#imagen').val();
+
 	// Expresión regular para extensiones de imagen válidas
 	const formatosPermitidos = /(\.jpg|\.jpeg|\.png|\.gif|\.jfif)$/i;
-	if (!formatosPermitidos.test(imagen)) {
+	if (!formatosPermitidos.test(imagen) ) {
 		bootbox.alert('Formato de imagen no válido. Solo se permiten archivos JPG, JPEG, PNG, GIF o jfif.');
 	} else if (validar()) {
 		var formData = new FormData($("#formLiquidacion")[0]);
@@ -158,25 +159,49 @@ function validar() {
 }
 
 function mostrarImagen(url) {
-	// Asegúrate de que el spinner esté visible y oculta la imagen inicialmente
-	document.getElementById('load').style.display = 'block';
-	document.getElementById('modalImage').style.display = 'none';
-
-	// Asigna la URL a la imagen del modal
-	var imgElement = document.getElementById('modalImage');
-	imgElement.src = url;
-
-	// Muestra el modal
+	// Mostrar el modal
 	$('#myModal').modal('show');
 
-	// Maneja el evento de carga de la imagen
-	imgElement.onload = function () {
-		// Oculta el spinner una vez que la imagen ha cargado
-		document.getElementById('load').style.display = 'none';
-		// Muestra la imagen
-		imgElement.style.display = 'block';
+	// Mostrar spinner
+	document.getElementById('load').style.display = 'block';
+
+	// Asignar imágenes con fallback por defecto
+	const img1 = document.getElementById('modalImage');
+	const img2 = document.getElementById('modalImage2');
+
+	const defaultImg = 'img/default.png'; // Ruta a imagen por defecto
+
+	img1.style.display = 'none';
+
+	img1.src = url && url.trim() !== '' ? url : defaultImg;
+
+	// Cargar primera imagen
+	img1.onload = function () {
+		img1.style.display = 'block';
+		checkBothLoaded();
 	};
+	img1.onerror = function () {
+		img1.src = defaultImg;
+		checkBothLoaded();
+	};
+
+	let loadedCount = 0;
+	function checkBothLoaded() {
+		loadedCount++;
+		if (loadedCount === 2) {
+			document.getElementById('load').style.display = 'none';
+		}
+	}
 }
+
+function openDoc(url){
+	 if (url && typeof url === 'string') {
+        window.open(url, '_blank');
+    } else {
+        alert('URL no válida');
+    }
+}
+
 
 
 function fillUnidad() {

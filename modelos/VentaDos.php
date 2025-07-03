@@ -87,6 +87,7 @@ class VentaDos
 		v.transferencias,
 		v.punto_venta,
 		v.uber,
+		v.total_venta,
 		v.kilometro FROM venta v 
 		INNER JOIN persona p 
 		ON v.idcliente=p.idpersona

@@ -25,30 +25,64 @@ switch ($_GET["op"]) {
 	case 'guardar':
 		if (empty($idliquidacion)) {
 			if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
-				// Ruta y nombre del archivo a guardar
-				$directorioDestino = "../files/documentos/"; // Carpeta donde guardarás las imágenes
+				$directorioDestino = "../files/documentos/";
 				$nombreArchivo = basename($_FILES["imagen"]["name"]);
 				$rutaArchivo = $directorioDestino . $nombreArchivo;
 
-				// Asegúrate de que sea un tipo de archivo de imagen
 				$tipoArchivo = strtolower(pathinfo($rutaArchivo, PATHINFO_EXTENSION));
 				if (in_array($tipoArchivo, ["jpg", "jpeg", "png", "gif", "jfif"])) {
-					// Mueve el archivo a la carpeta de destino
 					if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $rutaArchivo)) {
-						echo "La imagen se ha subido correctamente.";
-						$imagen = $rutaArchivo; // Guarda la ruta en la variable
-						$rspta = $liquidacion->insertar($fecha_hora, $clave_l, $concepto, $numeroCheque, $unidad, $importe, $descripcion, $hora, $movimiento, $plaza, $imagen, $idusuario,$forma_pago);
-						echo $rspta ? "Egreso registrado" : "No se pudieron registrar todos los datos del egreso";
+						echo "✅ La imagen principal se ha subido correctamente.<br>";
+						$imagen = $rutaArchivo;
+
+						// Imagen secundaria o PDF
+						$imagen_dos = null;
+						if (isset($_FILES["imagen_dos"]) && $_FILES["imagen_dos"]["error"] == 0) {
+							$nombreArchivo2 = basename($_FILES["imagen_dos"]["name"]);
+							$rutaArchivo2 = $directorioDestino . $nombreArchivo2;
+							$tipoArchivo2 = strtolower(pathinfo($rutaArchivo2, PATHINFO_EXTENSION));
+
+							// Aceptar imágenes y PDF
+							if (in_array($tipoArchivo2, ["jpg", "jpeg", "png", "gif", "jfif", "pdf"])) {
+								if (move_uploaded_file($_FILES["imagen_dos"]["tmp_name"], $rutaArchivo2)) {
+									echo "✅ La imagen secundaria o documento PDF se ha subido correctamente.<br>";
+									$imagen_dos = $rutaArchivo2;
+								} else {
+									echo "❌ Error al subir la imagen secundaria o PDF.<br>";
+								}
+							} else {
+								echo "❌ El archivo secundario debe ser imagen o PDF. Tipo recibido: $tipoArchivo2<br>";
+							}
+						}
+
+						// Guardar en base de datos
+						$rspta = $liquidacion->insertar(
+							$fecha_hora,
+							$clave_l,
+							$concepto,
+							$numeroCheque,
+							$unidad,
+							$importe,
+							$descripcion,
+							$hora,
+							$movimiento,
+							$plaza,
+							$imagen,
+							$idusuario,
+							$forma_pago,
+							$imagen_dos
+						);
+						echo $rspta ? "✅ Egreso registrado." : "❌ No se pudieron registrar todos los datos del egreso.";
+
 					} else {
-						echo "Hubo un error al guardar la imagen.";
+						echo "❌ Hubo un error al guardar la imagen principal.";
 					}
 				} else {
-					echo "El archivo no es un tipo de imagen válido.";
+					echo "❌ El archivo principal no es un tipo de imagen válido.";
 				}
 			} else {
-				echo "No se ha subido ninguna imagen.";
+				echo "❌ No se recibió la imagen principal.";
 			}
-
 		} else {
 		}
 		break;
@@ -60,7 +94,8 @@ switch ($_GET["op"]) {
 
 		while ($reg = $rspta->fetch_object()) {
 			$data[] = array(
-				"0" => '<button class="btn btn-info" onclick="mostrarImagen(\'' . $reg->imagen . '\')"><li class="fa fa-picture-o"></li></button><button class="btn btn-info" onclick="print(\'' . $reg->idliquidacion . '\')"><li class="fa fa-print"></li></button>',
+				"0" => '<button class="btn btn-info" onclick="mostrarImagen(\'' . $reg->imagen . '\')"><i class="fa fa-picture-o"></i></button><button class="btn btn-info" onclick="openDoc(\'' . $reg->imagen_dos . '\')"><i class="fa fa-picture-o"></i></button>' .
+					'<button class="btn btn-info" onclick="print(\'' . $reg->idliquidacion . '\')"><i class="fa fa-print"></i></button>',
 				"1" => $reg->fecha,
 				"2" => $reg->hora,
 				"3" => $reg->nombre,
@@ -71,8 +106,8 @@ switch ($_GET["op"]) {
 				"8" => $reg->clave,
 				"9" => $reg->descripcion,
 				"10" => $reg->forma_pago,
-				"11" => esIngreso($reg->movimiento) ? '$ '.  $reg->importe : '$ 0.00',
-				"12" => esGasto($reg->movimiento) ? '$ '.  $reg->importe : '$ 0.00',
+				"11" => esIngreso($reg->movimiento) ? '$ ' . $reg->importe : '$ 0.00',
+				"12" => esGasto($reg->movimiento) ? '$ ' . $reg->importe : '$ 0.00',
 				"13" => 'EGRE-00' . $reg->idliquidacion
 			);
 		}

@@ -122,12 +122,16 @@ if (!isset($_SESSION["nombre"])) {
                     <br>
                     <label>Imagen:</label>
                     <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
+                    <br>
+                    <label for="imagen_dos">Subir imagen o PDF:</label>
+                    <input type="file" class="form-control" name="imagen_dos" id="imagen_dos" accept="image/*,.pdf">
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <button type="button" class="btn btn-primary" onclick="guardaryeditar()">Guardar Egreso</button>
+                    <button type="button" class="btn btn-primary" onclick="guardaryeditar()">Guardar Egreso</button>
 
-                    <button id="btnCancelar" class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                    <button id="btnCancelar" class="btn btn-danger" onclick="cancelarform()" type="button"><i
+                        class="fa fa-arrow-circle-left"></i> Cancelar</button>
                   </div>
                 </form>
               </div>
@@ -151,7 +155,9 @@ if (!isset($_SESSION["nombre"])) {
           </div>
           <div class="modal-body text-center">
             <div class="spinner-border" role="status" id="load" name="load"></div>
-            <img id="modalImage" alt="Imagen desde URL" style="max-width: 570px; display: none;">
+            <img id="modalImage" style="max-width: 100%; display: none;" />
+            <img id="modalImage2" style="max-width: 100%; display: none;" />
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

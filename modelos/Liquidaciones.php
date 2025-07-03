@@ -11,7 +11,7 @@ class Liquidaciones
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($fecha_hora, $clave_l, $concepto, $numeroCheque, $unidad, $importe, $descripcion, $hora, $movimiento, $plaza, $imagen, $idusuario, $forma_pago)
+	public function insertar($fecha_hora, $clave_l, $concepto, $numeroCheque, $unidad, $importe, $descripcion, $hora, $movimiento, $plaza, $imagen, $idusuario, $forma_pago, $imagen_dos)
 	{
 		$sql = "INSERT INTO liquidaciones (
 				fecha,
@@ -26,7 +26,8 @@ class Liquidaciones
 				plaza,
 				imagen,
 				idusuario,
-				forma_pago)
+				forma_pago,
+				imagen_dos) 
 				VALUES (
 					'$fecha_hora',
 					'$clave_l',
@@ -40,7 +41,8 @@ class Liquidaciones
 					'$plaza',
 					'$imagen', 
 					'$idusuario',
-					'$forma_pago')";
+					'$forma_pago',
+					'$imagen_dos')";
 
 		$idventanew = ejecutarConsulta_retornarID($sql);
 		$num_elementos = 0;
@@ -65,6 +67,7 @@ class Liquidaciones
        l.imagen,
        l.movimiento,
        l.forma_pago,
+	   l.imagen_dos,
        us.nombre
 FROM liquidaciones l
 INNER JOIN unidad uni ON l.unidad = uni.idunidad

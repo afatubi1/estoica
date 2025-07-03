@@ -89,7 +89,7 @@ function hasMoreThanTwoValues(paymentMethods) {
 			count++;
 		}
 		// Si ya encontramos más de dos valores, podemos detener la búsqueda
-		if (count > 2) {
+		if (count > 5) {
 			return true;
 		}
 	}
@@ -98,15 +98,17 @@ function hasMoreThanTwoValues(paymentMethods) {
 }
 
 function setTotalValue() {
+	var totalValue = 0;
 	const paymentMethods = ["#Efectivo", "#Dolar", "#Tarjeta", "#CXC", "#Transferencia"];
 
 	for (let method of paymentMethods) {
 		let value = $(method).val();
 		if (value !== "0") {
-			$("#total_venta").val(value);
-			break;
+			
+			totalValue = totalValue + parseInt(value);
 		}
 	}
+	$("#total_venta").val(totalValue);
 }
 
 function setValues() {
